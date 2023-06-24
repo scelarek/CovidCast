@@ -1,0 +1,38 @@
+name: "[Dev] update tests"
+description: "This may update files in ./tests directory for pytest"
+
+title: "[Dev] "
+labels: ["development"]
+
+body:
+  - type: markdown
+    attributes:
+      value: Always welcome, CovsirPhy project is developed by a community of volunteers :)
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Checkbox
+      description: checkbox to submit this question
+      options:
+        - label: I agree to follow [code of conduct](https://lisphilar.github.io/covid19-sir/CODE_OF_CONDUCT.html) and to engage in discussion actively.
+          required: true
+        - label: I have confirmed I will follow [contribution guideline](https://lisphilar.github.io/covid19-sir/CONTRIBUTING.html).
+          required: true
+
+  - type: textarea
+    id: script-to-test
+    attributes:
+      label: Script to test
+      description:  Please provide the script to test.
+      value: |
+        import covsirphy as cs
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: comment
+    attributes:
+      label: Additional Context
+      placeholder: Additional Context, if required

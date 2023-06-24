@@ -1,0 +1,18 @@
+covsirphy package
+=================
+
+.. automodule:: covsirphy
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. toctree::
+   :maxdepth: 4
+
+   covsirphy.downloading
+   covsirphy.dynamics
+   covsirphy.engineering
+   covsirphy.gis
+   covsirphy.science
+   covsirphy.util
+   covsirphy.visualization

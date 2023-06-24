@@ -1,0 +1,1219 @@
+<!-- Refer to https://stackoverflow.com/a/50495306 -->
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Index &mdash; CovsirPhy  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/lisphilar/covid19-sir/master/docs/logo/covsirphy_favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+<script type="text/javascript">
+    window.onload = function () {
+        string = document.body.innerHTML;
+        string = string.replace(/ package/g, '').replace(/ module/g, '');
+        document.body.innerHTML = string;
+    }
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="https://raw.githubusercontent.com/lisphilar/covid19-sir/master/docs/logo/covsirphy_logo_100.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">CovsirPhy introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown/INSTALLATION.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="01_data_preparation.html">Data preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_data_engineering.html">Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_ode.html">SIR-derived ODE models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_phase_dependent.html">Phase-dependent SIR models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_scenario_analysis.html">Scenario analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_prediction.html">ODE parameter prediction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API references</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="covsirphy.html">covsirphy package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="markdown/TERM.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CODE_OF_CONDUCT.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">Contribution guideline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CovsirPhy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Index</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#K"><strong>K</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#X"><strong>X</strong></a>
+ | <a href="#Y"><strong>Y</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.A">A (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.ACTUAL">ACTUAL (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.add">add() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.alias.Alias">Alias (class in covsirphy.util.alias)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.alias.Alias.all">all() (Alias method)</a>
+
+      <ul>
+        <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.all">(DataEngineer method)</a>
+</li>
+        <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS.all">(GIS method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.append">append() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.AREA_ABBR_COLS">AREA_ABBR_COLS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.AREA_COLUMNS">AREA_COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS.area_name">area_name() (GIS class method)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.assign">assign() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.auto_build">auto_build() (ODEScenario class method)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.vbase.VisualizeBase.ax">ax (VisualizeBase property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.bar_plot.bar_plot">bar_plot() (in module covsirphy.visualization.bar_plot)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.bar_plot.BarPlot">BarPlot (class in covsirphy.visualization.bar_plot)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.evaluator.Evaluator.best_one">best_one() (Evaluator class method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.build_with_dynamics">build_with_dynamics() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.build_with_model">build_with_model() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.build_with_template">build_with_template() (ODEScenario method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.C">C (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.choropleth">choropleth() (DataEngineer method)</a>
+
+      <ul>
+        <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS.choropleth">(GIS method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.CI">CI (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.downloading.html#covsirphy.downloading.downloader.DataDownloader.citations">citations() (DataDownloader method)</a>
+
+      <ul>
+        <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.citations">(DataEngineer method)</a>
+</li>
+        <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS.citations">(GIS method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.CITY">CITY (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.clean">clean() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.COLUMNS">COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.compare_cases">compare_cases() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.compare_param">compare_param() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.compare_plot.compare_plot">compare_plot() (in module covsirphy.visualization.compare_plot)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.compare_plot.ComparePlot">ComparePlot (class in covsirphy.visualization.compare_plot)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.COUNTRY">COUNTRY (Term attribute)</a>
+</li>
+      <li>
+    covsirphy
+
+      <ul>
+        <li><a href="covsirphy.html#module-covsirphy">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.downloading
+
+      <ul>
+        <li><a href="covsirphy.downloading.html#module-covsirphy.downloading">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.downloading.downloader
+
+      <ul>
+        <li><a href="covsirphy.downloading.html#module-covsirphy.downloading.downloader">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.dynamics
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.dynamics.dynamics
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.dynamics">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.dynamics.ode
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.ode">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.dynamics.sewirf
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.sewirf">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.dynamics.sir
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.sir">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.dynamics.sird
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.sird">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.dynamics.sirf
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.sirf">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.engineering
+
+      <ul>
+        <li><a href="covsirphy.engineering.html#module-covsirphy.engineering">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.engineering.engineer
+
+      <ul>
+        <li><a href="covsirphy.engineering.html#module-covsirphy.engineering.engineer">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.gis
+
+      <ul>
+        <li><a href="covsirphy.gis.html#module-covsirphy.gis">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    covsirphy.gis.gis
+
+      <ul>
+        <li><a href="covsirphy.gis.html#module-covsirphy.gis.gis">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.science
+
+      <ul>
+        <li><a href="covsirphy.science.html#module-covsirphy.science">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.science.ml
+
+      <ul>
+        <li><a href="covsirphy.science.html#module-covsirphy.science.ml">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.science.ode_scenario
+
+      <ul>
+        <li><a href="covsirphy.science.html#module-covsirphy.science.ode_scenario">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util.alias
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.alias">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util.config
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.config">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util.error
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.error">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util.evaluator
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.evaluator">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util.filer
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.filer">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util.stopwatch
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.stopwatch">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util.term
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.term">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.util.validator
+
+      <ul>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.validator">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.visualization
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.visualization.bar_plot
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.bar_plot">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.visualization.compare_plot
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.compare_plot">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.visualization.line_plot
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.line_plot">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.visualization.scatter_plot
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.scatter_plot">module</a>
+</li>
+      </ul></li>
+      <li>
+    covsirphy.visualization.vbase
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.vbase">module</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.util.html#covsirphy.util.filer.Filer.csv">csv() (Filer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.downloading.html#covsirphy.downloading.downloader.DataDownloader">DataDownloader (class in covsirphy.downloading.downloader)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer">DataEngineer (class in covsirphy.engineering.engineer)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.dataframe">dataframe() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.DATE">DATE (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.date">date() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.DATE_FORMAT">DATE_FORMAT (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.DATE_FORMAT_DESC">DATE_FORMAT_DESC (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.definitions">definitions() (ODEModel class method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.alias.Alias.delete">delete() (Alias method)</a>
+
+      <ul>
+        <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.delete">(ODEScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.deprecate">deprecate() (in module covsirphy.util.error)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.describe">describe() (ODEScenario method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.detect">detect() (Dynamics method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.dict">dict() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.diff">diff() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.dimensional_parameters">dimensional_parameters() (ODEModel method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sewirf.SEWIRFModel.dimensional_parameters">(SEWIRFModel method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sird.SIRDModel.dimensional_parameters">(SIRDModel method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sirf.SIRFModel.dimensional_parameters">(SIRFModel method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sir.SIRModel.dimensional_parameters">(SIRModel method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.div">div() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.download">download() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.DSIFR_COLUMNS">DSIFR_COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics">Dynamics (class in covsirphy.dynamics.dynamics)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.E">E (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.EmptyError">EmptyError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.END">END (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.estimate">estimate() (Dynamics method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.estimate_params">estimate_params() (Dynamics method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.estimate_tau">estimate_tau() (Dynamics method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.evaluate">evaluate() (Dynamics method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.evaluator.Evaluator">Evaluator (class in covsirphy.util.evaluator)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.experimental">experimental() (in module covsirphy.util.error)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.ExperimentalWarning">ExperimentalWarning</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.F">F (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.FIG_COLUMNS">FIG_COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.filer.Filer">Filer (class in covsirphy.util.filer)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.filer.Filer.files">files() (Filer method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.alias.Alias.find">find() (Alias method)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.vbase.find_args">find_args() (in module covsirphy.visualization.vbase)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.FITTED">FITTED (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.float">float() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.alias.Alias.for_variables">for_variables() (Alias class method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ml.MLEngineer.forecast">forecast() (MLEngineer method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.FR">FR (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.from_data">from_data() (Dynamics class method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.from_data">(ODEModel class method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.from_data_with_optimization">from_data_with_optimization() (ODEModel class method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sewirf.SEWIRFModel.from_data_with_optimization">(SEWIRFModel class method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.from_data_with_quantile">from_data_with_quantile() (ODEModel class method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sewirf.SEWIRFModel.from_data_with_quantile">(SEWIRFModel class method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.from_json">from_json() (ODEScenario class method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.from_sample">from_sample() (Dynamics class method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.from_sample">(ODEModel class method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.FUTURE">FUTURE (Term attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.filer.Filer.geojson">geojson() (Filer method)</a>
+</li>
+      <li><a href="covsirphy.html#covsirphy.get_citation">get_citation() (in module covsirphy)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.html#covsirphy.get_version">get_version() (in module covsirphy)</a>
+</li>
+      <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS">GIS (class in covsirphy.gis.gis)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.ID">ID (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.INITIAL">INITIAL (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.instance">instance() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.int">int() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.inverse_transform">inverse_transform() (DataEngineer method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.inverse_transform">(ODEModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sewirf.SEWIRFModel.inverse_transform">(SEWIRFModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sird.SIRDModel.inverse_transform">(SIRDModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sir.SIRModel.inverse_transform">(SIRModel class method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.ISO3">ISO3 (Term attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.filer.Filer.jpg">jpg() (Filer method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.filer.Filer.json">json() (Filer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.kwargs">kwargs() (Validator method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.downloading.html#covsirphy.downloading.downloader.DataDownloader.layer">layer() (DataDownloader method)</a>
+
+      <ul>
+        <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.layer">(DataEngineer method)</a>
+</li>
+        <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS.layer">(GIS method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.downloading.html#covsirphy.downloading.downloader.DataDownloader.LAYERS">LAYERS (DataDownloader attribute)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.scatter_plot.ScatterPlot.legend">legend() (ScatterPlot method)</a>
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.vbase.VisualizeBase.legend">(VisualizeBase method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.scatter_plot.ScatterPlot.legend_hide">legend_hide() (ScatterPlot method)</a>
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.vbase.VisualizeBase.legend_hide">(VisualizeBase method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.bar_plot.BarPlot.line">line() (BarPlot method)</a>
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.line_plot.LinePlot.line">(LinePlot method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.line_plot.line_plot">line_plot() (in module covsirphy.visualization.line_plot)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.scatter_plot.ScatterPlot.line_straight">line_straight() (ScatterPlot method)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.line_plot.LinePlot">LinePlot (class in covsirphy.visualization.line_plot)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.MAIN">MAIN (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.evaluator.Evaluator.metrics">metrics() (Evaluator class method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ml.MLEngineer">MLEngineer (class in covsirphy.science.ml)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.model">model (Dynamics property)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.model_name">model_name (Dynamics property)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.MODERATE">MODERATE (Term attribute)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="covsirphy.html#module-covsirphy">covsirphy</a>
+</li>
+        <li><a href="covsirphy.downloading.html#module-covsirphy.downloading">covsirphy.downloading</a>
+</li>
+        <li><a href="covsirphy.downloading.html#module-covsirphy.downloading.downloader">covsirphy.downloading.downloader</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics">covsirphy.dynamics</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.dynamics">covsirphy.dynamics.dynamics</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.ode">covsirphy.dynamics.ode</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.sewirf">covsirphy.dynamics.sewirf</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.sir">covsirphy.dynamics.sir</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.sird">covsirphy.dynamics.sird</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#module-covsirphy.dynamics.sirf">covsirphy.dynamics.sirf</a>
+</li>
+        <li><a href="covsirphy.engineering.html#module-covsirphy.engineering">covsirphy.engineering</a>
+</li>
+        <li><a href="covsirphy.engineering.html#module-covsirphy.engineering.engineer">covsirphy.engineering.engineer</a>
+</li>
+        <li><a href="covsirphy.gis.html#module-covsirphy.gis">covsirphy.gis</a>
+</li>
+        <li><a href="covsirphy.gis.html#module-covsirphy.gis.gis">covsirphy.gis.gis</a>
+</li>
+        <li><a href="covsirphy.science.html#module-covsirphy.science">covsirphy.science</a>
+</li>
+        <li><a href="covsirphy.science.html#module-covsirphy.science.ml">covsirphy.science.ml</a>
+</li>
+        <li><a href="covsirphy.science.html#module-covsirphy.science.ode_scenario">covsirphy.science.ode_scenario</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util">covsirphy.util</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.alias">covsirphy.util.alias</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.config">covsirphy.util.config</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.error">covsirphy.util.error</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.evaluator">covsirphy.util.evaluator</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.filer">covsirphy.util.filer</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.stopwatch">covsirphy.util.stopwatch</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.term">covsirphy.util.term</a>
+</li>
+        <li><a href="covsirphy.util.html#module-covsirphy.util.validator">covsirphy.util.validator</a>
+</li>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization">covsirphy.visualization</a>
+</li>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.bar_plot">covsirphy.visualization.bar_plot</a>
+</li>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.compare_plot">covsirphy.visualization.compare_plot</a>
+</li>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.line_plot">covsirphy.visualization.line_plot</a>
+</li>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.scatter_plot">covsirphy.visualization.scatter_plot</a>
+</li>
+        <li><a href="covsirphy.visualization.html#module-covsirphy.visualization.vbase">covsirphy.visualization.vbase</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.MONO_COLUMNS">MONO_COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.mul">mul() (DataEngineer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.N">N (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.NA">NA (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.NAFoundError">NAFoundError</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.name">name (Dynamics property)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.name">name() (ODEModel class method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.NLOC_COLUMNS">NLOC_COLUMNS (Term attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.NotEnoughDataError">NotEnoughDataError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.NotIncludedError">NotIncludedError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.NotNoneError">NotNoneError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.NotRegisteredError">NotRegisteredError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.NotSubclassError">NotSubclassError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.num2str">num2str() (Term class method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.ODE">ODE (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel">ODEModel (class in covsirphy.dynamics.ode)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario">ODEScenario (class in covsirphy.science.ode_scenario)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.OTHERS">OTHERS (Term attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.P">P (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.PARAM_DICT">PARAM_DICT (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.parse_days">parse_days() (Dynamics method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.parse_phases">parse_phases() (Dynamics method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.PAST">PAST (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ml.MLEngineer.pca">pca() (MLEngineer method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.PHASE">PHASE (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.bar_plot.BarPlot.plot">plot() (BarPlot method)</a>
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.compare_plot.ComparePlot.plot">(ComparePlot method)</a>
+</li>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.line_plot.LinePlot.plot">(LinePlot method)</a>
+</li>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.scatter_plot.ScatterPlot.plot">(ScatterPlot method)</a>
+</li>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.vbase.VisualizeBase.plot">(VisualizeBase method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.filer.Filer.png">png() (Filer method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.predict">predict() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.PRODUCT">PRODUCT (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.PROVINCE">PROVINCE (Term attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.R">R (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.r0">r0() (ODEModel method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sewirf.SEWIRFModel.r0">(SEWIRFModel method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sird.SIRDModel.r0">(SIRDModel method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sirf.SIRFModel.r0">(SIRFModel method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sir.SIRModel.r0">(SIRModel method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.RATE_COLUMNS">RATE_COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.recovery_period">recovery_period() (DataEngineer class method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.register">register() (DataEngineer method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.register">(Dynamics method)</a>
+</li>
+        <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS.register">(GIS method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.rename">rename() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.represent">represent() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.RT">RT (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.RT_FULL">RT_FULL (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.RUNTIME">RUNTIME (Term attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.S">S (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.scatter_plot.scatter_plot">scatter_plot() (in module covsirphy.visualization.scatter_plot)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.scatter_plot.ScatterPlot">ScatterPlot (class in covsirphy.visualization.scatter_plot)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.ScenarioNotFoundError">ScenarioNotFoundError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.evaluator.Evaluator.score">score() (Evaluator method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.segment">segment() (Dynamics method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.SEP">SEP (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.sequence">sequence() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.SERIES">SERIES (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.settings">settings() (ODEModel method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.SEVERE">SEVERE (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sewirf.SEWIRFModel">SEWIRFModel (class in covsirphy.dynamics.sewirf)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.stopwatch.StopWatch.show">show() (StopWatch static method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.simulate">simulate() (Dynamics method)</a>
+
+      <ul>
+        <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.simulate">(ODEScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sird.SIRDModel">SIRDModel (class in covsirphy.dynamics.sird)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sirf.SIRFModel">SIRFModel (class in covsirphy.dynamics.sirf)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sir.SIRModel">SIRModel (class in covsirphy.dynamics.sir)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.evaluator.Evaluator.smaller_is_better">smaller_is_better() (Evaluator class method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.solve">solve() (ODEModel method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.sr">sr() (ODEModel class method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sewirf.SEWIRFModel.sr">(SEWIRFModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sird.SIRDModel.sr">(SIRDModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sirf.SIRFModel.sr">(SIRFModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sir.SIRModel.sr">(SIRModel class method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.START">START (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.start_dates">start_dates() (Dynamics method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.STEP_N">STEP_N (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.stopwatch.StopWatch.stop">stop() (StopWatch method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.stopwatch.StopWatch.stop_show">stop_show() (StopWatch method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.stopwatch.StopWatch">StopWatch (class in covsirphy.util.stopwatch)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.str2num">str2num() (Term static method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.STR_COLUMNS">STR_COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.sub">sub() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.SUB_COLUMNS">SUB_COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.subclass">subclass() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.subset">subset() (DataEngineer method)</a>
+
+      <ul>
+        <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS.subset">(GIS method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.subset_alias">subset_alias() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.SubsetNotFoundError">SubsetNotFoundError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.SUFFIX_DICT">SUFFIX_DICT (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.summary">summary() (Dynamics method)</a>
+
+      <ul>
+        <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.summary">(ODEScenario method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.T">T (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.tau">tau (Dynamics property)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.TAU">TAU (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator.tau">tau() (Validator method)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.TENSE">TENSE (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term">Term (class in covsirphy.util.term)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.TESTS">TESTS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.TESTS_DIFF">TESTS_DIFF (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.vbase.VisualizeBase.tick_params">tick_params() (VisualizeBase method)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.vbase.VisualizeBase.title">title (VisualizeBase property)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.to_dynamics">to_dynamics() (ODEScenario method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.gis.html#covsirphy.gis.gis.GIS.to_geopandas">to_geopandas() (GIS method)</a>
+</li>
+      <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.to_json">to_json() (ODEScenario method)</a>
+</li>
+      <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.dynamics.Dynamics.track">track() (Dynamics method)</a>
+
+      <ul>
+        <li><a href="covsirphy.science.html#covsirphy.science.ode_scenario.ODEScenario.track">(ODEScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.transform">transform() (DataEngineer method)</a>
+
+      <ul>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.ode.ODEModel.transform">(ODEModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sewirf.SEWIRFModel.transform">(SEWIRFModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sird.SIRDModel.transform">(SIRDModel class method)</a>
+</li>
+        <li><a href="covsirphy.dynamics.html#covsirphy.dynamics.sir.SIRModel.transform">(SIRModel class method)</a>
+</li>
+      </ul></li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.TRIALS">TRIALS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.TS">TS (Term attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.UnExecutedError">UnExecutedError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.UnExpectedLengthError">UnExpectedLengthError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.UnExpectedNoneError">UnExpectedNoneError</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.UnExpectedTypeError">UnExpectedTypeError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.UnExpectedValueError">UnExpectedValueError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.error.UnExpectedValueRangeError">UnExpectedValueRangeError</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.alias.Alias.update">update() (Alias method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.V">V (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.V_FULL">V_FULL (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.V_ONCE">V_ONCE (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.VAC">VAC (Term attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.VAC_BOOSTERS">VAC_BOOSTERS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.validator.Validator">Validator (class in covsirphy.util.validator)</a>
+</li>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.VALUE_COLUMNS">VALUE_COLUMNS (Term attribute)</a>
+</li>
+      <li><a href="covsirphy.engineering.html#covsirphy.engineering.engineer.DataEngineer.variables_alias">variables_alias() (DataEngineer method)</a>
+</li>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.vbase.VisualizeBase">VisualizeBase (class in covsirphy.visualization.vbase)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.W">W (Term attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.bar_plot.BarPlot.x_axis">x_axis() (BarPlot method)</a>
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.line_plot.LinePlot.x_axis">(LinePlot method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Y">Y</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.util.html#covsirphy.util.term.Term.Y0_DICT">Y0_DICT (Term attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="covsirphy.visualization.html#covsirphy.visualization.bar_plot.BarPlot.y_axis">y_axis() (BarPlot method)</a>
+
+      <ul>
+        <li><a href="covsirphy.visualization.html#covsirphy.visualization.line_plot.LinePlot.y_axis">(LinePlot method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2023, Hirokazu Takaya and CovsirPhy Development Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

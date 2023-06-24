@@ -1,0 +1,504 @@
+<!-- Refer to https://stackoverflow.com/a/50495306 -->
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>covsirphy.util.error &mdash; CovsirPhy  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/lisphilar/covid19-sir/master/docs/logo/covsirphy_favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<script type="text/javascript">
+    window.onload = function () {
+        string = document.body.innerHTML;
+        string = string.replace(/ package/g, '').replace(/ module/g, '');
+        document.body.innerHTML = string;
+    }
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="https://raw.githubusercontent.com/lisphilar/covid19-sir/master/docs/logo/covsirphy_logo_100.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">CovsirPhy introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../markdown/INSTALLATION.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../01_data_preparation.html">Data preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../02_data_engineering.html">Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../03_ode.html">SIR-derived ODE models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../04_phase_dependent.html">Phase-dependent SIR models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../05_scenario_analysis.html">Scenario analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../06_prediction.html">ODE parameter prediction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API references</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../covsirphy.html">covsirphy package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../markdown/TERM.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CODE_OF_CONDUCT.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../SECURITY.html">Security policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">Contribution guideline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">CovsirPhy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../covsirphy.html">covsirphy</a></li>
+      <li class="breadcrumb-item active">covsirphy.util.error</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for covsirphy.util.error</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">covsirphy.util.config</span> <span class="kn">import</span> <span class="n">config</span>
+
+
+<div class="viewcode-block" id="deprecate"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.deprecate">[docs]</a><span class="k">def</span> <span class="nf">deprecate</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator to raise deprecation warning.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        old (str): description of the old method/function</span>
+<span class="sd">        new (str or None): description of the new method/function</span>
+<span class="sd">        version (str or None): version number, like 2.7.3-alpha</span>
+<span class="sd">        ref (str or None): reference URL of the new method/function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_deprecate</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">version_str</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span> <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;, version &gt;= </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">ref</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot; Refer to </span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="k">if</span> <span class="n">new</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">comment</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">old</span><span class="si">}</span><span class="s2"> was deprecated</span><span class="si">{</span><span class="n">version_str</span><span class="si">}{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">comment</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Please use </span><span class="si">{</span><span class="n">new</span><span class="si">}</span><span class="s2"> rather than </span><span class="si">{</span><span class="n">old</span><span class="si">}{</span><span class="n">version_str</span><span class="si">}{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">_deprecate</span></div>
+
+
+<div class="viewcode-block" id="experimental"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.experimental">[docs]</a><span class="k">def</span> <span class="nf">experimental</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorator to raise ExperimentalWarning because the method/function is experimental.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): description of the method/function</span>
+<span class="sd">        version (str): version number, like 2.7.3-alpha</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_experimental</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">comment</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> can be used from </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">, but this is experimental.&quot;</span> \
+                <span class="s2">&quot;Its name and arguments may be changed later.&quot;</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">ExperimentalWarning</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">_experimental</span></div>
+
+
+<span class="k">class</span> <span class="nc">_BaseWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Basic class of warning.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<div class="viewcode-block" id="ExperimentalWarning"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.ExperimentalWarning">[docs]</a><span class="k">class</span> <span class="nc">ExperimentalWarning</span><span class="p">(</span><span class="ne">Warning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to explain the method/function is experimental and its name,</span>
+<span class="sd">    features and arguments may changed later.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<span class="k">class</span> <span class="nc">_BaseException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Basic class of exception.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        message (str): main message of error, should be set in child classes</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">        log (str): description used by logger</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;exception raised&quot;</span><span class="p">):</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_details</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">details</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">details</span><span class="si">}</span><span class="s2">.&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_details</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">_ValidationError</span><span class="p">(</span><span class="n">_BaseException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Basic class of exception raised when validation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        message (str): main message of error, should be set in child classes</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">        log (str): description used by logger</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;validation of </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> failed&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="NotIncludedError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.NotIncludedError">[docs]</a><span class="k">class</span> <span class="nc">NotIncludedError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when a necessary key was not included in a container.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        key_name (str): key name</span>
+<span class="sd">        container_name (str): name of the container</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">container_name</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">key_name</span><span class="si">}</span><span class="s2">&#39; was not included in the &#39;</span><span class="si">{</span><span class="n">container_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">key_name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NAFoundError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.NAFoundError">[docs]</a><span class="k">class</span> <span class="nc">NAFoundError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when NA values are included un-expectedly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        value (str or None): value of the target</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; has NA(s) un-expectedly&quot;</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;, &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NotEnoughDataError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.NotEnoughDataError">[docs]</a><span class="k">class</span> <span class="nc">NotEnoughDataError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when we do not have enough data for analysis.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        value (str): value of the target</span>
+<span class="sd">        required_n (int): required number of records</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">required_n</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;We need more than </span><span class="si">{</span><span class="n">required_n</span><span class="si">}</span><span class="s2"> records, but &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; has only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2"> records at this time&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnExpectedNoneError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.UnExpectedNoneError">[docs]</a><span class="k">class</span> <span class="nc">UnExpectedNoneError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when a value is None un-expectedly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; is None un-expectedly&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NotNoneError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.NotNoneError">[docs]</a><span class="k">class</span> <span class="nc">NotNoneError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when a value must be None but not None un-expectedly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        value (str): value of the target</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; must be None, but has value &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnExecutedError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.UnExecutedError">[docs]</a><span class="k">class</span> <span class="nc">UnExecutedError</span><span class="p">(</span><span class="n">_BaseException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Error when we have unexecuted methods that we need to run in advance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): method name to run in advance</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Please execute </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> in advance&quot;</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> not executed&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NotRegisteredError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.NotRegisteredError">[docs]</a><span class="k">class</span> <span class="nc">NotRegisteredError</span><span class="p">(</span><span class="n">UnExecutedError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Error when no records have been registered yet.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="NotSubclassError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.NotSubclassError">[docs]</a><span class="k">class</span> <span class="nc">NotSubclassError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when an object is not a subclass of the parent class un-expectedly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        target (object): target object</span>
+<span class="sd">        parent (object): expected parent class</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; must be a sub-class of </span><span class="si">{</span><span class="n">parent</span><span class="si">}</span><span class="s2">, but </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="si">}</span><span class="s2"> was applied&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnExpectedTypeError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.UnExpectedTypeError">[docs]</a><span class="k">class</span> <span class="nc">UnExpectedTypeError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when an object cannot be converted to an instance un-expectedly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        target (object): target object</span>
+<span class="sd">        expected (object): expected type</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;We could not convert &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; to an instance of </span><span class="si">{</span><span class="n">expected</span><span class="si">}</span><span class="s2"> because that of </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="si">}</span><span class="s2"> was applied&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EmptyError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.EmptyError">[docs]</a><span class="k">class</span> <span class="nc">EmptyError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when the dataframe is empty un-expectedly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;Empty dataframe/series was applied as </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; un-expectedly&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnExpectedValueRangeError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.UnExpectedValueRangeError">[docs]</a><span class="k">class</span> <span class="nc">UnExpectedValueRangeError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when the value is out of value range.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): name of the target</span>
+<span class="sd">        target (object): target object</span>
+<span class="sd">        value_range (tuple(int or None, int or None)): value range, None means un-specified</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">value_range</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">_min</span><span class="p">,</span> <span class="n">_max</span> <span class="o">=</span> <span class="n">value_range</span>
+        <span class="k">if</span> <span class="n">_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;is not in the expected value range&quot;</span> <span class="k">if</span> <span class="n">_max</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;must be under or equal to </span><span class="si">{</span><span class="n">_max</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;must be over or equal to </span><span class="si">{</span><span class="n">_min</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">_max</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;is not in the expected value range (</span><span class="si">{</span><span class="n">_min</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">_max</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">, but </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> was applied&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnExpectedValueError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.UnExpectedValueError">[docs]</a><span class="k">class</span> <span class="nc">UnExpectedValueError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Error when unexpected value was applied as the value of an argument.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): argument name</span>
+<span class="sd">        value (object): value user applied</span>
+<span class="sd">        candidates (list[object]): candidates of the argument</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">c_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; must be selected from [</span><span class="si">{</span><span class="n">c_str</span><span class="si">}</span><span class="s2">], but </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> was applied&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UnExpectedLengthError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.UnExpectedLengthError">[docs]</a><span class="k">class</span> <span class="nc">UnExpectedLengthError</span><span class="p">(</span><span class="n">_ValidationError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Error when a sequence has un-expended length.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): argument name</span>
+<span class="sd">        value (object): value user applied</span>
+<span class="sd">        length (int): length of the sequence</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;The length of &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; must be </span><span class="si">{</span><span class="n">length</span><span class="si">}</span><span class="s2">, but </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2"> was applied&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SubsetNotFoundError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.SubsetNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">SubsetNotFoundError</span><span class="p">(</span><span class="n">_BaseException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when subset was failed with specified arguments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        geo (tuple(list[str] or tuple(str) or str) or str or None): location names to filter or None</span>
+<span class="sd">        country (str): country name</span>
+<span class="sd">        country_alias (str or None): country name used in the dataset</span>
+<span class="sd">        province (str or None): province name</span>
+<span class="sd">        start_date (str or None): start date, like 22Jan2020</span>
+<span class="sd">        end_date (str or None): end date, like 01Feb2020</span>
+<span class="sd">        date (str or None): specified date, like 22Jan2020</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">country_alias</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">province</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">country_alias</span><span class="p">,</span> <span class="n">province</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_date</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No records in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">area</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="si">}</span><span class="s2"> were found&quot;</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="s2">&quot;data subsetting failed&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_area</span><span class="p">(</span><span class="n">geo</span><span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">country_alias</span><span class="p">,</span> <span class="n">province</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Error when subset was failed with specified arguments.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            geo (tuple(list[str] or tuple(str) or str) or str or None): location names to filter or None</span>
+<span class="sd">            country (str): country name</span>
+<span class="sd">            country_alias (str or None): country name used in the dataset</span>
+<span class="sd">            province (str or None): province name</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: area name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">geo</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">country</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;the world&quot;</span>
+        <span class="k">if</span> <span class="n">geo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">geo_converted</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">geo</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">province</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">geo_converted</span> <span class="o">=</span> <span class="p">(</span><span class="n">country</span> <span class="k">if</span> <span class="n">country_alias</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">country_alias</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">geo_converted</span> <span class="o">=</span> <span class="p">(</span><span class="n">country</span> <span class="k">if</span> <span class="n">country_alias</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">country_alias</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">province</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">info</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;-&quot;</span> <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="p">([</span><span class="n">geo_converted</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geo_converted</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">geo_converted</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_date</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Error when subset was failed with specified arguments.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            start_date (str or None): start date, like 22Jan2020</span>
+<span class="sd">            end_date (str or None): end date, like 01Feb2020</span>
+<span class="sd">            date (str or None): specified date, like 22Jan2020</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot; on </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">start_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">start_date</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot; from </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">end_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">end_date</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot; to </span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">start_str</span><span class="si">}{</span><span class="n">end_str</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="ScenarioNotFoundError"><a class="viewcode-back" href="../../../covsirphy.util.html#covsirphy.util.error.ScenarioNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">ScenarioNotFoundError</span><span class="p">(</span><span class="n">_BaseException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error when unregistered scenario name was specified.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): scenario name</span>
+<span class="sd">        details (str or None): details of error</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> scenario is not registered&quot;</span>
+        <span class="n">log</span> <span class="o">=</span> <span class="s2">&quot;scenario selection failed&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="n">details</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2023, Hirokazu Takaya and CovsirPhy Development Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+covsirphy.cleaning package
+==========================
+
+.. automodule:: covsirphy.cleaning
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+covsirphy.cleaning.cbase module
+-------------------------------
+
+.. automodule:: covsirphy.cleaning.cbase
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+covsirphy.cleaning.japan\_data module
+-------------------------------------
+
+.. automodule:: covsirphy.cleaning.japan_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+covsirphy.cleaning.pyramid module
+---------------------------------
+
+.. automodule:: covsirphy.cleaning.pyramid
+   :members:
+   :undoc-members:
+   :show-inheritance:

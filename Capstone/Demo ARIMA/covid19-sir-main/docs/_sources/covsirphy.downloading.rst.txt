@@ -1,0 +1,16 @@
+covsirphy.downloading package
+=============================
+
+.. automodule:: covsirphy.downloading
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+covsirphy.downloading.downloader module
+---------------------------------------
+
+.. automodule:: covsirphy.downloading.downloader
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,10 @@
+name: CovsirPhy with Python 3.10
+dependencies:
+  - python=3.10
+  - matplotlib
+  - numpy
+  - pandas
+  - sympy
+  - pip
+  - pip:
+    - covsirphy

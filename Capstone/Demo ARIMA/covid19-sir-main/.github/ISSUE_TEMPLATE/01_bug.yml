@@ -1,0 +1,99 @@
+name: "[Bug] bug report"
+description: "Reports regarding bug, slow performance, memory issues, installation issues"
+
+title: "[Bug] "
+labels: ["bug", "help wanted"]
+
+body:
+  - type: markdown
+    attributes:
+      value: Always welcome, CovsirPhy project is developed by a community of volunteers :)
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Checkbox
+      description: checkbox to submit this question
+      options:
+        - label: I agree to follow [code of conduct](https://lisphilar.github.io/covid19-sir/CODE_OF_CONDUCT.html) and to engage in discussion actively.
+          required: true
+        - label: I agree to create a new issue with the other templates if this is not a bug.
+          required: true
+        - label: I used [the latest version of covsirphy](https://lisphilar.github.io/covid19-sir/markdown/INSTALLATION.html).
+          required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      placeholder: Please provide the summary.
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: Reproducible example script
+      description:  Please provide the script your tried.
+      value: |
+        import covsirphy as cs
+        print(cs.__version__)
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: The current outputs
+      description: Errors and un-expected outputs of the script, running time etc.
+      placeholder: "Please use `pandas.DataFrame.to_markdown()` to show dataframes, if required."
+      render: python
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected outputs
+      description: Expected outputs of the script.
+      placeholder: "'No errors', or please use `pandas.DataFrame.to_markdown()` to show dataframes."
+      render: python
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Please replace 'x' with the correct value.
+      value: |
+          - CovsirPhy version: 2.x.x
+          - Python version: 3.x.x
+      render: markdown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package-manager
+    attributes:
+      label: Package manager (required if installation issue)
+      multiple: true
+      options:
+        - poetry
+        - pip
+        - conda
+        - Others (commented)
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Platform (required if installation issue)
+      multiple: true
+      options:
+        - Windows
+        - Ubuntu
+        - MacOS
+        - Others (commented)
+
+  - type: textarea
+    id: comment
+    attributes:
+      label: Additional Context
+      placeholder: Additional Context to fix the bug, including useful references.
