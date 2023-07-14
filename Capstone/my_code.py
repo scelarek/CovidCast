@@ -31,7 +31,7 @@ from geopy.geocoders import Nominatim
 # # Optional Libraries
 import re
 # from collections import defaultdict
-# import functools
+import functools
 from IPython.display import display, Markdown
 import math
 import os
