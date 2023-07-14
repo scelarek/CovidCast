@@ -173,19 +173,23 @@ def numeric_columns_assessment(df):
     # Select numeric columns
     numeric_columns = df.select_dtypes(include=[np.number])
     
+    # Prepare dictionary to hold statistics
+    stats_dict = {}
+    
     # Calculate statistics
-    numeric_means = numeric_columns.mean().values
-    numeric_medians = numeric_columns.median().values
-    numeric_mins_maxs = list(zip(numeric_columns.min().values, numeric_columns.max().values))
-    numeric_IQR = list(zip(numeric_columns.quantile(.25).values, numeric_columns.quantile(.75).values))
-    numeric_STD = numeric_columns.std().values
-    numeric_skew = numeric_columns.skew().values
-    numeric_dtypes = numeric_columns.dtypes.values
-
-
+    for col in numeric_columns:
+        stats_dict[col] = {
+            'Mean': numeric_columns[col].mean(),
+            'Median': numeric_columns[col].median(),
+            'Min, Max': (numeric_columns[col].min(), numeric_columns[col].max()),
+            'IQR': (numeric_columns[col].quantile(.75), numeric_columns[col].quantile(.25)),
+            'STD': numeric_columns[col].std(),
+            'Skew': numeric_columns[col].skew(),
+            'Dtype': numeric_columns[col].dtype
+        }
+        
     # Return a DataFrame with the statistics
-    return pd.DataFrame(index=['Numeric Columns', 'Mean', 'STD', 'Skew', 'Median',  'IQR', 'Range', 'Dtype'], data=[numeric_columns.columns.tolist(), 
-                numeric_means, numeric_STD, numeric_skew,  numeric_medians, numeric_IQR, numeric_mins_maxs, numeric_dtypes]).T
+    return pd.DataFrame(stats_dict)
 
 def non_numeric_columns_assessment(df):
     """
