@@ -53,21 +53,21 @@ print(f"Matplotlib version: {mpl.__version__}")
 # print(f"Statsmodels version: {sm.__version__}")
 print(f"SKLearn version: {sk.__version__}")
 
-plt.rcParams['figure.figsize'] = (8.0, 6.0) #setting figure size
-plt.rcParams["xtick.direction"] = "in"
-plt.rcParams["ytick.direction"] = "in"
-plt.rcParams["font.size"] = 11.0
-plt.rcParams["figure.figsize"] = (9, 6)
+# np.random.seed(123)
 
-sns.set_style("whitegrid")
-sns.set_context("notebook")
-sns.set_palette("viridis")
+# plt.rcParams["xtick.direction"] = "in"
+# plt.rcParams["ytick.direction"] = "in"
+# plt.rcParams["font.size"] = 11.0
+# plt.rcParams["figure.figsize"] = (9, 6)
 
-pd.set_option("display.max_columns", 50)
-pd.set_option('display.max_colwidth', 1000)
-pd.plotting.register_matplotlib_converters()
-os.environ["PYTHONHASHSEED"] = "123"
+# sns.set_style("whitegrid")
+# sns.set_context("notebook")
+# sns.set_palette("viridis")
 
+# pd.set_option("display.max_columns", 50)
+# pd.set_option('display.max_colwidth', 1000)
+# pd.plotting.register_matplotlib_converters()
+# os.environ["PYTHONHASHSEED"] = "123"
 
 
 def get_coordinates(address):
@@ -177,14 +177,15 @@ def numeric_columns_assessment(df):
     numeric_means = numeric_columns.mean().values
     numeric_medians = numeric_columns.median().values
     numeric_mins_maxs = list(zip(numeric_columns.min().values, numeric_columns.max().values))
+    numeric_IQR = list(zip(numeric_columns.quantile(.25).values, numeric_columns.quantile(.75).values))
     numeric_STD = numeric_columns.std().values
     numeric_skew = numeric_columns.skew().values
     numeric_dtypes = numeric_columns.dtypes.values
 
 
     # Return a DataFrame with the statistics
-    return pd.DataFrame(index=['Numeric Columns', 'Mean', 'Median', 'Range', 'STD', 'Skew', 'Dtype'], data=[numeric_columns.columns.tolist(), 
-                numeric_means, numeric_medians, numeric_mins_maxs, numeric_STD, numeric_skew, numeric_dtypes]).T
+    return pd.DataFrame(index=['Numeric Columns', 'Mean', 'STD', 'Skew', 'Median',  'IQR', 'Range', 'Dtype'], data=[numeric_columns.columns.tolist(), 
+                numeric_means, numeric_STD, numeric_skew,  numeric_medians, numeric_IQR, numeric_mins_maxs, numeric_dtypes]).T
 
 def non_numeric_columns_assessment(df):
     """
