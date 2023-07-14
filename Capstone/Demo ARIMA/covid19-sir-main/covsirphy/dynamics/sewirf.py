@@ -236,3 +236,5 @@ class SEWIRFModel(ODEModel):
         df = data.rename(columns={cls.R: cls._r})
         df[cls._logS] = np.log10(df[cls.S])
         return df.loc[:, [cls._logS, cls._r]].astype({cls._logS: np.float64, cls._r: np.int64})
+
+

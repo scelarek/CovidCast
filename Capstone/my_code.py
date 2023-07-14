@@ -1,10 +1,8 @@
 # Import necessary libraries
 import pandas as pd
 import numpy as np
-import datetime as dt
 from functools import reduce
 import sys
-import my_code as mc
 import string
 
 # Viz libraries
@@ -33,29 +31,28 @@ from geopy.geocoders import Nominatim
 # # Optional Libraries
 import re
 # from collections import defaultdict
-# from datetime import timedelta  
-# from dateutil.relativedelta import relativedelta
 # import functools
 from IPython.display import display, Markdown
 import math
 import os
-# os.environ["PYTHONHASHSEED"] = "123"
 
-
-# Import necessary libraries
-import pandas as pd
-import numpy as np
-import matplotlib as mpl
-from matplotlib import pyplot as plt
-import seaborn as sns
-import sys
+# time series analysis
+from dateutil.relativedelta import relativedelta
 import datetime as dt
-from functools import reduce
-from statsmodels.api import tsa # time series analysis
-import statsmodels.api as sm
+from statsmodels.api import tsa 
 
 
 # Initialize styling params
+print("Versions used in this notebook:")
+print(f"Python version: {sys.version}")
+print(f"Pandas version: {pd.__version__}")
+print(f"Numpy version: {np.__version__}")
+print(f"Seaborn version: {sns.__version__}")
+print(f"Matplotlib version: {mpl.__version__}")
+# print(f"Scipy version: {scipy.__version__}")
+# print(f"Statsmodels version: {sm.__version__}")
+print(f"SKLearn version: {sk.__version__}")
+
 plt.rcParams['figure.figsize'] = (8.0, 6.0) #setting figure size
 plt.rcParams["xtick.direction"] = "in"
 plt.rcParams["ytick.direction"] = "in"
@@ -69,6 +66,7 @@ sns.set_palette("viridis")
 pd.set_option("display.max_columns", 50)
 pd.set_option('display.max_colwidth', 1000)
 pd.plotting.register_matplotlib_converters()
+os.environ["PYTHONHASHSEED"] = "123"
 
 
 
@@ -277,13 +275,3 @@ def non_numeric_columns_assessment(df):
 #     return coverage
 
 
-
-print("Versions used in this notebook:")
-print(f"Python version: {sys.version}")
-print(f"Pandas version: {pd.__version__}")
-print(f"Numpy version: {np.__version__}")
-print(f"Seaborn version: {sns.__version__}")
-print(f"Matplotlib version: {mpl.__version__}")
-# print(f"Scipy version: {scipy.__version__}")
-# print(f"Statsmodels version: {sm.__version__}")
-print(f"SKLearn version: {sk.__version__}")
