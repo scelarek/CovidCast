@@ -171,7 +171,7 @@ def numeric_columns_assessment(df):
     DataFrame: A DataFrame with statistics for each numeric column.
     """
     # Select numeric columns
-    numeric_columns = df.select_dtypes(include=[np.number, np.datetime64])
+    numeric_columns = df.select_dtypes(include=[np.number])
     
     # Calculate statistics
     numeric_means = numeric_columns.mean().values
