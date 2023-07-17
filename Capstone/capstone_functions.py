@@ -131,6 +131,36 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 # ----------------------------------------------------------------------------------------------------------------------------
 # Assessment Functions
 
+# Original Numerical Data + Date
+def visualize_all_numeric(train_df):
+    train_df_numeric = train_df.select_dtypes(include=[np.number])
+    
+    
+    number_of_plots = int(np.ceil(len(train_df_numeric.columns)/3))
+
+    # Plot creation
+    fig, axs = plt.subplots(number_of_plots, 3, figsize=(15, number_of_plots *5))
+
+    # Iterating through columns of interest
+    for idx, column_name in enumerate(train_df_numeric.columns):
+        row = idx // 3
+        col = idx % 3
+        plot_titles = column_name.replace("_", " ").title()
+        
+        sns.histplot(data=train_df_numeric, x=column_name, bins=20, kde=True, ax=axs[row, col])
+        axs[row, col].grid(axis='y', linestyle='--', alpha=0.5)
+        axs[row, col].set_title(f'Distribution of {plot_titles}')
+        axs[row, col].set_xlabel(f'{plot_titles}')
+        
+        axs[row, col].axvline(train_df_numeric[column_name].mean(), color='r', linestyle='--', label='mean')
+        axs[row, col].axvline(train_df_numeric[column_name].median(), color='g', linestyle='--', label='median')
+
+        axs[row, col].legend()
+    
+    # plt.suptitle('Distribution of Count-Vectorized Columns', fontsize=16)
+    plt.tight_layout()
+    
+
 
 def numeric_columns_assessment(df):
     """
