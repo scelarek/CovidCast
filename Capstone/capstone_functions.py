@@ -1,6 +1,5 @@
-
-
 # Import necessary libraries
+
 import pandas as pd
 import numpy as np
 import datetime as dt
@@ -17,6 +16,7 @@ from summarytools import dfSummary, tabset
 
 
 # Viz libraries
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -29,6 +29,7 @@ import plotly.graph_objects as go
 # ----------------------------------------------------------------------------------------------------------------------------
 
 # ML libraries
+
 import scipy.stats as stats
 import scipy
 import statsmodels.api as sm
@@ -45,9 +46,9 @@ from sklearn.metrics import classification_report, ConfusionMatrixDisplay, accur
 from sklearn import metrics
 from mlxtend.plotting import plot_decision_regions
 
-# ----------------------------------------------------------------------------------------------------------------------------
+# # ----------------------------------------------------------------------------------------------------------------------------
 
-# ML Models
+# # ML Models
 # # Basic Classifier/Regression Models
 # from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge, Lasso, ElasticNet, SGDClassifier, SGDRegressor
 # from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
@@ -58,6 +59,7 @@ from mlxtend.plotting import plot_decision_regions
 # # ----------------------------------------------------------------------------------------------------------------------------
 
 # # Advanced Ensemble Models
+
 # from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, ExtraTreesRegressor, GradientBoostingClassifier, RandomForestRegressor, GradientBoostingRegressor
 # from sklearn.naive_bayes import GaussianNB
 # # from xgboost import XGBClassifier, XGBRegressor
@@ -68,13 +70,15 @@ from mlxtend.plotting import plot_decision_regions
 # # ----------------------------------------------------------------------------------------------------------------------------
 
 # # Clustering Models
+
 # from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
 # from sklearn.mixture import GaussianMixture
 
 
-# ----------------------------------------------------------------------------------------------------------------------------
+# # ----------------------------------------------------------------------------------------------------------------------------
 
-# Time Series Models
+# # Time Series Models
+
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from prophet import Prophet
@@ -83,9 +87,10 @@ from prophet import Prophet
 # from keras.layers import LSTM
 
 
-# ----------------------------------------------------------------------------------------------------------------------------
+# # ----------------------------------------------------------------------------------------------------------------------------
 
 # ML NLP libraries
+
 # from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 # from scipy.sparse import hstack
 # import nltk
@@ -93,16 +98,18 @@ from prophet import Prophet
 # from nltk.corpus import stopwords 
 
 
-# ----------------------------------------------------------------------------------------------------------------------------
+# # ----------------------------------------------------------------------------------------------------------------------------
 
 # Geo libraries
+
 from geopy.geocoders import Nominatim
 
 
-# ----------------------------------------------------------------------------------------------------------------------------
+# # ----------------------------------------------------------------------------------------------------------------------------
 
 
 # # Optional Libraries
+
 # from collections import defaultdict
 # from dateutil.relativedelta import relativedelta
 
@@ -131,11 +138,9 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 # ----------------------------------------------------------------------------------------------------------------------------
 # Assessment Functions
 
-# Original Numerical Data + Date
+# Original Numerical Data
 def visualize_all_numeric(train_df):
     train_df_numeric = train_df.select_dtypes(include=[np.number])
-    
-    
     number_of_plots = int(np.ceil(len(train_df_numeric.columns)/3))
 
     # Plot creation
@@ -157,9 +162,10 @@ def visualize_all_numeric(train_df):
 
         axs[row, col].legend()
     
-    # plt.suptitle('Distribution of Count-Vectorized Columns', fontsize=16)
+    plt.suptitle('Distribution of Numerical Columns', fontsize=16)
     plt.tight_layout()
     
+
 
 
 def numeric_columns_assessment(df):
