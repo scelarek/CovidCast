@@ -1,3 +1,5 @@
+
+
 # Import necessary libraries
 import pandas as pd
 import numpy as np
@@ -41,7 +43,7 @@ from sklearn.feature_selection import SelectPercentile, f_regression, f_classif
 from statsmodels.stats.stattools import durbin_watson
 from sklearn.metrics import classification_report, ConfusionMatrixDisplay, accuracy_score, silhouette_score
 from sklearn import metrics
-
+from mlxtend.plotting import plot_decision_regions
 
 # ----------------------------------------------------------------------------------------------------------------------------
 
