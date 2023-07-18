@@ -50,28 +50,28 @@ from mlxtend.plotting import plot_decision_regions
 
 # # ML Models
 # # Basic Classifier/Regression Models
-# from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge, Lasso, ElasticNet, SGDClassifier, SGDRegressor
-# from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge, Lasso, ElasticNet, SGDClassifier, SGDRegressor
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 # from sklearn.svm import SVC, SVR
-# from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 
 
 # # ----------------------------------------------------------------------------------------------------------------------------
 
 # # Advanced Ensemble Models
 
-# from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, ExtraTreesRegressor, GradientBoostingClassifier, RandomForestRegressor, GradientBoostingRegressor
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, ExtraTreesRegressor, GradientBoostingClassifier, RandomForestRegressor, GradientBoostingRegressor
 # from sklearn.naive_bayes import GaussianNB
 # # from xgboost import XGBClassifier, XGBRegressor
-# from lightgbm import LGBMClassifier, LGBMRegressor
-# from catboost import CatBoostClassifier, CatBoostRegressor
+from lightgbm import LGBMClassifier, LGBMRegressor
+from catboost import CatBoostClassifier, CatBoostRegressor
 
 
 # # ----------------------------------------------------------------------------------------------------------------------------
 
 # # Clustering Models
 
-# from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
+from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
 # from sklearn.mixture import GaussianMixture
 
 
