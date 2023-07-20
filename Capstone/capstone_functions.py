@@ -24,6 +24,10 @@ import plotly.express as px
 import matplotlib.cm as cm
 from matplotlib.ticker import ScalarFormatter
 import plotly.graph_objects as go
+from statsmodels.graphics.tsaplots import month_plot
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import statsmodels.tsa.seasonal as tsa
 
 
 # ----------------------------------------------------------------------------------------------------------------------------
