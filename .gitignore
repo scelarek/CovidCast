@@ -1,11 +1,9 @@
-Capstone/__pycache__
-Capstone/tmp
-Capstone/input
 /Data/*.csv
-
 /Capstone/*
 
 # Unignore specific files in that folder
-!/Capstone/'1. Covid Preprocessing.ipynb'
-!/Capstone/'2. Sample EDA (Basic).ipynb'
+!/Capstone/1. Covid Preprocessing.ipynb
+!/Capstone/2. Sample EDA (Basic).ipynb
 !/Capstone/capstone_functions.py
+!/Capstone/3. Covid SARIMA Modeling.ipynb
+!/Capstone/4. Covid Prophet and RNNs.ipynb
