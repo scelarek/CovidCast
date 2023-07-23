@@ -3,7 +3,7 @@
 /Capstone/input
 /Data/*.csv
 
-/Capstone/**
+/Capstone/*
 
 # Unignore specific files in that folder
 !/Capstone/'1. Covid Preprocessing.ipynb'
