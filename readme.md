@@ -9,20 +9,13 @@
 
 ## 🌟 Introduction
 
-Welcome to our team's GitHub repository for the Google Industry Day competition hosted by BrainStation. We are a diverse team of data scientists, UI/UX designers, and web developers, united by our passion for innovation and our commitment to deliver a compelling digital solution to a real-world business problem.
+Welcome to our my GitHub repository for the Google Industry Day competition hosted by BrainStation. We are a diverse team of data scientists, UI/UX designers, and web developers, united by our passion for innovation and our commitment to deliver a compelling digital solution to a real-world business problem.
 
 ---
 
 ### 🚀 Our Team
 
-- **Abi Wheeler** (UI / UX)
-- **Diane Lu** (Data Science)
-- **Jack Speidel** (Web Developer)
-- **Maheshi** (Web Developer)
-- **Nima Chinikar** (Data Science)
 - **Sam Celarek** (Data Science)
-- **Tony Lau** (Web Developer)
-- **Gem Ruby** (Team Lead and TA)
 
 ---
 
