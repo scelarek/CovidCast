@@ -1,3 +1,4 @@
-hello.py
-text.txt
+Capstone/__pycache__
+Capstone/tmp
+Capstone/input
 Data/*.csv
