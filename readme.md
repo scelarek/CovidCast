@@ -15,7 +15,7 @@ Welcome to the GitHub repository for my project on COVID-19 Prediction using adv
 
 ### 🚀 Project Breakdown
 
-Our project is broken down into four main parts:
+My project is broken down into four main parts:
 
 1. **Cleaning**: Dive into my process of data preprocessing and cleaning in this [Jupyter Notebook](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Capstone/1.%20Covid%20Preprocessing.ipynb).
 2. **EDA**: Explore the basic exploratory data analysis I performed in this [Jupyter Notebook](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Capstone/2.%20Sample%20EDA%20(Basic).ipynb).
@@ -33,7 +33,7 @@ I have organized my functions, libraries, and primary clean data file for easy a
 
 ---
 
-I appreciate your interest in our project and invite you to dive deep into our work. If you have any questions or require further insights, please don't hesitate to reach out through this GitHub repository.
+I appreciate your interest in my project and invite you to dive deep into my work. If you have any questions or require further insights, please don't hesitate to reach out through this GitHub repository.
 
 <div align="center">
 
