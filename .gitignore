@@ -1,6 +1,6 @@
-/Capstone/__pycache__
-/Capstone/tmp
-/Capstone/input
+Capstone/__pycache__
+Capstone/tmp
+Capstone/input
 /Data/*.csv
 
 /Capstone/*
