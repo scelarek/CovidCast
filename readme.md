@@ -33,7 +33,7 @@ I have organized my functions, libraries, and primary clean data file for easy a
 
 ---
 
-I appreciate your interest in my project and invite you to dive deep into my work. If you have any questions or require further insights, please don't hesitate to reach out through this GitHub repository.
+I appreciate your interest in my project and invite you to dive deep into my work. If you have any questions or require further insights, please don't hesitate to reach out through this GitHub repository or at scelarek@gmail.com.
 
 <div align="center">
 
