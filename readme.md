@@ -26,10 +26,11 @@ My project is broken down into four main parts:
 
 ### 💡 Resources
 
-I have organized my functions, libraries, and primary clean data file for easy access:
+I have organized my functions, libraries, and primary clean data file for easy access:  
 
 - **Functions and Libraries**: Access the core functions and libraries used for this project in this [Python file](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Capstone/capstone_functions.py).
 - **Main Clean Data File**: The primary cleaned data file is available in [this parquet file](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Data/master_df.parquet).
+- **Presentation Preprocessing and Clean:**  This is a presentation of the [Preprocessing and EDA.](https://github.com/scelarek/BrainStation_Capstone/blob/e824c901efdb0adf1783256664bcfe054ae51001/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)
 
 ---
 
