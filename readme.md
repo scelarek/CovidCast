@@ -1,7 +1,11 @@
 <div align="center">
 
-# **COVID-19 Prediction with ML and ODE Modeling**
+# CovidCast
+## **COVID-19 Prediction Powered by ML and Epidemiological Models**
 ## **BrainStation**
+
+![image](https://github.com/scelarek/BrainStation_Capstone/assets/115444760/1cfbb6d5-60cb-4e81-98e3-8e68d36e3d8f)
+
 
 </div>
 
