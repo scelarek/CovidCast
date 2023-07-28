@@ -1,7 +1,9 @@
 <div align="center">
-<img src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="80" height="80"> 
 
 # CovidCast 
+
+<img src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="80" height="80"> 
+
 ## **COVID-19 Prediction Powered by ML and Epidemiological Models**  
 ## **BrainStation**
 
