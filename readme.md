@@ -10,7 +10,7 @@
 
 ---
 
-## 🌟 Introduction <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/samcelarek_cloud_forecast_virus_simple_Outline_Globe_logo_Covid_56e32f2d-ffb4-434e-adda-e674a21429e2.png?raw=true" title="CovidCast" alt="CovidCast" width="400" height="400"> 
+## 🌟 Introduction <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/samcelarek_cloud_forecast_virus_simple_Outline_Globe_logo_Covid_56e32f2d-ffb4-434e-adda-e674a21429e2.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
 
 Welcome to the GitHub repository for my project on COVID-19 Prediction using advanced machine learning techniques and ODE modeling. This project, undertaken in August 2023, aims to predict the spread and impact of COVID-19 using SARIMAX, Facebook Profit Model, and RNN with features derived from cutting-edge epidemiological models of pandemics.
 
