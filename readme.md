@@ -1,7 +1,7 @@
 <div align="center">
 
 # CovidCast
-## **COVID-19 Prediction Powered by ML and Epidemiological Models**  <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/samcelarek_cloud_forecast_virus_simple_Outline_Globe_logo_Covid_56e32f2d-ffb4-434e-adda-e674a21429e2.png?raw=true", width=400, height=400>
+## **COVID-19 Prediction Powered by ML and Epidemiological Models**  <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/samcelarek_cloud_forecast_virus_simple_Outline_Globe_logo_Covid_56e32f2d-ffb4-434e-adda-e674a21429e2.png?raw=true">
 ## **BrainStation**
 
 
