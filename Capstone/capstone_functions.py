@@ -24,11 +24,8 @@ import plotly.express as px
 import matplotlib.cm as cm
 from matplotlib.ticker import ScalarFormatter
 import plotly.graph_objects as go
-from statsmodels.graphics.tsaplots import month_plot
-import plotly.graph_objects as go
+from statsmodels.graphics.tsaplots import month_plot, plot_acf, plot_pacf
 from plotly.subplots import make_subplots
-import statsmodels.tsa.seasonal as tsa
-from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 
 
 # ----------------------------------------------------------------------------------------------------------------------------
@@ -89,8 +86,8 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 from prophet import Prophet
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-from statsmodels.tsa.stattools import acf, pacf
-
+from statsmodels.tsa.stattools import acf, pacf, adfuller
+import statsmodels.tsa.seasonal as tsa
 
 # from prophet import plot_plotly, add_changepoints_to_plot
 # from keras.models import Sequential
@@ -147,6 +144,7 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 # ----------------------------------------------------------------------------------------------------------------------------
 # Assessment Functions
+
 
 # Original Numerical Data
 def visualize_all_numeric(train_df):
@@ -481,8 +479,11 @@ def plot_average_score_of_hyperparameters(grid_outcomes, first_hyperparameter, s
     variable_plot_name= first_hyperparameter.replace('param_', '').replace('__', ' ').title()
     
     # Get the hyperparameter value of the model with the highest test score
-    winner = grid_outcomes.loc[grid_outcomes.mean_test_score.argmax(), first_hyperparameter]
-    
+    try: 
+        winner = grid_outcomes.loc[grid_outcomes.mean_test_score.idxmax(), first_hyperparameter]
+    except: 
+        winner = grid_outcomes.loc[grid_outcomes.mean_test_score.argmax(), first_hyperparameter]
+
     # Create a new figure
     plt.figure(figsize=(10, 6))
 
@@ -559,9 +560,14 @@ def plot_average_time_of_hyperparameters(grid_outcomes, first_hyperparameter, se
     grouped_grid = grid_outcomes.groupby(first_hyperparameter)
     variable_plot_name= first_hyperparameter.replace('param_', '').replace('__', ' ').title()
 
-    # Get the hyperparameter value of the model with the highest test score
-    mean_fit_winner = grid_outcomes.loc[grid_outcomes.mean_fit_time.mean().argmin(), first_hyperparameter]
-    mean_score_winner = grid_outcomes.loc[grid_outcomes.mean_score_time.mean().argmin(), first_hyperparameter]
+    try: 
+        # Get the hyperparameter value of the model with the highest test score
+        mean_fit_winner = grid_outcomes.loc[grid_outcomes.mean_fit_time.mean().idxmin(), first_hyperparameter]
+        mean_score_winner = grid_outcomes.loc[grid_outcomes.mean_score_time.mean().idxmin(), first_hyperparameter]
+    except: 
+        # Get the hyperparameter value of the model with the highest test score
+        mean_fit_winner = grid_outcomes.loc[grid_outcomes.mean_fit_time.mean().argmin(), first_hyperparameter]
+        mean_score_winner = grid_outcomes.loc[grid_outcomes.mean_score_time.mean().argmin(), first_hyperparameter]
 
     # Create a new figure
     plt.figure(figsize=(10, 6))
@@ -951,7 +957,133 @@ def train_test_validation(df, col, n_splits=5, order=5, verbose=False, method = 
     test_error = reduce(lambda x, y: x + y, df_holder_test)/n_splits
     return train_error, test_error
 
+
+
 ####----------------------------------------------------------------------------------------
+
+def evaluate_arima_forecast(previous, actual, predicted):
+    """
+    Evaluate ARIMA forecast using MAE, RMSE, MAPE and plot actual vs predicted values using Plotly.
+    
+    Parameters:
+    - actual: Actual time series values.
+    - predicted: Predicted/forecasted values.
+    
+    Returns:
+    - DataFrame with the error metrics.
+    """
+    # Calculate error metrics
+    mae = mean_absolute_error(actual, predicted)
+    rmse = np.sqrt(mean_squared_error(actual, predicted))
+    smape = np.mean(np.abs(actual - predicted) / (np.abs(actual) + np.abs(predicted))) * 100
+    mape = np.mean(np.abs(actual - predicted) / (np.abs(actual) + np.abs(predicted)/100)) * 100
+    
+    # Display error metrics
+    print(f"Mean Absolute Error (MAE): {mae:.2f}")
+    print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
+    print(f"Mean Absolute Percentage Error (MAPE): {mape:.2f}%")
+    print(f"Adjusted Mean Absolute Percentage Error (sMAPE): {smape:.2f}%")
+    
+    # Plot using Plotly
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(y=previous, x=previous.index, mode='lines', name='Previous', line=dict(color='green', width=2, dash='dot')))
+    fig.add_trace(go.Scatter(y=actual, x=actual.index, mode='lines', name='Actual', line=dict(color='blue', width=2)))
+    fig.add_trace(go.Scatter(y=predicted, x=predicted.index, mode='lines', name='Predicted', line=dict(color='red', width=2, dash='dash')))
+    
+    fig.update_layout(title="Actual vs Predicted Values", 
+                    xaxis_title="Date", 
+                    yaxis_title="Value",
+                    xaxis_rangeslider_visible=True)
+    
+    fig.show()
+    
+    # Return metrics in a DataFrame
+    metrics_df = pd.DataFrame({
+        'Metric': ['MAE', 'RMSE', 'sMAPE'],
+        'Value': [mae, rmse, smape]
+    })
+    
+    return metrics_df
+
+
+
+
+from pandas.api.types import CategoricalDtype
+
+cat_type = CategoricalDtype(categories=['Monday','Tuesday',
+                                        'Wednesday',
+                                        'Thursday','Friday',
+                                        'Saturday','Sunday'],
+                            ordered=True)
+
+def create_features(df, label=None):
+    """
+    Creates time series features from datetime index.
+    """
+    df = df.copy()
+    df['date'] = df.index
+    df['hour'] = df['date'].dt.hour
+    df['dayofweek'] = df['date'].dt.dayofweek
+    df['weekday'] = df['date'].dt.day_name()
+    df['weekday'] = df['weekday'].astype(cat_type)
+    df['quarter'] = df['date'].dt.quarter
+    df['month'] = df['date'].dt.month
+    df['year'] = df['date'].dt.year
+    df['dayofyear'] = df['date'].dt.dayofyear
+    df['dayofmonth'] = df['date'].dt.day
+    df['weekofyear'] = df['date'].dt.isocalendar().week  # Fix here
+    df['date_offset'] = (df.date.dt.month*100 + df.date.dt.day - 320)%1300
+
+    df['season'] = pd.cut(df['date_offset'], [0, 300, 602, 900, 1300], 
+                        labels=['Spring', 'Summer', 'Fall', 'Winter']
+                )
+    X = df[['hour','dayofweek','quarter','month','year',
+        'dayofyear','dayofmonth','weekofyear','weekday',
+        'season']]
+    if label:
+        y = df[label]
+        return X, y
+    return X
+
+
+
+def test_stationarity(timeseries):
+    
+    #Determing rolling statistics
+    rolmean = timeseries.rolling(window=12).mean()
+    rolstd = timeseries.rolling(window=12).std()
+
+    # Create a plotly graph with a secondary y-axis
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # Add traces for the original series, rolling mean, and rolling std
+    fig.add_trace(go.Scatter(x=timeseries.index, y=timeseries, mode='lines', name='Original', line=dict(color='blue')))
+    fig.add_trace(go.Scatter(x=rolmean.index, y=rolmean, mode='lines', name='Rolling Mean', line=dict(color='red')))
+    fig.add_trace(go.Scatter(x=rolstd.index, y=rolstd, mode='lines', name='Rolling Std', line=dict(color='black')), secondary_y=True)
+
+    # Update layout
+    fig.update_layout(title='Rolling Mean & Standard Deviation',
+                    xaxis_title='Date',
+                    yaxis_title='Value',
+                    yaxis2_title='Rolling Std Deviation',
+                    xaxis=dict(rangeslider=dict(visible=True), type='date'),
+                    xaxis_rangeslider_visible=True)
+
+    # Display the plot
+    fig.show()
+
+    # Perform Dickey-Fuller test:
+    print('Results of Dickey-Fuller Test:')
+    dftest = adfuller(timeseries, autolag='AIC')
+    dfoutput = pd.Series(dftest[0:4], index=['Test Statistic','p-value','#Lags Used','Number of Observations Used'])
+    for key,value in dftest[4].items():
+        dfoutput['Critical Value (%s)'%key] = value
+    display(dfoutput)
+
+# Usage example:
+# test_stationarity(your_dataframe['your_column'])
+
+
 
 print("Versions used in this notebook:")
 print(f"Python version: {sys.version}")
