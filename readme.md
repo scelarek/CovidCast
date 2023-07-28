@@ -17,7 +17,7 @@
 
 ## 🌟 Introduction 
 
-Welcome to the GitHub repository for my project on COVID-19 Prediction using advanced machine learning techniques and ODE modeling. This project, undertaken in August 2023, aims to predict the spread and impact of COVID-19 using SARIMAX, Facebook Profit Model, and RNN with features derived from cutting-edge epidemiological models of pandemics.
+Welcome to the GitHub repository for my project on COVID-19 Prediction using advanced machine learning techniques and ODE modeling. This project, undertaken in August 2023, aims to predict the spread and impact of COVID-19 using SARIMAX, Facebook Prophet Model, and RNN with features derived from cutting-edge epidemiological models of pandemics.
 
 ---
 
