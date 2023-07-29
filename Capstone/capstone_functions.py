@@ -12,7 +12,7 @@ import math
 import os
 from IPython.display import display, Markdown
 from summarytools import dfSummary, tabset
-
+from tqdm.auto import tqdm
 
 
 # Viz libraries
@@ -906,7 +906,7 @@ def last_first_missing(master_df, long=False):
 
 ####----------------------------------------------------------------------------------------
 
-def evaluate_arima_forecast(previous, actual, predicted):
+def evaluate_forecast(previous, actual, predicted):
     """
     Evaluate the performance of an ARIMA forecast against actual values and visualize the results.
     
@@ -1152,6 +1152,56 @@ def test_stationarity(timeseries):
     
 #     return plot_df
 
+# def evaluate_and_plot_predictions(pipeline, y, cv):
+#     """
+#     Evaluates and plots ARIMA predictions using cross validation.
+    
+#     Parameters:
+#     - pipeline: The pipeline containing the ARIMA estimator.
+#     - y: The time series data.
+#     - cv: The cross validation splitter.
+
+#     Returns:
+#     - model_eval_series: A Series containing evaluation metrics for the model.
+#     """
+    
+#     # Cross-validated predictions
+#     predictions1 = pm.model_selection.cross_val_predict(
+#         pipeline, y, cv=cv, verbose=1, averaging="mean")
+
+#     # Plot the predictions over the original series
+#     x_axis = y.index
+#     n_test = predictions1.shape[0]
+
+#     prediction_df = pd.DataFrame(index = x_axis[-n_test:], data = predictions1, columns = ['Predictions'])
+    
+#     plt.plot(y, alpha=0.75, c='b', label='Original')  # Original series
+#     plt.plot(prediction_df, alpha=0.75, c='g', label='Forecasts')  # Forecasts
+#     plt.title("Covid Predictions")
+#     plt.legend()
+#     plt.show()
+
+#     # Calculate the evaluation metrics
+#     model1_cv_smape = pm.model_selection.cross_val_score(
+#         pipeline, y, scoring='smape', cv=cv, verbose=1)
+
+#     model1_cv_mse = pm.model_selection.cross_val_score(
+#         pipeline, y, scoring='mean_squared_error', cv=cv, verbose=1)
+
+#     model1_cv_rmse = np.sqrt(model1_cv_mse.tolist())
+
+#     # Create a summary Series
+#     model_eval_series = pd.Series({
+#         'CV': str(cv),
+#         'Order': pipeline.steps[-1][1].get_params()['order'],
+#         'Seasonal Order': pipeline.steps[-1][1].get_params()['seasonal_order'],
+#         'Average_RMSE': np.average(model1_cv_rmse),
+#         'Median_RMSE': np.median(model1_cv_rmse),
+#         'Average_SMAPE': np.average(model1_cv_smape),
+#         'Median_SMAPE': np.median(model1_cv_smape)
+#     })
+    
+#     return model_eval_series
 
 
 
