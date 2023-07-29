@@ -88,7 +88,11 @@ from sklearn.model_selection import TimeSeriesSplit
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from statsmodels.tsa.stattools import acf, pacf, adfuller
 import statsmodels.tsa.seasonal as tsa
-
+import pmdarima as pm
+from pmdarima.pipeline import Pipeline
+from pmdarima.preprocessing import BoxCoxEndogTransformer
+from pmdarima.metrics import smape
+from pmdarima.model_selection import cross_val_score, RollingForecastCV
 # from prophet import plot_plotly, add_changepoints_to_plot
 # from keras.models import Sequential
 # from keras.layers import LSTM
@@ -900,104 +904,53 @@ def last_first_missing(master_df, long=False):
     return arranged_df
 
 
-
-def spline_testing(df, col, order=5, method='spline'):
-    mse_errors, mae_errors, mape_errors = [], [], []
-
-    for i in range(1, order+1, 1):
-        
-        candidate = df[col][df[col].notna()]
-
-        spline = df[col].interpolate(method=method, order=i)
-        spline.loc[candidate.index] = np.nan
-
-        y_true = candidate.iloc[1:-1] 
-        y_predicted = spline.interpolate(method=method, order=i).loc[candidate.index].iloc[1:-1]
-        
-        mse_errors.append(mean_squared_error(y_true, y_predicted))
-        mae_errors.append(mean_absolute_error(y_true, y_predicted))
-        mape_errors.append(np.mean(np.abs(np.divide(y_true - y_predicted, y_true, out=np.zeros_like(y_predicted, dtype=float), where=y_true!=0))) * 100)
-
-    return pd.DataFrame(data={'mse': mse_errors, 'mae': mae_errors, 'mape': mape_errors}, index=[f"{method} Order " + str(i) for i in range(1, order+1, 1)])
-
-
-
-# Time series cross-validation
-def train_test_validation(df, col, n_splits=5, order=5, verbose=False, method = 'spline'):
-    df_holder_train = []
-    df_holder_test = []
-
-    tscv = TimeSeriesSplit(n_splits=n_splits)
-
-    for train_idx, test_idx in tscv.split(df[col]):
-        train_df = df.iloc[train_idx]
-        test_df = df.iloc[test_idx]
-
-        # Now, concatenate train and test to get a full dataframe for this split
-        # combined_df = pd.concat([train_df, test_df])
-
-        # Call the spline_testing function
-        df_holder_train.append(spline_testing(train_df, col, order=order, method= method))
-        df_holder_test.append(spline_testing(test_df, col, order=order, method=method))
-
-    if verbose:
-        # Now, df_holder will have a list of dataframes with residuals for each split
-        for index, df in enumerate(df_holder_train):
-            print(f"Train Split {index + 1} Results:")
-            display(df)
-            print("\n")
-            
-        # Now, df_holder will have a list of dataframes with residuals for each split
-        for index, df in enumerate(df_holder_test):
-            print(f"Test Split {index + 1} Results:")
-            display(df)
-            print("\n")
-    
-    train_error = reduce(lambda x, y: x + y, df_holder_train)/n_splits
-    test_error = reduce(lambda x, y: x + y, df_holder_test)/n_splits
-    return train_error, test_error
-
-
-
 ####----------------------------------------------------------------------------------------
 
 def evaluate_arima_forecast(previous, actual, predicted):
     """
-    Evaluate ARIMA forecast using MAE, RMSE, MAPE and plot actual vs predicted values using Plotly.
+    Evaluate the performance of an ARIMA forecast against actual values and visualize the results.
+    
+    This function computes multiple error metrics including MAE, RMSE, MAPE, and sMAPE. 
+    It also visualizes the previous, actual, and predicted series for easier comparison 
+    using Plotly.
     
     Parameters:
-    - actual: Actual time series values.
-    - predicted: Predicted/forecasted values.
+    - previous (pd.Series): Series containing previous values leading up to the forecast.
+    - actual (pd.Series): Series containing the actual values for the time period being forecasted.
+    - predicted (pd.Series): Series containing the predicted values from the ARIMA model.
     
     Returns:
-    - DataFrame with the error metrics.
+    - metrics_df (pd.DataFrame): A DataFrame containing the calculated error metrics.
     """
+    
     # Calculate error metrics
     mae = mean_absolute_error(actual, predicted)
     rmse = np.sqrt(mean_squared_error(actual, predicted))
     smape = np.mean(np.abs(actual - predicted) / (np.abs(actual) + np.abs(predicted))) * 100
     mape = np.mean(np.abs(actual - predicted) / (np.abs(actual) + np.abs(predicted)/100)) * 100
     
-    # Display error metrics
+    # Display the calculated error metrics
     print(f"Mean Absolute Error (MAE): {mae:.2f}")
     print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
     print(f"Mean Absolute Percentage Error (MAPE): {mape:.2f}%")
     print(f"Adjusted Mean Absolute Percentage Error (sMAPE): {smape:.2f}%")
     
-    # Plot using Plotly
+    # Create a Plotly visualization to compare previous, actual, and predicted series
     fig = go.Figure()
     fig.add_trace(go.Scatter(y=previous, x=previous.index, mode='lines', name='Previous', line=dict(color='green', width=2, dash='dot')))
     fig.add_trace(go.Scatter(y=actual, x=actual.index, mode='lines', name='Actual', line=dict(color='blue', width=2)))
     fig.add_trace(go.Scatter(y=predicted, x=predicted.index, mode='lines', name='Predicted', line=dict(color='red', width=2, dash='dash')))
     
+    # Customize the layout of the plot
     fig.update_layout(title="Actual vs Predicted Values", 
                     xaxis_title="Date", 
                     yaxis_title="Value",
                     xaxis_rangeslider_visible=True)
     
+    # Display the visualization
     fig.show()
     
-    # Return metrics in a DataFrame
+    # Return the computed metrics in a DataFrame for further analysis or reporting
     metrics_df = pd.DataFrame({
         'Metric': ['MAE', 'RMSE', 'sMAPE'],
         'Value': [mae, rmse, smape]
@@ -1018,50 +971,91 @@ cat_type = CategoricalDtype(categories=['Monday','Tuesday',
 
 def create_features(df, label=None):
     """
-    Creates time series features from datetime index.
+    Create time series features from a dataframe with a datetime index.
+    
+    This function extracts various time-based features like hour, day of the week, month, etc., 
+    from the datetime index of the provided dataframe. It also categorizes days into weekdays 
+    and assigns seasons to each date.
+    
+    Parameters:
+    - df (pd.DataFrame): The input dataframe with a datetime index.
+    - label (str, optional): The column name of the target variable. If provided, the function will return it as 'y'.
+    
+    Returns:
+    - X (pd.DataFrame): A dataframe with time series features.
+    - y (pd.Series, optional): The target variable series if 'label' is provided.
     """
+    
+    # Create a copy of the dataframe to avoid modifying the original dataframe
     df = df.copy()
+
+    # Extract various time features from the datetime index
     df['date'] = df.index
     df['hour'] = df['date'].dt.hour
     df['dayofweek'] = df['date'].dt.dayofweek
     df['weekday'] = df['date'].dt.day_name()
-    df['weekday'] = df['weekday'].astype(cat_type)
+    df['weekday'] = df['weekday'].astype(cat_type)  # Convert the 'weekday' column to a categorical type
     df['quarter'] = df['date'].dt.quarter
     df['month'] = df['date'].dt.month
     df['year'] = df['date'].dt.year
     df['dayofyear'] = df['date'].dt.dayofyear
     df['dayofmonth'] = df['date'].dt.day
-    df['weekofyear'] = df['date'].dt.isocalendar().week  # Fix here
+    df['weekofyear'] = df['date'].dt.isocalendar().week
+
+    # Calculate a date offset used for determining the season
     df['date_offset'] = (df.date.dt.month*100 + df.date.dt.day - 320)%1300
 
+    # Determine the season based on the date offset
     df['season'] = pd.cut(df['date_offset'], [0, 300, 602, 900, 1300], 
                         labels=['Spring', 'Summer', 'Fall', 'Winter']
                 )
+    
+    # Select relevant columns to form the features matrix 'X'
     X = df[['hour','dayofweek','quarter','month','year',
         'dayofyear','dayofmonth','weekofyear','weekday',
         'season']]
+    
+    # If a label is provided, extract it as 'y'
     if label:
         y = df[label]
         return X, y
+    
     return X
 
 
 
 def test_stationarity(timeseries):
+    """
+    Test the stationarity of a given time series.
     
-    #Determing rolling statistics
-    rolmean = timeseries.rolling(window=12).mean()
-    rolstd = timeseries.rolling(window=12).std()
+    This function plots the original time series along with its rolling mean 
+    and rolling standard deviation. It then performs the Dickey-Fuller test 
+    to statistically test the stationarity of the series.
+    
+    Parameters:
+    - timeseries (pd.Series): The time series data to test for stationarity.
+    
+    Returns:
+    None. However, it displays the plot and prints the results of the Dickey-Fuller test.
+    """
+    
+    # Calculate rolling statistics with a window of 12
+    rolmean = timeseries.rolling(window=12).mean()  # Rolling mean
+    rolstd = timeseries.rolling(window=12).std()    # Rolling standard deviation
 
-    # Create a plotly graph with a secondary y-axis
+    # Initialize a plotly graph with a secondary y-axis for displaying the rolling std deviation
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    # Add traces for the original series, rolling mean, and rolling std
+    # Plot the original series
     fig.add_trace(go.Scatter(x=timeseries.index, y=timeseries, mode='lines', name='Original', line=dict(color='blue')))
+    
+    # Plot the rolling mean
     fig.add_trace(go.Scatter(x=rolmean.index, y=rolmean, mode='lines', name='Rolling Mean', line=dict(color='red')))
+    
+    # Plot the rolling standard deviation on the secondary y-axis
     fig.add_trace(go.Scatter(x=rolstd.index, y=rolstd, mode='lines', name='Rolling Std', line=dict(color='black')), secondary_y=True)
 
-    # Update layout
+    # Customize the layout of the plot
     fig.update_layout(title='Rolling Mean & Standard Deviation',
                     xaxis_title='Date',
                     yaxis_title='Value',
@@ -1069,19 +1063,95 @@ def test_stationarity(timeseries):
                     xaxis=dict(rangeslider=dict(visible=True), type='date'),
                     xaxis_rangeslider_visible=True)
 
-    # Display the plot
+    # Display the visual representation of the series, rolling mean, and std deviation
     fig.show()
 
-    # Perform Dickey-Fuller test:
+    # Perform the Dickey-Fuller test to test the stationarity of the series
     print('Results of Dickey-Fuller Test:')
     dftest = adfuller(timeseries, autolag='AIC')
+    
+    # Display the results of the Dickey-Fuller test
     dfoutput = pd.Series(dftest[0:4], index=['Test Statistic','p-value','#Lags Used','Number of Observations Used'])
-    for key,value in dftest[4].items():
+    for key, value in dftest[4].items():
         dfoutput['Critical Value (%s)'%key] = value
     display(dfoutput)
 
-# Usage example:
-# test_stationarity(your_dataframe['your_column'])
+
+
+# def train_model(train_df, pipeline, window_cv):
+#     """
+#     Train a model on the given data and generate predictions.
+    
+#     Parameters:
+#     - train_df: DataFrame containing the training data.
+#     - pipeline: Preprocessing pipeline for the data.
+#     - window_cv: Cross-validator for time series data.
+    
+#     Returns:
+#     - model_preds: Series of model predictions.
+#     - model_scores: DataFrame containing the scores for various metrics.
+#     """
+#     model_preds = pd.Series(name='predicted')
+#     model_mape_score = pd.Series(name='mape')
+#     model_smape_score = pd.Series(name='smape')
+#     model_rmse_score = pd.Series(name='rmse')
+#     model_mae_score = pd.Series(name='mae')
+    
+#     def mape(actual, pred):
+#         return 100 * np.mean(np.abs(actual - pred) / (np.abs(actual)))
+
+#     def smape(actual, pred):
+#         return 100 * np.mean(np.abs(actual - pred) / (np.abs(actual) + np.abs(pred)))
+
+#     def rmse(actual, pred):
+#         return np.sqrt(np.mean((actual - pred)**2))
+
+#     for train_idx, test_idx in window_cv.split(train_df['confirmed']):
+#         train_set = train_df['confirmed'].iloc[train_idx]
+#         test_set = train_df['confirmed'].iloc[test_idx]
+
+#         model = pipeline.fit(train_set)
+#         prediction = model.predict(len(test_set))
+
+#         model_preds = pd.concat([model_preds, prediction])
+
+#         first_date = test_set.index[0]
+#         model_smape_score[first_date] = smape(test_set, prediction)
+#         model_rmse_score[first_date] = rmse(test_set, prediction)
+#         model_mae_score[first_date] = mean_absolute_error(test_set, prediction)
+#         model_mape_score[first_date] = mape(test_set, prediction)
+    
+#     model_scores = pd.DataFrame(
+#         index=['smape', 'mape', 'rmse', 'mae'], 
+#         data=[model_smape_score, model_mape_score, model_rmse_score, model_mae_score]
+#     ).T
+    
+#     return model_preds, model_scores
+
+
+
+# def generate_daily_metrics(model_preds, actual):
+#     """
+#     Generate various metrics and performance data from the predictions.
+    
+#     Parameters:
+#     - plot_df: DataFrame containing the model predictions and actual data.
+#     - actual: Actual values to compare against the predictions.
+    
+#     Returns:
+#     - plot_df: DataFrame updated with the new metrics.
+#     """
+    
+#     plot_df = pd.DataFrame({'predicted': model_preds, 'confirmed': actual})
+#     plot_df['daily_predicted'] = plot_df['predicted'].diff()
+#     plot_df['daily_confirmed'] = plot_df['confirmed'].diff()
+#     plot_df['rmse'] = np.sqrt((plot_df['confirmed'] - plot_df['predicted'])**2)
+#     plot_df['mae'] = np.abs(plot_df['confirmed'] - plot_df['predicted'])
+#     plot_df['mape'] = 100 * np.abs(plot_df['confirmed'] - plot_df['predicted']) / np.abs(actual)
+#     plot_df['smape'] =  100 * np.abs(plot_df['confirmed'] - plot_df['predicted']) / (np.abs(actual) + np.abs(plot_df['predicted']))
+    
+#     return plot_df
+
 
 
 
