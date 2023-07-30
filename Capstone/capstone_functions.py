@@ -13,6 +13,7 @@ import os
 from IPython.display import display, Markdown
 from summarytools import dfSummary, tabset
 from tqdm.auto import tqdm
+import joblib  # for persistence
 
 
 # Viz libraries
@@ -32,12 +33,12 @@ from plotly.subplots import make_subplots
 
 # ML libraries
 
-import scipy.stats as stats
+from scipy.stats import shapiro
 import scipy
 import statsmodels.api as sm
 import sklearn as sk
 from tempfile import mkdtemp
-from sklearn.pipeline import Pipeline
+from sklearn.pipeline import Pipeline as SK_Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from sklearn.decomposition import PCA, KernelPCA
 from sklearn.experimental import enable_halving_search_cv    # noqa
@@ -62,7 +63,7 @@ from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 
 # # Advanced Ensemble Models
 
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, ExtraTreesRegressor, GradientBoostingClassifier, RandomForestRegressor, GradientBoostingRegressor
+# from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, ExtraTreesRegressor, GradientBoostingClassifier, RandomForestRegressor, GradientBoostingRegressor
 # from sklearn.naive_bayes import GaussianNB
 # # from xgboost import XGBClassifier, XGBRegressor
 from lightgbm import LGBMClassifier, LGBMRegressor
@@ -1024,7 +1025,7 @@ def create_features(df, label=None):
 
 
 
-def test_stationarity(timeseries):
+def test_stationarity(timeseries, plot=True):
     """
     Test the stationarity of a given time series.
     
@@ -1043,28 +1044,29 @@ def test_stationarity(timeseries):
     rolmean = timeseries.rolling(window=12).mean()  # Rolling mean
     rolstd = timeseries.rolling(window=12).std()    # Rolling standard deviation
 
-    # Initialize a plotly graph with a secondary y-axis for displaying the rolling std deviation
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    if plot:
+        # Initialize a plotly graph with a secondary y-axis for displaying the rolling std deviation
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    # Plot the original series
-    fig.add_trace(go.Scatter(x=timeseries.index, y=timeseries, mode='lines', name='Original', line=dict(color='blue')))
-    
-    # Plot the rolling mean
-    fig.add_trace(go.Scatter(x=rolmean.index, y=rolmean, mode='lines', name='Rolling Mean', line=dict(color='red')))
-    
-    # Plot the rolling standard deviation on the secondary y-axis
-    fig.add_trace(go.Scatter(x=rolstd.index, y=rolstd, mode='lines', name='Rolling Std', line=dict(color='black')), secondary_y=True)
+        # Plot the original series
+        fig.add_trace(go.Scatter(x=timeseries.index, y=timeseries, mode='lines', name='Original', line=dict(color='blue')))
+        
+        # Plot the rolling mean
+        fig.add_trace(go.Scatter(x=rolmean.index, y=rolmean, mode='lines', name='Rolling Mean', line=dict(color='red')))
+        
+        # Plot the rolling standard deviation on the secondary y-axis
+        fig.add_trace(go.Scatter(x=rolstd.index, y=rolstd, mode='lines', name='Rolling Std', line=dict(color='black')), secondary_y=True)
 
-    # Customize the layout of the plot
-    fig.update_layout(title='Rolling Mean & Standard Deviation',
-                    xaxis_title='Date',
-                    yaxis_title='Value',
-                    yaxis2_title='Rolling Std Deviation',
-                    xaxis=dict(rangeslider=dict(visible=True), type='date'),
-                    xaxis_rangeslider_visible=True)
+        # Customize the layout of the plot
+        fig.update_layout(title='Rolling Mean & Standard Deviation',
+                        xaxis_title='Date',
+                        yaxis_title='Value',
+                        yaxis2_title='Rolling Std Deviation',
+                        xaxis=dict(rangeslider=dict(visible=True), type='date'),
+                        xaxis_rangeslider_visible=True)
 
-    # Display the visual representation of the series, rolling mean, and std deviation
-    fig.show()
+        # Display the visual representation of the series, rolling mean, and std deviation
+        fig.show()
 
     # Perform the Dickey-Fuller test to test the stationarity of the series
     print('Results of Dickey-Fuller Test:')
