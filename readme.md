@@ -4,7 +4,7 @@
 
 <img src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="80" height="80"> 
 
-## **COVIDCast: Predicting Pandemics with a Fusion of Epidemiology and Time Series Forecasting**  
+## **COVIDCast: Fusing Epidemiology and Time Series Forecasting to Predict Pandemics**  
 ## **BrainStation**
 
 
