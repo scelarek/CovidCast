@@ -17,8 +17,8 @@
 
 ## 🌟 Introduction 
 
-<div align="center">
-> **Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.** 
+<div align="center", font=18, style='bold'>
+Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.
 <div>
 
 Three years ago, the emergence of COVID-19 sent shockwaves through the global community. However, it's vital to understand that the threat of pandemics extends far beyond COVID. According to experts from organizations like the WHO and various independent research teams, pandemics are considered one of the gravest threats to humanity. In fact, there's a 1 in 30 chance that a pandemic could significantly challenge our existence within the next century.  One of humanity's greatest assets to mitigate this threat lies in prediction. If we can anticipate the spread of a pandemic early on, we stand a better chance of curbing its impact. With COVIDCast, we're not just using generic prediction models; we're integrating the principles of the epidemiological SIRD model with advanced time series forecasting algorithms. This includes ARIMA, SARIMA, SARIMAX, and the Prophet model. 
