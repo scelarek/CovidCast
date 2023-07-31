@@ -25,12 +25,15 @@
 Three years ago, the emergence of COVID-19 drastically impacted the world. While COVID-19 was a significant challenge, the overarching threat of pandemics looms even larger. Experts from esteemed organizations like the WHO, alongside various independent research teams, have highlighted pandemics as one of the most significant threats to humanity. The statistics are daunting: there's a 1 in 30 chance that a pandemic could pose severe challenges to our existence in the upcoming century.
 
 ### My Mission
-My mission is straightforward: Predict to Protect. If we can anticipate the spread of a pandemic at its onset, we stand a better chance of mitigating its impact. COVIDCast is unique, leveraging the principles of the epidemiological SIRD model combined with advanced time series forecasting algorithms like ARIMA, SARIMA, SARIMAX, and the Prophet model.
+
+My goal with this project is straightforward: **Predict to Protect**. If we can anticipate the spread of a pandemic at its onset, we stand a better chance of mitigating its impact. COVIDCast is unique, leveraging the principles of the epidemiological SIRD model combined with advanced time series forecasting algorithms like ARIMA, SARIMA, SARIMAX, and the Prophet model.
+
+- **Time series forecasting algorithms:** The ARIMA and Prophet models predict future trends using the moving average, recent values, and differencing to predict the value of the target variable at the next time step. These models can also incorporate the information gained from seasonality and exogenous variables -- which is where the Epidemiological Models come in. 
+- **Epidemiological Model Overview**: Traditional epidemiological container models, such as the SIRD (Susceptible, Infected, Recovered, Deceased), offer foundational insights into disease spread in real time. SIRD does this by estimating the most recent rate of change for for susceptible, infected, recovered, and deceased populations then using it to compute the reproductive rate of the disease called R0 (pronounced 'R not'). This reproductive rate is the main value that I will be plugging into my time series forecasting models as an exogenous variable.
+
+My integrated approach captures the intricacies of pandemics while maximizing the predictive capabilities of state-of-the-art statistical algorithms.
 
 <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
-
-### Why this Fusion?
-Traditional epidemiological models, such as the SIRD, offer foundational insights into disease spread, accounting for susceptible, infected, recovered, and deceased populations. Time series forecasting algorithms like ARIMA and Prophet predict future trends based on historical data. Our integrated approach captures the intricacies of pandemics while maximizing the predictive capabilities of state-of-the-art statistical algorithms.
 
 ### Results and Model Performance
 Two models emerged as particularly potent: SARIMAX and Prophet both enhanced by features derived from the SIRD's ODE model of the pandemics infectiousness. Below, you will find comprehensive evaluation statistics for these models, accompanied by visual representations showcasing their predictive prowess on unseen data.
