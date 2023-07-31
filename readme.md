@@ -16,8 +16,8 @@
 
 ## 🌟 Introduction 
 
-<div align="center" style="font-size: 18px; font-weight: bold; padding: 20px; border: 2px solid #dcdcdc; border-radius: 10px; background-color: #f5f5f5; color: #333; max-width: 800px; margin: auto;">
-    Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.
+<div align="center">
+Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.
 </div>
 
 
