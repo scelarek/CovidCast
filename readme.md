@@ -11,21 +11,23 @@
 
 </div>
 
-<img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
 
 --- 
 
 ## 🌟 Introduction 
 
-<div align="center", font=18, style='bold'>
-Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.
-<div>
+<div align="center" style="font-size: 18px; font-weight: bold; padding: 20px; border: 2px solid #dcdcdc; border-radius: 10px; background-color: #f5f5f5; color: #333; max-width: 800px; margin: auto;">
+    Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.
+</div>
+
 
 ### Problem Statement
 Three years ago, the emergence of COVID-19 drastically impacted the world. While COVID-19 was a significant challenge, the overarching threat of pandemics looms even larger. Experts from esteemed organizations like the WHO, alongside various independent research teams, have highlighted pandemics as one of the most significant threats to humanity. The statistics are daunting: there's a 1 in 30 chance that a pandemic could pose severe challenges to our existence in the upcoming century.
 
 ### My Mission
 My mission is straightforward: Predict to Protect. If we can anticipate the spread of a pandemic at its onset, we stand a better chance of mitigating its impact. COVIDCast is unique, leveraging the principles of the epidemiological SIRD model combined with advanced time series forecasting algorithms like ARIMA, SARIMA, SARIMAX, and the Prophet model.
+
+<img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
 
 ### Why this Fusion?
 Traditional epidemiological models, such as the SIRD, offer foundational insights into disease spread, accounting for susceptible, infected, recovered, and deceased populations. Time series forecasting algorithms like ARIMA and Prophet predict future trends based on historical data. Our integrated approach captures the intricacies of pandemics while maximizing the predictive capabilities of state-of-the-art statistical algorithms.
