@@ -17,7 +17,11 @@
 
 ## 🌟 Introduction 
 
-Welcome to the GitHub repository for my project on COVID-19 Prediction using advanced machine learning techniques and ODE modeling. This project, undertaken in August 2023, aims to predict the spread and impact of COVID-19 using SARIMAX, Facebook Prophet Model, and RNN with features derived from cutting-edge epidemiological models of pandemics.
+Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions. 
+
+Three years ago, the emergence of COVID-19 sent shockwaves through the global community. However, it's vital to understand that the threat of pandemics extends far beyond COVID. According to experts from organizations like the WHO and various independent research teams, pandemics are considered one of the gravest threats to humanity. In fact, there's a 1 in 30 chance that a pandemic could significantly challenge our existence within the next century.  One of humanity's greatest assets to mitigate this threat lies in prediction. If we can anticipate the spread of a pandemic early on, we stand a better chance of curbing its impact. With COVIDCast, we're not just using generic prediction models; we're integrating the principles of the epidemiological SIRD model with advanced time series forecasting algorithms. This includes ARIMA, SARIMA, SARIMAX, and the Prophet model. 
+
+This project resolve into two models being especially powerful: SARIMAX and Prophet both powered by the Features of the pandemic estimated by the ODE model of SIRD. The models' performance evaluation statistics are below and there are some graphics illustrating their predictions on unseen data.  I invite you to explore this repository and reach out to me with any questions. Further steps in the future will include creating an interactive notebook for you to predict COVID numbers on arbitrary days. 
 
 ---
 
