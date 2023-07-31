@@ -86,7 +86,8 @@ from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from prophet import Prophet
 from sklearn.model_selection import TimeSeriesSplit
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
 from statsmodels.tsa.stattools import acf, pacf, adfuller
 from statsmodels.graphics.tsaplots import month_plot, plot_acf, plot_pacf
 import statsmodels.tsa.seasonal as tsa
@@ -99,7 +100,6 @@ from pmdarima.model_selection import cross_val_score, RollingForecastCV, Sliding
 # from keras.models import Sequential
 # from keras.layers import LSTM
 # from statsmodels.tsa.arima_model import ARIMA
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 
 # Format right y-axis with comma notation
@@ -109,8 +109,8 @@ def comma_format(x, _):
 def mape(actual, pred):
     return 100 * np.mean(np.abs(actual - pred) / (np.abs(actual+1)))
 
-def smape(actual, pred):
-    return 100 * np.mean(np.abs(actual - pred) / (np.abs(actual) + np.abs(pred)))
+# def smape(actual, pred):
+#     return 100 * np.mean(np.abs(actual - pred) / (np.abs(actual) + np.abs(pred)))
 
 def rmse(actual, pred):
     return np.sqrt(np.mean((actual - pred)**2))
@@ -1047,300 +1047,300 @@ def test_stationarity(timeseries, plot=True):
     display(dfoutput)
 
 
-def train_model(y: pd.Series, pipeline, cv, X: pd.DataFrame=None):
-    """
-    Train a model on the given data and generate predictions.
+# def train_model(y: pd.Series, pipeline, cv, X: pd.DataFrame=None):
+#     """
+#     Train a model on the given data and generate predictions.
     
-    Parameters:
-    - y: DataFrame containing the training data.
-    - pipeline: Preprocessing pipeline for the data.
-    - cv: Cross-validator for time series data.
+#     Parameters:
+#     - y: DataFrame containing the training data.
+#     - pipeline: Preprocessing pipeline for the data.
+#     - cv: Cross-validator for time series data.
     
-    Returns:
-    - model_preds: Series of model predictions.
-    - model_scores: DataFrame containing the scores for various metrics.
-    """
-    model_preds_data = {
-        'predicted': [],  # predicted values
-        'lower_conf': [], # lower confidence interval
-        'upper_conf': [], # upper confidence interval
-        'date': [] # date of prediction
-    }
+#     Returns:
+#     - model_preds: Series of model predictions.
+#     - model_scores: DataFrame containing the scores for various metrics.
+#     """
+#     model_preds_data = {
+#         'predicted': [],  # predicted values
+#         'lower_conf': [], # lower confidence interval
+#         'upper_conf': [], # upper confidence interval
+#         'date': [] # date of prediction
+#     }
     
-    # model_mape_score = pd.Series(name='mape')
-    model_smape_score = pd.Series(name='smape')
-    model_rmse_score = pd.Series(name='rmse')
-    model_mae_score = pd.Series(name='mae')
+#     # model_mape_score = pd.Series(name='mape')
+#     model_smape_score = pd.Series(name='smape')
+#     model_rmse_score = pd.Series(name='rmse')
+#     model_mae_score = pd.Series(name='mae')
     
-    for train_idx, test_idx in tqdm(cv.split(y)):
-        train_set = y.iloc[train_idx]
-        test_set = y.iloc[test_idx]
+#     for train_idx, test_idx in tqdm(cv.split(y)):
+#         train_set = y.iloc[train_idx]
+#         test_set = y.iloc[test_idx]
         
-        train_exogenous = X.iloc[train_idx] if X is not None else None
-        test_exogenous = X.iloc[test_idx] if X is not None else None
+#         train_exogenous = X.iloc[train_idx] if X is not None else None
+#         test_exogenous = X.iloc[test_idx] if X is not None else None
         
-        assert not train_set.isna().any(), "train_set contains NaN values"
-        assert not test_set.isna().any(), "test_set contains NaN values"
+#         assert not train_set.isna().any(), "train_set contains NaN values"
+#         assert not test_set.isna().any(), "test_set contains NaN values"
         
-        model = pipeline.fit(train_set, train_exogenous)
+#         model = pipeline.fit(train_set, train_exogenous)
         
-        try:
-            prediction, conf = model.predict(len(test_set), test_exogenous, return_conf_int= True)
-        except:
-            prediction = model.predict(len(test_set), test_exogenous)
-            conf = np.full(shape=(len(test_set), 2), fill_value=prediction)
-        lower_conf = conf[:,0]
-        upper_conf = conf[:,1]
+#         try:
+#             prediction, conf = model.predict(len(test_set), test_exogenous, return_conf_int= True)
+#         except:
+#             prediction = model.predict(len(test_set), test_exogenous)
+#             conf = np.full(shape=(len(test_set), 2), fill_value=prediction)
+#         lower_conf = conf[:,0]
+#         upper_conf = conf[:,1]
             
-        model_preds_data['predicted'].extend(prediction)
-        model_preds_data['lower_conf'].extend(lower_conf)
-        model_preds_data['upper_conf'].extend(upper_conf)
-        model_preds_data['date'].extend(test_set.index)
+#         model_preds_data['predicted'].extend(prediction)
+#         model_preds_data['lower_conf'].extend(lower_conf)
+#         model_preds_data['upper_conf'].extend(upper_conf)
+#         model_preds_data['date'].extend(test_set.index)
         
-        first_date = test_set.index[0]
-        model_smape_score[first_date] = smape(test_set, prediction)
-        model_rmse_score[first_date] = rmse(test_set, prediction)
-        model_mae_score[first_date] = np.mean(np.abs(test_set - prediction))
-        # model_mape_score[first_date] = mape(test_set, prediction)
+#         first_date = test_set.index[0]
+#         model_smape_score[first_date] = smape(test_set, prediction)
+#         model_rmse_score[first_date] = rmse(test_set, prediction)
+#         model_mae_score[first_date] = np.mean(np.abs(test_set - prediction))
+#         # model_mape_score[first_date] = mape(test_set, prediction)
     
-    # Generating Daily Metrics
-    daily_metrics = pd.DataFrame(model_preds_data)
-    daily_metrics['date'] = pd.to_datetime(daily_metrics['date'])
-    daily_metrics.set_index('date', inplace=True)
-    daily_metrics = pd.concat([daily_metrics, y], axis=1, join='outer')
-    daily_metrics['residual'] = daily_metrics[y.name] - daily_metrics['predicted']
-    daily_metrics['smape'] =  100 * np.abs(daily_metrics[y.name] - daily_metrics['predicted']) / (np.abs(daily_metrics[y.name]) + np.abs(daily_metrics['predicted']))
+#     # Generating Daily Metrics
+#     daily_metrics = pd.DataFrame(model_preds_data)
+#     daily_metrics['date'] = pd.to_datetime(daily_metrics['date'])
+#     daily_metrics.set_index('date', inplace=True)
+#     daily_metrics = pd.concat([daily_metrics, y], axis=1, join='outer')
+#     daily_metrics['residual'] = daily_metrics[y.name] - daily_metrics['predicted']
+#     daily_metrics['smape'] =  100 * np.abs(daily_metrics[y.name] - daily_metrics['predicted']) / (np.abs(daily_metrics[y.name]) + np.abs(daily_metrics['predicted']))
 
 
-    # Generating Model Scores on Validation Sets
-    model_scores = pd.DataFrame(
-        index=['MAE', 'RMSE', 'sMAPE'], 
-        data=[model_mae_score, model_rmse_score, model_smape_score]
-    ).T
+#     # Generating Model Scores on Validation Sets
+#     model_scores = pd.DataFrame(
+#         index=['MAE', 'RMSE', 'sMAPE'], 
+#         data=[model_mae_score, model_rmse_score, model_smape_score]
+#     ).T
 
-    # Fitting the Model on the Entire Dataset
-    model = pipeline.fit(y)
+#     # Fitting the Model on the Entire Dataset
+#     model = pipeline.fit(y)
 
-    return daily_metrics, model_scores, model
-
-
-
-def plot_combined_charts(daily_df: pd.DataFrame, validation_scores_df: pd.DataFrame, target_column: str) -> None:
-    """
-    Plot actual vs predicted values and evaluation metrics side by side.
-    
-    This function visualizes the actual vs predicted values and evaluation metrics 
-    (MAPE, SMAPE, MAE, RMSE) side by side in a 1x2 grid.
-    
-    Parameters:
-    - daily_df (pd.DataFrame): A dataframe containing the actual and predicted values.
-    - validation_scores_df (pd.DataFrame): A dataframe with columns 'mape', 'smape', 'mae', and 'rmse'.
-    - target_column (str): The name of the target column for which predictions are made.
-    
-    Returns:
-    None. The function displays the plots.
-    """
-    
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 6))
-    
-    # Plot Actual vs Predicted on the first axis
-    daily_df[f'{target_column}'].plot(ax=ax1, label='Actual', linewidth=2)
-    daily_df['predicted'].plot(ax=ax1, label='Cross-Validation Predicted', linestyle='--', linewidth=2)
-    ax1.yaxis.set_major_formatter(FuncFormatter(comma_format))
-    ax1.set_title(f'Cross Validation of {target_column.replace("_", " ").capitalize()}: Model Predictions vs Actual Data', fontsize=14)
-    ax1.set_xlabel('Date')
-    ax1.set_ylabel('Count')
-    ax1.legend()
-    
-    # Plot Error Metrics on the second axis
-    sns.lineplot(x=validation_scores_df.index, y=validation_scores_df['MAE'], ax=ax2, label='MAE', color='b')
-    sns.lineplot(x=validation_scores_df.index, y=validation_scores_df['RMSE'], ax=ax2, label='RMSE', color='g')
-    
-    ax3 = ax2.twinx()
-    sns.lineplot(x=validation_scores_df.index, y=validation_scores_df['sMAPE'], ax=ax3, label='sMAPE', color='purple', linestyle='--')
-    ax2.set_ylabel('Absolute Error (Covid Cases)')
-    ax3.set_ylabel('Percentage Error (Covid Cases)')
-    ax2.yaxis.set_major_formatter(FuncFormatter(lambda x, _: '{:,.0f}'.format(x)))
-    ax3.yaxis.set_major_formatter(FuncFormatter(lambda x, _: '{:.0%}'.format(x/100)))
-    ax3.set_ylim(0, 100)
-    ax2.set_title('Cross-Validation Error Metrics: Error over Different Time Periods', fontsize=14)
-    ax2.set_xlabel('Date')
-    
-    handles2, labels2 = ax2.get_legend_handles_labels()
-    handles3, labels3 = ax3.get_legend_handles_labels()
-    ax2.legend(handles=handles2 + handles3, labels=labels2 + labels3, loc='upper left')
-    
-    plt.tight_layout()
-    plt.show()
-
-def plot_predictions_with_confidence_interval(in_sample_set, model, X_train=None):
-    """
-    Plot actual versus predicted values along with the 95% confidence interval.
-    
-    This function takes the actual in-sample set and a fitted model to generate a plot
-    showcasing the actual values, predicted values, and the confidence interval. It then
-    calculates and returns evaluation metrics in a DataFrame.
-    
-    Parameters:
-    - in_sample_set (pd.Series): The actual values.
-    - model: The fitted model.
-    
-    Returns:
-    pd.DataFrame: A dataframe containing evaluation metrics.
-    """
-    
-    # Predict in-sample values and get confidence intervals
-    predicted_values, conf_int = model.predict_in_sample(X=X_train, return_conf_int=True, start=60)
-    in_sample_set = in_sample_set[60:]
-    # Create a DataFrame for easier plotting and analysis
-    df = pd.DataFrame({
-        in_sample_set.name: in_sample_set, 
-        'predicted_in_sample': predicted_values,
-        'upper_conf': conf_int[:, 1],
-        'lower_conf': conf_int[:, 0],
-        'residuals': in_sample_set - predicted_values
-    }, index=in_sample_set.index)
-
-    # Initialize a Plotly figure for visualization
-    fig = go.Figure()
-
-    # Add traces for actual and predicted values, as well as confidence intervals
-    fig.add_trace(go.Scatter(x=df.index, y=df[in_sample_set.name], mode='lines', name='Actual', line=dict(color='blue')))
-    fig.add_trace(go.Scatter(x=df.index, y=df['predicted_in_sample'], mode='lines', name='Predicted', line=dict(color='red')))
-    fig.add_trace(go.Scatter(x=df.index, y=df['upper_conf'], mode='lines', line=dict(color='rgba(255, 0, 0, 0.3)', width=0), showlegend=False))
-    fig.add_trace(go.Scatter(x=df.index, y=df['lower_conf'], mode='lines', name='95% Confidence Interval', line=dict(color='rgba(255, 0, 0, 0.3)', width=0), fill='tonexty'))
-
-    # Update layout to include range sliders for better interactivity
-    fig.update_layout(
-        title='In-Sample Data vs. Predicted Values with Confidence Intervals',
-        xaxis=dict(
-            rangeselector=dict(
-                buttons=list([
-                    dict(count=1, label="1m", step="month", stepmode="backward"),
-                    dict(count=6, label="6m", step="month", stepmode="backward"),
-                    dict(count=1, label="1y", step="year", stepmode="backward"),
-                    dict(count=2, label="2y", step="year", stepmode="backward"),
-                    dict(step="all")
-                ])
-            ),
-            rangeslider=dict(visible=True),
-            type="date"
-        ),
-        yaxis=dict(
-            title="COVID New Case Count",
-            rangemode="tozero"
-        )
-    )
-
-    # Render the figure
-    fig.show()
-
-    # # Create the histogram plot for residuals
-    plt.figure(figsize=(10, 6))
-    sns.histplot(df['residuals'], kde=True, color="dodgerblue", bins=30)
-    
-    # Set title and labels
-    plt.title('Distribution of Residuals', fontsize=16, fontweight='bold')
-    plt.xlabel('Residuals', fontsize=14)
-    plt.ylabel('Count', fontsize=14)
-    
-    # Show the plot with a tight layout
-    plt.tight_layout()
-    plt.show()
-    
-    # Compute evaluation metrics
-    r2 = r2_score(in_sample_set, predicted_values)
-    mae = mean_absolute_error(in_sample_set, predicted_values)
-    rmse = np.sqrt(mean_squared_error(in_sample_set, predicted_values))
-    smape_val = smape(in_sample_set, predicted_values)
-
-    # Create and return a DataFrame with the calculated metrics
-    metrics_df = pd.DataFrame({
-        'R-squared': [r2],
-        'MAE': [mae],
-        'RMSE': [rmse],
-        'sMAPE': [smape_val]
-    })
-
-    return metrics_df.T
+#     return daily_metrics, model_scores, model
 
 
-def evaluate_forecast(in_sample_set, out_of_sample_set, model, X_test=None):
-    """
-    Evaluate the performance of an ARIMA forecast against out_of_sample_set values and visualize the results.
-    
-    This function computes multiple error metrics including MAE, RMSE, MAPE, and sMAPE. 
-    It also visualizes the in_sample_set, out_of_sample_set, and predicted series for easier comparison 
-    using Plotly.
-    
-    Parameters:
-    - in_sample_set (pd.Series): Series containing in_sample_set values leading up to the forecast.
-    - out_of_sample_set (pd.Series): Series containing the out_of_sample_set values for the time period being forecasted.
-    - predicted (pd.Series): Series containing the predicted values from the ARIMA model.
-    
-    Returns:
-    - metrics_df (pd.DataFrame): A DataFrame containing the calculated error metrics.
-    """
-    predicted, conf = model.predict(len(out_of_sample_set), X=X_test, return_conf_int= True)
-    predicted = pd.Series(predicted, index=out_of_sample_set.index)
-    lower_conf = conf[:,0]
-    upper_conf = conf[:,1]    # Calculate daily error metrics
-    
-    daily_metrics = pd.DataFrame()
-    daily_metrics['residual'] = out_of_sample_set - predicted
-    daily_metrics['predicted'] =  predicted
-    daily_metrics['out_of_sample_set'] =  out_of_sample_set
-    daily_metrics['lower_conf'] =  lower_conf
-    daily_metrics['upper_conf'] =  upper_conf
-    
-    
-    
-    # # Create a seaborn scatter plot
-    # fig1 = go.Figure()
 
-    # # Plot mae on the primary y-axis
-    # fig1 = px.scatter(daily_metrics, x='predicted', y='residual', title="Predicted Values vs Residuals")
-    # fig1.update_layout(title="Predicted Values vs Residuals", xaxis_title="Predicted Values")
-    # fig1.update_yaxes(title_text="Residuals")
-    # fig1.show()
+# def plot_combined_charts(daily_df: pd.DataFrame, validation_scores_df: pd.DataFrame, target_column: str) -> None:
+#     """
+#     Plot actual vs predicted values and evaluation metrics side by side.
     
+#     This function visualizes the actual vs predicted values and evaluation metrics 
+#     (MAPE, SMAPE, MAE, RMSE) side by side in a 1x2 grid.
     
-    # Create a Plotly visualization to compare in_sample_set, out_of_sample_set, and predicted series
-    fig2 = go.Figure()
-    fig2.add_trace(go.Scatter(y=in_sample_set[-40:], x=in_sample_set.index[-40:], mode='lines', name='In Sample Set', line=dict(color='blue', width=2)))
-    fig2.add_trace(go.Scatter(y=out_of_sample_set, x=out_of_sample_set.index, mode='lines', name='Out of Sample Set', line=dict(color='green', width=2)))
-    fig2.add_trace(go.Scatter(y=predicted, x=predicted.index, mode='lines', name='Predicted', line=dict(color='red', width=2, dash='dash')))
+#     Parameters:
+#     - daily_df (pd.DataFrame): A dataframe containing the actual and predicted values.
+#     - validation_scores_df (pd.DataFrame): A dataframe with columns 'mape', 'smape', 'mae', and 'rmse'.
+#     - target_column (str): The name of the target column for which predictions are made.
     
-    # Add upper and lower confidence intervals and fill between them
-    fig2.add_trace(go.Scatter(x=predicted.index, y=upper_conf, mode='lines', name='Upper Confidence', line=dict(width=0), showlegend=False))
-    fig2.add_trace(go.Scatter(x=predicted.index, y=lower_conf, mode='lines', name='Lower Confidence', line=dict(width=0), fill='tonexty', fillcolor='rgba(255,0,0,0.2)', showlegend=False))
+#     Returns:
+#     None. The function displays the plots.
+#     """
     
-    # Customize the layout of the plot
-    fig2.update_layout(title="out_of_sample_set vs Predicted Values", 
-                    xaxis_title="Date", 
-                    yaxis_title="Value",
-                    xaxis_rangeslider_visible=True)
+#     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 6))
     
-    # Display the visualization
-    fig2.show()
+#     # Plot Actual vs Predicted on the first axis
+#     daily_df[f'{target_column}'].plot(ax=ax1, label='Actual', linewidth=2)
+#     daily_df['predicted'].plot(ax=ax1, label='Cross-Validation Predicted', linestyle='--', linewidth=2)
+#     ax1.yaxis.set_major_formatter(FuncFormatter(comma_format))
+#     ax1.set_title(f'Cross Validation of {target_column.replace("_", " ").capitalize()}: Model Predictions vs Actual Data', fontsize=14)
+#     ax1.set_xlabel('Date')
+#     ax1.set_ylabel('Count')
+#     ax1.legend()
     
+#     # Plot Error Metrics on the second axis
+#     sns.lineplot(x=validation_scores_df.index, y=validation_scores_df['MAE'], ax=ax2, label='MAE', color='b')
+#     sns.lineplot(x=validation_scores_df.index, y=validation_scores_df['RMSE'], ax=ax2, label='RMSE', color='g')
     
-    # Calculate error metrics
-    mae = mean_absolute_error(out_of_sample_set, predicted)
-    rmse = np.sqrt(mean_squared_error(out_of_sample_set, predicted))
-    smape = np.mean(np.abs(out_of_sample_set - predicted) / (np.abs(out_of_sample_set) + np.abs(predicted))) * 100
-    # mape = np.mean(np.abs(out_of_sample_set - predicted) / (np.abs(out_of_sample_set+1))) * 100
+#     ax3 = ax2.twinx()
+#     sns.lineplot(x=validation_scores_df.index, y=validation_scores_df['sMAPE'], ax=ax3, label='sMAPE', color='purple', linestyle='--')
+#     ax2.set_ylabel('Absolute Error (Covid Cases)')
+#     ax3.set_ylabel('Percentage Error (Covid Cases)')
+#     ax2.yaxis.set_major_formatter(FuncFormatter(lambda x, _: '{:,.0f}'.format(x)))
+#     ax3.yaxis.set_major_formatter(FuncFormatter(lambda x, _: '{:.0%}'.format(x/100)))
+#     ax3.set_ylim(0, 100)
+#     ax2.set_title('Cross-Validation Error Metrics: Error over Different Time Periods', fontsize=14)
+#     ax2.set_xlabel('Date')
     
+#     handles2, labels2 = ax2.get_legend_handles_labels()
+#     handles3, labels3 = ax3.get_legend_handles_labels()
+#     ax2.legend(handles=handles2 + handles3, labels=labels2 + labels3, loc='upper left')
     
-    # Return the computed metrics in a DataFrame for further analysis or reporting
-    metrics_df = pd.DataFrame({
-        'Test Metric': ['MAE', 'RMSE', 'sMAPE'],
-        'Value': [mae, rmse, smape]
-    })
-    
-    return metrics_df.set_index('Test Metric') #, daily_metrics
+#     plt.tight_layout()
+#     plt.show()
 
-from matplotlib.ticker import FuncFormatter, PercentFormatter
+# def plot_predictions_with_confidence_interval(in_sample_set, model, X_train=None):
+#     """
+#     Plot actual versus predicted values along with the 95% confidence interval.
+    
+#     This function takes the actual in-sample set and a fitted model to generate a plot
+#     showcasing the actual values, predicted values, and the confidence interval. It then
+#     calculates and returns evaluation metrics in a DataFrame.
+    
+#     Parameters:
+#     - in_sample_set (pd.Series): The actual values.
+#     - model: The fitted model.
+    
+#     Returns:
+#     pd.DataFrame: A dataframe containing evaluation metrics.
+#     """
+    
+#     # Predict in-sample values and get confidence intervals
+#     predicted_values, conf_int = model.predict_in_sample(X=X_train, return_conf_int=True, start=60)
+#     in_sample_set = in_sample_set[60:]
+#     # Create a DataFrame for easier plotting and analysis
+#     df = pd.DataFrame({
+#         in_sample_set.name: in_sample_set, 
+#         'predicted_in_sample': predicted_values,
+#         'upper_conf': conf_int[:, 1],
+#         'lower_conf': conf_int[:, 0],
+#         'residuals': in_sample_set - predicted_values
+#     }, index=in_sample_set.index)
+
+#     # Initialize a Plotly figure for visualization
+#     fig = go.Figure()
+
+#     # Add traces for actual and predicted values, as well as confidence intervals
+#     fig.add_trace(go.Scatter(x=df.index, y=df[in_sample_set.name], mode='lines', name='Actual', line=dict(color='blue')))
+#     fig.add_trace(go.Scatter(x=df.index, y=df['predicted_in_sample'], mode='lines', name='Predicted', line=dict(color='red')))
+#     fig.add_trace(go.Scatter(x=df.index, y=df['upper_conf'], mode='lines', line=dict(color='rgba(255, 0, 0, 0.3)', width=0), showlegend=False))
+#     fig.add_trace(go.Scatter(x=df.index, y=df['lower_conf'], mode='lines', name='95% Confidence Interval', line=dict(color='rgba(255, 0, 0, 0.3)', width=0), fill='tonexty'))
+
+#     # Update layout to include range sliders for better interactivity
+#     fig.update_layout(
+#         title='In-Sample Data vs. Predicted Values with Confidence Intervals',
+#         xaxis=dict(
+#             rangeselector=dict(
+#                 buttons=list([
+#                     dict(count=1, label="1m", step="month", stepmode="backward"),
+#                     dict(count=6, label="6m", step="month", stepmode="backward"),
+#                     dict(count=1, label="1y", step="year", stepmode="backward"),
+#                     dict(count=2, label="2y", step="year", stepmode="backward"),
+#                     dict(step="all")
+#                 ])
+#             ),
+#             rangeslider=dict(visible=True),
+#             type="date"
+#         ),
+#         yaxis=dict(
+#             title="COVID New Case Count",
+#             rangemode="tozero"
+#         )
+#     )
+
+#     # Render the figure
+#     fig.show()
+
+#     # # Create the histogram plot for residuals
+#     plt.figure(figsize=(10, 6))
+#     sns.histplot(df['residuals'], kde=True, color="dodgerblue", bins=30)
+    
+#     # Set title and labels
+#     plt.title('Distribution of Residuals', fontsize=16, fontweight='bold')
+#     plt.xlabel('Residuals', fontsize=14)
+#     plt.ylabel('Count', fontsize=14)
+    
+#     # Show the plot with a tight layout
+#     plt.tight_layout()
+#     plt.show()
+    
+#     # Compute evaluation metrics
+#     r2 = r2_score(in_sample_set, predicted_values)
+#     mae = mean_absolute_error(in_sample_set, predicted_values)
+#     rmse = np.sqrt(mean_squared_error(in_sample_set, predicted_values))
+#     smape_val = smape(in_sample_set, predicted_values)
+
+#     # Create and return a DataFrame with the calculated metrics
+#     metrics_df = pd.DataFrame({
+#         'R-squared': [r2],
+#         'MAE': [mae],
+#         'RMSE': [rmse],
+#         'sMAPE': [smape_val]
+#     })
+
+#     return metrics_df.T
+
+
+# def evaluate_forecast(in_sample_set, out_of_sample_set, model, X_test=None):
+#     """
+#     Evaluate the performance of an ARIMA forecast against out_of_sample_set values and visualize the results.
+    
+#     This function computes multiple error metrics including MAE, RMSE, MAPE, and sMAPE. 
+#     It also visualizes the in_sample_set, out_of_sample_set, and predicted series for easier comparison 
+#     using Plotly.
+    
+#     Parameters:
+#     - in_sample_set (pd.Series): Series containing in_sample_set values leading up to the forecast.
+#     - out_of_sample_set (pd.Series): Series containing the out_of_sample_set values for the time period being forecasted.
+#     - predicted (pd.Series): Series containing the predicted values from the ARIMA model.
+    
+#     Returns:
+#     - metrics_df (pd.DataFrame): A DataFrame containing the calculated error metrics.
+#     """
+#     predicted, conf = model.predict(len(out_of_sample_set), X=X_test, return_conf_int= True)
+#     predicted = pd.Series(predicted, index=out_of_sample_set.index)
+#     lower_conf = conf[:,0]
+#     upper_conf = conf[:,1]    # Calculate daily error metrics
+    
+#     daily_metrics = pd.DataFrame()
+#     daily_metrics['residual'] = out_of_sample_set - predicted
+#     daily_metrics['predicted'] =  predicted
+#     daily_metrics['out_of_sample_set'] =  out_of_sample_set
+#     daily_metrics['lower_conf'] =  lower_conf
+#     daily_metrics['upper_conf'] =  upper_conf
+    
+    
+    
+#     # # Create a seaborn scatter plot
+#     # fig1 = go.Figure()
+
+#     # # Plot mae on the primary y-axis
+#     # fig1 = px.scatter(daily_metrics, x='predicted', y='residual', title="Predicted Values vs Residuals")
+#     # fig1.update_layout(title="Predicted Values vs Residuals", xaxis_title="Predicted Values")
+#     # fig1.update_yaxes(title_text="Residuals")
+#     # fig1.show()
+    
+    
+#     # Create a Plotly visualization to compare in_sample_set, out_of_sample_set, and predicted series
+#     fig2 = go.Figure()
+#     fig2.add_trace(go.Scatter(y=in_sample_set[-40:], x=in_sample_set.index[-40:], mode='lines', name='In Sample Set', line=dict(color='blue', width=2)))
+#     fig2.add_trace(go.Scatter(y=out_of_sample_set, x=out_of_sample_set.index, mode='lines', name='Out of Sample Set', line=dict(color='green', width=2)))
+#     fig2.add_trace(go.Scatter(y=predicted, x=predicted.index, mode='lines', name='Predicted', line=dict(color='red', width=2, dash='dash')))
+    
+#     # Add upper and lower confidence intervals and fill between them
+#     fig2.add_trace(go.Scatter(x=predicted.index, y=upper_conf, mode='lines', name='Upper Confidence', line=dict(width=0), showlegend=False))
+#     fig2.add_trace(go.Scatter(x=predicted.index, y=lower_conf, mode='lines', name='Lower Confidence', line=dict(width=0), fill='tonexty', fillcolor='rgba(255,0,0,0.2)', showlegend=False))
+    
+#     # Customize the layout of the plot
+#     fig2.update_layout(title="out_of_sample_set vs Predicted Values", 
+#                     xaxis_title="Date", 
+#                     yaxis_title="Value",
+#                     xaxis_rangeslider_visible=True)
+    
+#     # Display the visualization
+#     fig2.show()
+    
+    
+#     # Calculate error metrics
+#     mae = mean_absolute_error(out_of_sample_set, predicted)
+#     rmse = np.sqrt(mean_squared_error(out_of_sample_set, predicted))
+#     smape = np.mean(np.abs(out_of_sample_set - predicted) / (np.abs(out_of_sample_set) + np.abs(predicted))) * 100
+#     # mape = np.mean(np.abs(out_of_sample_set - predicted) / (np.abs(out_of_sample_set+1))) * 100
+    
+    
+#     # Return the computed metrics in a DataFrame for further analysis or reporting
+#     metrics_df = pd.DataFrame({
+#         'Test Metric': ['MAE', 'RMSE', 'sMAPE'],
+#         'Value': [mae, rmse, smape]
+#     })
+    
+#     return metrics_df.set_index('Test Metric') #, daily_metrics
+
+# from matplotlib.ticker import FuncFormatter, PercentFormatter
 
 
 
