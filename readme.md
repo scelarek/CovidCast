@@ -4,7 +4,7 @@
 
 <img src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="80" height="80"> 
 
-## **COVID-19 Prediction Powered by ML and Epidemiological Models**  
+## **COVIDCast: Predicting Pandemics with a Fusion of Epidemiology and Time Series Forecasting**  
 ## **BrainStation**
 
 
@@ -21,9 +21,20 @@
 Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.
 <div>
 
-Three years ago, the emergence of COVID-19 sent shockwaves through the global community. However, it's vital to understand that the threat of pandemics extends far beyond COVID. According to experts from organizations like the WHO and various independent research teams, pandemics are considered one of the gravest threats to humanity. In fact, there's a 1 in 30 chance that a pandemic could significantly challenge our existence within the next century.  One of humanity's greatest assets to mitigate this threat lies in prediction. If we can anticipate the spread of a pandemic early on, we stand a better chance of curbing its impact. With COVIDCast, we're not just using generic prediction models; we're integrating the principles of the epidemiological SIRD model with advanced time series forecasting algorithms. This includes ARIMA, SARIMA, SARIMAX, and the Prophet model. 
+### Problem Statement
+Three years ago, the emergence of COVID-19 drastically impacted the world. While COVID-19 was a significant challenge, the overarching threat of pandemics looms even larger. Experts from esteemed organizations like the WHO, alongside various independent research teams, have highlighted pandemics as one of the most significant threats to humanity. The statistics are daunting: there's a 1 in 30 chance that a pandemic could pose severe challenges to our existence in the upcoming century.
 
-This project resolve into two models being especially powerful: SARIMAX and Prophet both powered by the Features of the pandemic estimated by the ODE model of SIRD. The models' performance evaluation statistics are below and there are some graphics illustrating their predictions on unseen data.  I invite you to explore this repository and reach out to me with any questions. Further steps in the future will include creating an interactive notebook for you to predict COVID numbers on arbitrary days. 
+### My Mission
+My mission is straightforward: Predict to Protect. If we can anticipate the spread of a pandemic at its onset, we stand a better chance of mitigating its impact. COVIDCast is unique, leveraging the principles of the epidemiological SIRD model combined with advanced time series forecasting algorithms like ARIMA, SARIMA, SARIMAX, and the Prophet model.
+
+### Why this Fusion?
+Traditional epidemiological models, such as the SIRD, offer foundational insights into disease spread, accounting for susceptible, infected, recovered, and deceased populations. Time series forecasting algorithms like ARIMA and Prophet predict future trends based on historical data. Our integrated approach captures the intricacies of pandemics while maximizing the predictive capabilities of state-of-the-art statistical algorithms.
+
+### Results and Model Performance
+Two models emerged as particularly potent: SARIMAX and Prophet both enhanced by features derived from the SIRD's ODE model of the pandemics infectiousness. Below, you will find comprehensive evaluation statistics for these models, accompanied by visual representations showcasing their predictive prowess on unseen data.
+
+### Engage with Me and Future Prospects:
+I encourage you to delve deeper into this repository. Should you have any inquiries or insights, please don't hesitate to reach out. One of our forthcoming additions is an interactive notebook, enabling users to predict COVID-19 trends for any given day.
 
 ---
 
