@@ -27,8 +27,8 @@ My project is broken down into four main parts:
 
 1. **Cleaning**: Dive into my process of data preprocessing and cleaning in this [Jupyter Notebook](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Capstone/1.%20Covid%20Preprocessing.ipynb).
 2. **EDA**: Explore the basic exploratory data analysis I performed in this [Jupyter Notebook](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Capstone/2.%20Sample%20EDA%20(Basic).ipynb).
-3. **Initial Modeling**: Description and links to be added.
-4. **Advanced Modeling**: Description and links to be added.
+3. **Initial ARIMA, SARIMA, and SARIMAX Modeling**: I performed in this [Jupyter Notebook](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20Covid%20SARIMA%20Modeling.ipynb)
+4. **Facebook Prophet Modeling**:  I performed in this [Jupyter Notebook](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/4.%20Covid%20Prophet%20and%20RNNs.ipynb)
 
 ---
 
