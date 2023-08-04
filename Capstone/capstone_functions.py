@@ -87,6 +87,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 from prophet import Prophet
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import sklearn.metrics
 
 from statsmodels.tsa.stattools import acf, pacf, adfuller
 from statsmodels.graphics.tsaplots import month_plot, plot_acf, plot_pacf
@@ -94,7 +95,6 @@ import statsmodels.tsa.seasonal as tsa
 import pmdarima as pm
 from pmdarima.pipeline import Pipeline
 from pmdarima.preprocessing import BoxCoxEndogTransformer
-from pmdarima.metrics import smape
 from pmdarima.model_selection import cross_val_score, RollingForecastCV, SlidingWindowForecastCV
 # from prophet import plot_plotly, add_changepoints_to_plot
 # from keras.models import Sequential
@@ -109,8 +109,7 @@ def comma_format(x, _):
 def mape(actual, pred):
     return 100 * np.mean(np.abs(actual - pred) / (np.abs(actual+1)))
 
-# def smape(actual, pred):
-#     return 100 * np.mean(np.abs(actual - pred) / (np.abs(actual) + np.abs(pred)))
+from pmdarima.metrics import smape
 
 def rmse(actual, pred):
     return np.sqrt(np.mean((actual - pred)**2))
@@ -153,13 +152,13 @@ from geopy.geocoders import Nominatim
 # sns.set_style("darkgrid")
 # sns.set_style("whitegrid")
 # sns.set_palette("viridis")
-sns.set_context("notebook")
+# sns.set_context("notebook")
 
-pd.set_option("display.max_columns", 50)
-pd.set_option('display.max_colwidth', 1000)
-pd.plotting.register_matplotlib_converters()
-os.environ["PYTHONHASHSEED"] = "42"
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
+# pd.set_option("display.max_columns", 50)
+# pd.set_option('display.max_colwidth', 1000)
+# pd.plotting.register_matplotlib_converters()
+# os.environ["PYTHONHASHSEED"] = "42"
+# os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 
 
@@ -253,411 +252,411 @@ def non_numeric_columns_assessment(df):
 # Hyperparameter Functions and Piping
 
 
-def evaluate_regression_model(model, X_test, y_test, plot=True):
-    """
-    Evaluate the performance of a linear model.
+# def evaluate_regression_model(model, X_test, y_test, plot=True):
+#     """
+#     Evaluate the performance of a linear model.
 
-    Parameters:
-    model (Model): Trained model for making predictions
-    X_test (DataFrame): Features from the test set
-    y_test (Series/DataFrame): Target variable from the test set
+#     Parameters:
+#     model (Model): Trained model for making predictions
+#     X_test (DataFrame): Features from the test set
+#     y_test (Series/DataFrame): Target variable from the test set
 
-    Returns:
-    scores (Series): Series containing performance scores
-    residuals (Series): Residuals of the model
-    """    
-    # Make predictions on the test set
-    y_pred = model.predict(X_test)
+#     Returns:
+#     scores (Series): Series containing performance scores
+#     residuals (Series): Residuals of the model
+#     """    
+#     # Make predictions on the test set
+#     y_pred = model.predict(X_test)
     
-    # Calculate metrics
-    r2 = metrics.r2_score(y_test, y_pred)
-    adj_r2 = 1 - (1-r2)*(len(y_test)-1)/(len(y_test)-X_test.shape[1]-1)
-    mae = metrics.mean_absolute_error(y_test, y_pred)
-    mse = metrics.mean_squared_error(y_test, y_pred)
-    rmse = np.sqrt(mse)
-    explained_variance = metrics.explained_variance_score(y_test, y_pred)
+#     # Calculate metrics
+#     r2 = metrics.r2_score(y_test, y_pred)
+#     adj_r2 = 1 - (1-r2)*(len(y_test)-1)/(len(y_test)-X_test.shape[1]-1)
+#     mae = metrics.mean_absolute_error(y_test, y_pred)
+#     mse = metrics.mean_squared_error(y_test, y_pred)
+#     rmse = np.sqrt(mse)
+#     explained_variance = metrics.explained_variance_score(y_test, y_pred)
     
-    # Put metrics into a pandas series
-    scores = pd.Series({
-        'R^2': r2,
-        'Adjusted R^2': adj_r2,
-        'MAE': mae,
-        'MSE': mse,
-        'RMSE': rmse,
-        'Explained Variance': explained_variance,
-    })
+#     # Put metrics into a pandas series
+#     scores = pd.Series({
+#         'R^2': r2,
+#         'Adjusted R^2': adj_r2,
+#         'MAE': mae,
+#         'MSE': mse,
+#         'RMSE': rmse,
+#         'Explained Variance': explained_variance,
+#     })
     
-    if plot:
-        display(scores.to_frame('Scores').style.background_gradient(cmap='coolwarm'))
+#     if plot:
+#         display(scores.to_frame('Scores').style.background_gradient(cmap='coolwarm'))
 
-    return scores
-
-
-def plot_regression_residuals(model, X_test, y_test):
-    """
-    Plot residuals of a linear model.
-
-    Parameters:
-    residuals (Series/DataFrame): Residuals of the model
-
-    Returns:
-    None
-    """  
-    y_pred = model.predict(X_test)
-    residuals = y_test - y_pred
-
-    # Create Q-Q plot
-    plt.figure(figsize=(12, 6))
-    sm.qqplot(residuals, line='s')
-    plt.title('Q-Q Plot')
-    plt.show()
-
-    # Create histogram of residuals
-    sns.histplot(residuals, kde=True)
-    plt.title('Histogram of Residuals')
-    plt.show()
-
-    # Create scatter plot of residuals
-    plt.scatter(y_pred, residuals)
-    plt.xlabel('Fitted values')
-    plt.ylabel('Residuals')
-    plt.title('Residuals vs Fitted Values')
-    plt.show()
-
-    # Display plot
-    plt.tight_layout()
+#     return scores
 
 
+# def plot_regression_residuals(model, X_test, y_test):
+#     """
+#     Plot residuals of a linear model.
+
+#     Parameters:
+#     residuals (Series/DataFrame): Residuals of the model
+
+#     Returns:
+#     None
+#     """  
+#     y_pred = model.predict(X_test)
+#     residuals = y_test - y_pred
+
+#     # Create Q-Q plot
+#     plt.figure(figsize=(12, 6))
+#     sm.qqplot(residuals, line='s')
+#     plt.title('Q-Q Plot')
+#     plt.show()
+
+#     # Create histogram of residuals
+#     sns.histplot(residuals, kde=True)
+#     plt.title('Histogram of Residuals')
+#     plt.show()
+
+#     # Create scatter plot of residuals
+#     plt.scatter(y_pred, residuals)
+#     plt.xlabel('Fitted values')
+#     plt.ylabel('Residuals')
+#     plt.title('Residuals vs Fitted Values')
+#     plt.show()
+
+#     # Display plot
+#     plt.tight_layout()
 
 
-def evaluate_classifier_model(best_model, X_test, y_test, confusion_matrix=True):
-    """
-    Evaluate the prediction performance of a given model on a test set.
 
-    Parameters:
-    best_model (Model): Trained model for making predictions
-    X_test (DataFrame): Features from the test set
-    y_test (Series/DataFrame): Target variable from the test set
 
-    Returns:
-    None
-    """    
-    # Make predictions on the test set
-    y_pred = best_model.predict(X_test)
+# def evaluate_classifier_model(best_model, X_test, y_test, confusion_matrix=True):
+#     """
+#     Evaluate the prediction performance of a given model on a test set.
+
+#     Parameters:
+#     best_model (Model): Trained model for making predictions
+#     X_test (DataFrame): Features from the test set
+#     y_test (Series/DataFrame): Target variable from the test set
+
+#     Returns:
+#     None
+#     """    
+#     # Make predictions on the test set
+#     y_pred = best_model.predict(X_test)
     
-    # Calculate accuracy
-    accuracy = str(np.round(accuracy_score(y_test, y_pred)*100, 1))
+#     # Calculate accuracy
+#     accuracy = str(np.round(accuracy_score(y_test, y_pred)*100, 1))
 
-    # Display accuracy with Markdown
-    display(Markdown(f"### Accuracy: \n The model's accuracy is **{accuracy}%**"))
+#     # Display accuracy with Markdown
+#     display(Markdown(f"### Accuracy: \n The model's accuracy is **{accuracy}%**"))
     
-    # Generate classification report
-    report = classification_report(y_test, y_pred, output_dict=True)
+#     # Generate classification report
+#     report = classification_report(y_test, y_pred, output_dict=True)
 
-    # Convert to DataFrame
-    report_df = pd.DataFrame(report).drop(['accuracy'], axis=1).T
+#     # Convert to DataFrame
+#     report_df = pd.DataFrame(report).drop(['accuracy'], axis=1).T
 
-    # Display styled DataFrame
-    display(report_df.style.background_gradient(cmap='Blues', subset=['precision', 'recall','f1-score']))
+#     # Display styled DataFrame
+#     display(report_df.style.background_gradient(cmap='Blues', subset=['precision', 'recall','f1-score']))
     
-    if confusion_matrix:
-        """
-        Plot a confusion matrix for a given model and test data.
+#     if confusion_matrix:
+#         """
+#         Plot a confusion matrix for a given model and test data.
 
-        Parameters:
-        best_model (Model): Trained model for making predictions
-        X_test (DataFrame): Features from the test set
-        y_test (Series/DataFrame): Target variable from the test set
-        class_labels (list): List of class labels
+#         Parameters:
+#         best_model (Model): Trained model for making predictions
+#         X_test (DataFrame): Features from the test set
+#         y_test (Series/DataFrame): Target variable from the test set
+#         class_labels (list): List of class labels
 
-        Returns:
-        None
-        """
-        # Generate confusion matrix
-        ConfusionMatrixDisplay.from_estimator(best_model, X_test, y_test, 
-                                        display_labels=range(len(y_test.unique())), 
-                                        normalize='all', cmap='Blues', values_format='.2%')
+#         Returns:
+#         None
+#         """
+#         # Generate confusion matrix
+#         ConfusionMatrixDisplay.from_estimator(best_model, X_test, y_test, 
+#                                         display_labels=range(len(y_test.unique())), 
+#                                         normalize='all', cmap='Blues', values_format='.2%')
 
-        # Add title and axis labels
-        plt.title('Confusion Matrix')
-        plt.xlabel('Predicted Label')
-        plt.ylabel('True Label')
+#         # Add title and axis labels
+#         plt.title('Confusion Matrix')
+#         plt.xlabel('Predicted Label')
+#         plt.ylabel('True Label')
 
-        # Fix Grid
-        plt.grid(False)
+#         # Fix Grid
+#         plt.grid(False)
 
-        # Show the plot
-        plt.show()
+#         # Show the plot
+#         plt.show()
         
-    return report_df
+#     return report_df
 
 
 
-def plot_classifier_residuals(model, X_test, y_test, aggregate=False):
-    # Compute predicted probabilities
-    y_pred_proba = model.predict_proba(X_test)
+# def plot_classifier_residuals(model, X_test, y_test, aggregate=False):
+#     # Compute predicted probabilities
+#     y_pred_proba = model.predict_proba(X_test)
 
-    residuals = []
+#     residuals = []
 
-    # compute residuals for each class
-    for i in range(y_pred_proba.shape[1]):
-        # Treat each class as binary outcome
-        y_test_binary = (y_test == i).astype(int)
+#     # compute residuals for each class
+#     for i in range(y_pred_proba.shape[1]):
+#         # Treat each class as binary outcome
+#         y_test_binary = (y_test == i).astype(int)
         
-        # Compute residuals
-        residuals_i = y_test_binary - y_pred_proba[:, i]
-        residuals.append(residuals_i)
+#         # Compute residuals
+#         residuals_i = y_test_binary - y_pred_proba[:, i]
+#         residuals.append(residuals_i)
         
-    residuals = np.array(residuals)
+#     residuals = np.array(residuals)
 
-    if aggregate:
-        # Aggregate residuals across all classes
-        residuals_agg = residuals.sum(axis=0)
+#     if aggregate:
+#         # Aggregate residuals across all classes
+#         residuals_agg = residuals.sum(axis=0)
 
-        # Plot aggregated residuals
-        plt.scatter(y_pred_proba.sum(axis=1), residuals_agg, alpha=0.1)
-        plt.xlabel('Fitted values (aggregated)')
-        plt.ylabel('Residuals (aggregated)')
-        plt.title('Residuals vs Fitted values (aggregated)')
-        plt.show()
+#         # Plot aggregated residuals
+#         plt.scatter(y_pred_proba.sum(axis=1), residuals_agg, alpha=0.1)
+#         plt.xlabel('Fitted values (aggregated)')
+#         plt.ylabel('Residuals (aggregated)')
+#         plt.title('Residuals vs Fitted values (aggregated)')
+#         plt.show()
 
-        # Plot aggregated residuals distribution
-        plt.hist(residuals_agg, alpha=0.5)
-        plt.xlabel('Residuals (aggregated)')
-        plt.title('Residuals Distribution (aggregated)')
-        plt.show()
+#         # Plot aggregated residuals distribution
+#         plt.hist(residuals_agg, alpha=0.5)
+#         plt.xlabel('Residuals (aggregated)')
+#         plt.title('Residuals Distribution (aggregated)')
+#         plt.show()
 
-        # Perform Durbin-Watson test
-        dw = durbin_watson(residuals_agg)
-        print('Durbin-Watson statistic (aggregated):', dw)
+#         # Perform Durbin-Watson test
+#         dw = durbin_watson(residuals_agg)
+#         print('Durbin-Watson statistic (aggregated):', dw)
 
-    else:
-        # Plot residuals for each class
-        for i in range(residuals.shape[0]):
-            plt.scatter(y_pred_proba[:, i], residuals[i, :], alpha=0.1)
-            plt.xlabel('Fitted values for class '+str(i))
-            plt.ylabel('Residuals')
-            plt.title('Residuals vs Fitted values for class '+str(i))
-            plt.show()
+#     else:
+#         # Plot residuals for each class
+#         for i in range(residuals.shape[0]):
+#             plt.scatter(y_pred_proba[:, i], residuals[i, :], alpha=0.1)
+#             plt.xlabel('Fitted values for class '+str(i))
+#             plt.ylabel('Residuals')
+#             plt.title('Residuals vs Fitted values for class '+str(i))
+#             plt.show()
 
-            # Plot residuals distribution
-            plt.hist(residuals[i, :], alpha=0.5)
-            plt.xlabel('Residuals for class '+str(i))
-            plt.title('Residuals Distribution for class '+str(i))
-            plt.show()
+#             # Plot residuals distribution
+#             plt.hist(residuals[i, :], alpha=0.5)
+#             plt.xlabel('Residuals for class '+str(i))
+#             plt.title('Residuals Distribution for class '+str(i))
+#             plt.show()
 
-            # Perform Durbin-Watson test
-            dw = durbin_watson(residuals[i, :])
-            print('Durbin-Watson statistic for class '+str(i)+':', dw)
-
-
-
-def top_3_model_results(grid_outcomes, grid, show_bars=True):
-    # Sort the DataFrame based on the mean test score and select the top 3
-    top3 = grid_outcomes.sort_values('rank_test_score').head(3)
-
-    # Pivot the DataFrame so the models are the columns and the parameters/scores are the rows
-    top3 = top3.set_index('rank_test_score')
-
-    # Filter the columns based on the regex pattern
-    filtered_columns = top3.filter(regex=r'^param_', axis=1).columns
-
-    # Parameters of the best model
-    results1 = top3.loc[:, filtered_columns].sort_index().to_dict()
+#             # Perform Durbin-Watson test
+#             dw = durbin_watson(residuals[i, :])
+#             print('Durbin-Watson statistic for class '+str(i)+':', dw)
 
 
-    # Append the other results to the list
-    results2 = {
-        'score_method': grid.scoring,
-        'train_score_average': top3.loc[: , 'mean_train_score'],
-        'validation_score_average': top3.loc[:, 'mean_test_score'],
-        'n_splits': grid.n_splits_,
-        'mean_fit_time': top3.loc[:, 'mean_fit_time'],
-        'mean_score_time': top3.loc[:, 'mean_score_time']
-    }
 
-    results1.update(results2)
+# def top_3_model_results(grid_outcomes, grid, show_bars=True):
+#     # Sort the DataFrame based on the mean test score and select the top 3
+#     top3 = grid_outcomes.sort_values('rank_test_score').head(3)
 
-    # Convert the results to a DataFrame
-    top_3_model_results = pd.DataFrame(results1)
+#     # Pivot the DataFrame so the models are the columns and the parameters/scores are the rows
+#     top3 = top3.set_index('rank_test_score')
 
-    if show_bars:
-        top_3_model_results.plot(kind='bar', y=['train_score_average', 'validation_score_average'], figsize=(10, 6), color=['blue', 'red'])
+#     # Filter the columns based on the regex pattern
+#     filtered_columns = top3.filter(regex=r'^param_', axis=1).columns
 
-        # Set the y limits
-        plt.ylim(top_3_model_results.validation_score_average.min() - 0.01, top_3_model_results.train_score_average.max() + 0.01)
-        plt.xlabel('Model', fontsize=14)
-        plt.ylabel('Score', fontsize=14)
-        plt.title('Comparison of Top Three Models on Training and Validation Scores', fontsize=16)
-
-    return top_3_model_results
+#     # Parameters of the best model
+#     results1 = top3.loc[:, filtered_columns].sort_index().to_dict()
 
 
-# Define a function to plot hyperparameters
-def plot_average_score_of_hyperparameters(grid_outcomes, first_hyperparameter, second_hyperparameter=None, score_plot_name='Score'):
-    # Group the grid outcomes by the first hyperparameter
-    grouped_grid = grid_outcomes.groupby(first_hyperparameter)
-    variable_plot_name= first_hyperparameter.replace('param_', '').replace('__', ' ').title()
+#     # Append the other results to the list
+#     results2 = {
+#         'score_method': grid.scoring,
+#         'train_score_average': top3.loc[: , 'mean_train_score'],
+#         'validation_score_average': top3.loc[:, 'mean_test_score'],
+#         'n_splits': grid.n_splits_,
+#         'mean_fit_time': top3.loc[:, 'mean_fit_time'],
+#         'mean_score_time': top3.loc[:, 'mean_score_time']
+#     }
+
+#     results1.update(results2)
+
+#     # Convert the results to a DataFrame
+#     top_3_model_results = pd.DataFrame(results1)
+
+#     if show_bars:
+#         top_3_model_results.plot(kind='bar', y=['train_score_average', 'validation_score_average'], figsize=(10, 6), color=['blue', 'red'])
+
+#         # Set the y limits
+#         plt.ylim(top_3_model_results.validation_score_average.min() - 0.01, top_3_model_results.train_score_average.max() + 0.01)
+#         plt.xlabel('Model', fontsize=14)
+#         plt.ylabel('Score', fontsize=14)
+#         plt.title('Comparison of Top Three Models on Training and Validation Scores', fontsize=16)
+
+#     return top_3_model_results
+
+
+# # Define a function to plot hyperparameters
+# def plot_average_score_of_hyperparameters(grid_outcomes, first_hyperparameter, second_hyperparameter=None, score_plot_name='Score'):
+#     # Group the grid outcomes by the first hyperparameter
+#     grouped_grid = grid_outcomes.groupby(first_hyperparameter)
+#     variable_plot_name= first_hyperparameter.replace('param_', '').replace('__', ' ').title()
     
-    # Get the hyperparameter value of the model with the highest test score
-    try: 
-        winner = grid_outcomes.loc[grid_outcomes.mean_test_score.idxmax(), first_hyperparameter]
-    except: 
-        winner = grid_outcomes.loc[grid_outcomes.mean_test_score.argmax(), first_hyperparameter]
+#     # Get the hyperparameter value of the model with the highest test score
+#     try: 
+#         winner = grid_outcomes.loc[grid_outcomes.mean_test_score.idxmax(), first_hyperparameter]
+#     except: 
+#         winner = grid_outcomes.loc[grid_outcomes.mean_test_score.argmax(), first_hyperparameter]
 
-    # Create a new figure
-    plt.figure(figsize=(10, 6))
+#     # Create a new figure
+#     plt.figure(figsize=(10, 6))
 
-    # Plot the mean test scores with error bars
-    plt.errorbar(
-        x=sorted(grouped_grid['mean_test_score'].mean().index),
-        y=grouped_grid['mean_test_score'].mean().sort_index(),
-        yerr=grouped_grid['std_test_score'].mean().sort_index(),
-        marker='o',
-        linestyle='-',
-        color='red',
-        label='Validation Scores'
-    )
+#     # Plot the mean test scores with error bars
+#     plt.errorbar(
+#         x=sorted(grouped_grid['mean_test_score'].mean().index),
+#         y=grouped_grid['mean_test_score'].mean().sort_index(),
+#         yerr=grouped_grid['std_test_score'].mean().sort_index(),
+#         marker='o',
+#         linestyle='-',
+#         color='red',
+#         label='Validation Scores'
+#     )
 
-    # Plot the mean train scores with error bars
-    plt.errorbar(
-        x=sorted(grouped_grid['mean_train_score'].mean().index),
-        y=grouped_grid['mean_train_score'].mean().sort_index(),
-        yerr=grouped_grid['std_train_score'].mean().sort_index(),
-        marker='o',
-        linestyle='-',
-        color='blue',
-        label='Training Scores'
-    )
+#     # Plot the mean train scores with error bars
+#     plt.errorbar(
+#         x=sorted(grouped_grid['mean_train_score'].mean().index),
+#         y=grouped_grid['mean_train_score'].mean().sort_index(),
+#         yerr=grouped_grid['std_train_score'].mean().sort_index(),
+#         marker='o',
+#         linestyle='-',
+#         color='blue',
+#         label='Training Scores'
+#     )
 
-    # If a second hyperparameter is provided
-    if second_hyperparameter:
-        # Plot the mean test scores with Seaborn lineplot, with line style varying by the second hyperparameter
-        sns.lineplot(
-            x=grid_outcomes[first_hyperparameter].sort_index(),
-            y=grid_outcomes['mean_test_score'].sort_index(),
-            style=grid_outcomes[second_hyperparameter].sort_index(),
-            color='red',
-            legend=False,
-            alpha=0.3,
-            errorbar=None
-        )
+#     # If a second hyperparameter is provided
+#     if second_hyperparameter:
+#         # Plot the mean test scores with Seaborn lineplot, with line style varying by the second hyperparameter
+#         sns.lineplot(
+#             x=grid_outcomes[first_hyperparameter].sort_index(),
+#             y=grid_outcomes['mean_test_score'].sort_index(),
+#             style=grid_outcomes[second_hyperparameter].sort_index(),
+#             color='red',
+#             legend=False,
+#             alpha=0.3,
+#             errorbar=None
+#         )
         
-        # Plot the mean train scores with Seaborn lineplot, with line style varying by the second hyperparameter
-        sns.lineplot(
-            x=grid_outcomes[first_hyperparameter].sort_index(),
-            y=grid_outcomes['mean_train_score'].sort_index(),
-            style=grid_outcomes[second_hyperparameter].sort_index(),
-            color='blue',
-            legend=True,
-            alpha=0.3,
-            errorbar=None
-        )
+#         # Plot the mean train scores with Seaborn lineplot, with line style varying by the second hyperparameter
+#         sns.lineplot(
+#             x=grid_outcomes[first_hyperparameter].sort_index(),
+#             y=grid_outcomes['mean_train_score'].sort_index(),
+#             style=grid_outcomes[second_hyperparameter].sort_index(),
+#             color='blue',
+#             legend=True,
+#             alpha=0.3,
+#             errorbar=None
+#         )
 
-    # Label the x-axis
-    plt.xlabel(f'{variable_plot_name}')
-    plt.xticks(rotation=90)
+#     # Label the x-axis
+#     plt.xlabel(f'{variable_plot_name}')
+#     plt.xticks(rotation=90)
 
-    # Draw a vertical line at the best model
-    plt.axvline(winner, color='green', linestyle=':', linewidth=3, label='Best Model')
+#     # Draw a vertical line at the best model
+#     plt.axvline(winner, color='green', linestyle=':', linewidth=3, label='Best Model')
 
-    # Label the y-axis
-    plt.ylabel(f'Mean {score_plot_name}')
+#     # Label the y-axis
+#     plt.ylabel(f'Mean {score_plot_name}')
 
-    # Add a title to the plot
-    plt.title(f'Grid Search: {score_plot_name} vs {variable_plot_name}')
+#     # Add a title to the plot
+#     plt.title(f'Grid Search: {score_plot_name} vs {variable_plot_name}')
 
-    # If a second hyperparameter is provided, place the legend outside the plot
-    if second_hyperparameter:
-        plt.legend(bbox_to_anchor=(1.04, 0.5), loc='center left')
-    else:
-        plt.legend()
+#     # If a second hyperparameter is provided, place the legend outside the plot
+#     if second_hyperparameter:
+#         plt.legend(bbox_to_anchor=(1.04, 0.5), loc='center left')
+#     else:
+#         plt.legend()
         
 
 
-# Define a function to plot hyperparameters
-def plot_average_time_of_hyperparameters(grid_outcomes, first_hyperparameter, second_hyperparameter=None):
-    # Group the grid outcomes by the first hyperparameter
-    grouped_grid = grid_outcomes.groupby(first_hyperparameter)
-    variable_plot_name= first_hyperparameter.replace('param_', '').replace('__', ' ').title()
+# # Define a function to plot hyperparameters
+# def plot_average_time_of_hyperparameters(grid_outcomes, first_hyperparameter, second_hyperparameter=None):
+#     # Group the grid outcomes by the first hyperparameter
+#     grouped_grid = grid_outcomes.groupby(first_hyperparameter)
+#     variable_plot_name= first_hyperparameter.replace('param_', '').replace('__', ' ').title()
 
-    try: 
-        # Get the hyperparameter value of the model with the highest test score
-        mean_fit_winner = grid_outcomes.loc[grid_outcomes.mean_fit_time.mean().idxmin(), first_hyperparameter]
-        mean_score_winner = grid_outcomes.loc[grid_outcomes.mean_score_time.mean().idxmin(), first_hyperparameter]
-    except: 
-        # Get the hyperparameter value of the model with the highest test score
-        mean_fit_winner = grid_outcomes.loc[grid_outcomes.mean_fit_time.mean().argmin(), first_hyperparameter]
-        mean_score_winner = grid_outcomes.loc[grid_outcomes.mean_score_time.mean().argmin(), first_hyperparameter]
+#     try: 
+#         # Get the hyperparameter value of the model with the highest test score
+#         mean_fit_winner = grid_outcomes.loc[grid_outcomes.mean_fit_time.mean().idxmin(), first_hyperparameter]
+#         mean_score_winner = grid_outcomes.loc[grid_outcomes.mean_score_time.mean().idxmin(), first_hyperparameter]
+#     except: 
+#         # Get the hyperparameter value of the model with the highest test score
+#         mean_fit_winner = grid_outcomes.loc[grid_outcomes.mean_fit_time.mean().argmin(), first_hyperparameter]
+#         mean_score_winner = grid_outcomes.loc[grid_outcomes.mean_score_time.mean().argmin(), first_hyperparameter]
 
-    # Create a new figure
-    plt.figure(figsize=(10, 6))
+#     # Create a new figure
+#     plt.figure(figsize=(10, 6))
 
-    # Plot the mean test scores with error bars
-    plt.errorbar(
-        x=sorted(grouped_grid['mean_fit_time'].mean().index),
-        y=grouped_grid['mean_fit_time'].mean().sort_index(),
-        yerr=grouped_grid['std_fit_time'].mean().sort_index(),
-        marker='o',
-        linestyle='-',
-        color='red',
-        label='mean_fit_time'
-    )
+#     # Plot the mean test scores with error bars
+#     plt.errorbar(
+#         x=sorted(grouped_grid['mean_fit_time'].mean().index),
+#         y=grouped_grid['mean_fit_time'].mean().sort_index(),
+#         yerr=grouped_grid['std_fit_time'].mean().sort_index(),
+#         marker='o',
+#         linestyle='-',
+#         color='red',
+#         label='mean_fit_time'
+#     )
 
-    # Plot the mean train scores with error bars
-    plt.errorbar(
-        x=sorted(grouped_grid['mean_score_time'].mean().index),
-        y=grouped_grid['mean_score_time'].mean().sort_index(),
-        yerr=grouped_grid['std_score_time'].mean().sort_index(),
-        marker='o',
-        linestyle='-',
-        color='blue',
-        label='mean_score_time'
-    )
+#     # Plot the mean train scores with error bars
+#     plt.errorbar(
+#         x=sorted(grouped_grid['mean_score_time'].mean().index),
+#         y=grouped_grid['mean_score_time'].mean().sort_index(),
+#         yerr=grouped_grid['std_score_time'].mean().sort_index(),
+#         marker='o',
+#         linestyle='-',
+#         color='blue',
+#         label='mean_score_time'
+#     )
 
-    # If a second hyperparameter is provided
-    if second_hyperparameter:
-        # Plot the mean test scores with Seaborn lineplot, with line style varying by the second hyperparameter
-        sns.lineplot(
-            x=grid_outcomes[first_hyperparameter].sort_index(),
-            y=grid_outcomes['mean_fit_time'].sort_index(),
-            style=grid_outcomes[second_hyperparameter].sort_index(),
-            color='red',
-            legend=False,
-            alpha=0.3,
-            errorbar=None
-        )
+#     # If a second hyperparameter is provided
+#     if second_hyperparameter:
+#         # Plot the mean test scores with Seaborn lineplot, with line style varying by the second hyperparameter
+#         sns.lineplot(
+#             x=grid_outcomes[first_hyperparameter].sort_index(),
+#             y=grid_outcomes['mean_fit_time'].sort_index(),
+#             style=grid_outcomes[second_hyperparameter].sort_index(),
+#             color='red',
+#             legend=False,
+#             alpha=0.3,
+#             errorbar=None
+#         )
         
-        # Plot the mean train scores with Seaborn lineplot, with line style varying by the second hyperparameter
-        sns.lineplot(
-            x=grid_outcomes[first_hyperparameter].sort_index(),
-            y=grid_outcomes['mean_score_time'].sort_index(),
-            style=grid_outcomes[second_hyperparameter].sort_index(),
-            color='blue',
-            legend=True,
-            alpha=0.3,
-            errorbar=None
-        )
+#         # Plot the mean train scores with Seaborn lineplot, with line style varying by the second hyperparameter
+#         sns.lineplot(
+#             x=grid_outcomes[first_hyperparameter].sort_index(),
+#             y=grid_outcomes['mean_score_time'].sort_index(),
+#             style=grid_outcomes[second_hyperparameter].sort_index(),
+#             color='blue',
+#             legend=True,
+#             alpha=0.3,
+#             errorbar=None
+#         )
 
-    # Label the x-axis
-    plt.xlabel(f'{variable_plot_name}')
-    plt.xticks(rotation=90, fontsize=9)
+#     # Label the x-axis
+#     plt.xlabel(f'{variable_plot_name}')
+#     plt.xticks(rotation=90, fontsize=9)
     
-    # Draw a vertical line at the best model
-    plt.axvline(mean_fit_winner, color='red', linestyle=':', linewidth=3, label='Best Fit Time')
-    plt.axvline(mean_score_winner, color='blue', linestyle=':', linewidth=3, label='Best Score Time')
+#     # Draw a vertical line at the best model
+#     plt.axvline(mean_fit_winner, color='red', linestyle=':', linewidth=3, label='Best Fit Time')
+#     plt.axvline(mean_score_winner, color='blue', linestyle=':', linewidth=3, label='Best Score Time')
 
-    # Label the y-axis
-    plt.ylabel(f'Mean Time (in Seconds)')
+#     # Label the y-axis
+#     plt.ylabel(f'Mean Time (in Seconds)')
 
-    # Add a title to the plot
-    plt.title(f'Grid Search: Time (in Seconds) vs {variable_plot_name}')
+#     # Add a title to the plot
+#     plt.title(f'Grid Search: Time (in Seconds) vs {variable_plot_name}')
 
-    # If a second hyperparameter is provided, place the legend outside the plot
-    if second_hyperparameter:
-        plt.legend(bbox_to_anchor=(1.04, 0.5), loc='center left')
-    else:
-        plt.legend()
+#     # If a second hyperparameter is provided, place the legend outside the plot
+#     if second_hyperparameter:
+#         plt.legend(bbox_to_anchor=(1.04, 0.5), loc='center left')
+#     else:
+#         plt.legend()
 
 
 
@@ -931,6 +930,8 @@ def check_stationarity(timeseries):
 
 
 from pandas.api.types import CategoricalDtype
+
+
 
 cat_type = CategoricalDtype(categories=['Monday','Tuesday',
                                         'Wednesday',
