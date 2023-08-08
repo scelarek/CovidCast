@@ -36,8 +36,11 @@ My goal with this project is straightforward: **Predict to Protect**. If we can 
 My integrated approach captures the intricacies of pandemics while maximizing the predictive capabilities of state-of-the-art statistical algorithms.
 
 
-### Results and Model Performance
-Two models emerged as particularly potent: SARIMAX and Prophet both enhanced by features derived from the SIRD model of the pandemics infectiousness. 
+### Results and Model Performance on Test Scores
+The Time Series models were trained on COVID data from Februaury 15th 2020 to January 25th, then tested on their results for the unseen test data 2023 1-25-2023 -> 2-09-2023)
+
+
+SARIMAX and Prophet both enhanced by features derived from the SIRD model of the pandemics infectiousness. 
 
 ### Engage with Me and Future Prospects:
 I encourage you to delve deeper into this repository. Should you have any inquiries or insights, please don't hesitate to reach out. 
@@ -51,7 +54,7 @@ My project is broken down into four main parts:
 1. **[Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)**: Dive into my process of data preprocessing and cleaning.
 2. **[EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)**: Explore the basic exploratory data analysis I performed.
 3. **[Initial ARIMA Modeling](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb)**: See the first models I used to forecast COVID.
-4. **[Facebook Prophet Modeling](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/4.%20COVIDCast%20Prophet%20Model.ipynb)**:  See the second model I explored for forecasting.
+4. **[Facebook Prophet Modeling](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/4.%20COVIDCast%20Prophet%20Model.ipynb)**:  See the second model I used for forecasting.
 
 ---
 
