@@ -1,6 +1,6 @@
 <div align="center">
 
-# CovidCast 
+# [CovidCast](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVIDcast_%20Predicting%20COVID%20Cases%20No%20Glasses%20Ad%20Lib%20(online-video-cutter.com).mp4) 
 
 <img src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="80" height="80"> 
 
@@ -36,10 +36,10 @@ My integrated approach captures the intricacies of pandemics while maximizing th
 <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
 
 ### Results and Model Performance
-Two models emerged as particularly potent: SARIMAX and Prophet both enhanced by features derived from the SIRD's ODE model of the pandemics infectiousness. Below, you will find comprehensive evaluation statistics for these models, accompanied by visual representations showcasing their predictive prowess on unseen data.
+Two models emerged as particularly potent: SARIMAX and Prophet both enhanced by features derived from the SIRD model of the pandemics infectiousness. 
 
 ### Engage with Me and Future Prospects:
-I encourage you to delve deeper into this repository. Should you have any inquiries or insights, please don't hesitate to reach out. One of our forthcoming additions is an interactive notebook, enabling users to predict COVID-19 trends for any given day.
+I encourage you to delve deeper into this repository. Should you have any inquiries or insights, please don't hesitate to reach out. 
 
 ---
 
@@ -47,10 +47,10 @@ I encourage you to delve deeper into this repository. Should you have any inquir
 
 My project is broken down into four main parts:
 
-1. **Cleaning**: Dive into my process of data preprocessing and cleaning in this [Jupyter Notebook](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Capstone/1.%20Covid%20Preprocessing.ipynb).
-2. **EDA**: Explore the basic exploratory data analysis I performed in this [Jupyter Notebook](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Capstone/2.%20Sample%20EDA%20(Basic).ipynb).
-3. **Initial ARIMA, SARIMA, and SARIMAX Modeling**: I performed in this [Jupyter Notebook](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20Covid%20SARIMA%20Modeling.ipynb)
-4. **Facebook Prophet Modeling**:  I performed in this [Jupyter Notebook](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/4.%20Covid%20Prophet%20and%20RNNs.ipynb)
+1. **[Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)**: Dive into my process of data preprocessing and cleaning.
+2. **[EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)**: Explore the basic exploratory data analysis I performed.
+3. **[Initial ARIMA Modeling](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb)**: See the first models I used to forecast COVID.
+4. **[Facebook Prophet Modeling](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/4.%20COVIDCast%20Prophet%20Model.ipynb)**:  See the second model I explored for forecasting.
 
 ---
 
@@ -58,9 +58,11 @@ My project is broken down into four main parts:
 
 I have organized my functions, libraries, and primary clean data file for easy access:  
 
-- **Functions and Libraries**: Access the core functions and libraries used for this project in this [Python file](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Capstone/capstone_functions.py).
-- **Main Clean Data File**: The primary cleaned data file is available in [this parquet file](https://github.com/scelarek/BrainStation_Capstone/blob/d2dcb369dbfd98b2e8954b0028a0293529448294/Data/master_df.parquet).
-- **Presentation Preprocessing and Clean:**  This is a presentation of the [Preprocessing and EDA.](https://github.com/scelarek/BrainStation_Capstone/blob/e824c901efdb0adf1783256664bcfe054ae51001/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)
+- **[Functions and Libraries](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/capstone_functions.py)**: Access the core functions and libraries used for this project.
+- **[Main Clean Data File](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Data/master_df.parquet)**: The primary cleaned data file.
+- **[Presentation of Preprocessing and Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf):**  This is a presentation of the Preprocessing and EDA steps.
+- **[Presentation of COVIDCast](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Cast%20Final%20Presentation.pdf):** This is the final presentation of COVIDCast.
+- **[Video of Final Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVIDcast_%20Predicting%20COVID%20Cases%20No%20Glasses%20Ad%20Lib%20(online-video-cutter.com).mp4):** This is a video of me presenting COVIDCast.
 
 ---
 
