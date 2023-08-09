@@ -39,7 +39,8 @@ My integrated approach captures the assumptions and knowledge of pandemics that 
 
 
 ### Results and Model Performance on Test Scores
-The Time Series models were trained on COVID data from Februaury 15th 2020 to March 25th 2023, then tested on their results for the unseen test data 2023 1-25-2023 -> 2-09-2023)
+The Time Series models were trained on COVID data from Februaury 15th 2020 to March 5th 2023, then tested on their results for the unseen test data from March 5th to March 21st 2023.
+
 
 
 SARIMAX and Prophet both enhanced by features derived from the SIRD model of the pandemics infectiousness. 
