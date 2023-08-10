@@ -4,77 +4,81 @@
 
 <img src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="80" height="80"> 
 
-## **COVIDCast: Fusing Epidemiology and Time Series Forecasting to Predict Pandemics**  
+## **COVIDCast: Predict to Protect**  
 ## **BrainStation**
-
-
-
 </div>
 
 
---- 
+## 🎯 Project Overview
 
-## 🌟 Introduction 
-
-<div align="center">
-Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.
-</div>
+Pandemics, even worse than COVID, are thought to be a major threat to the existence of humanity itself. **COVIDCast** aims to address this problem by Predicting to Protect. That is to say, it uses times series and epidemiological models to forecast the next 14 days of new COVID cases so governments, hospitals, and people can prepare for the coming storm. 
 
 <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
 
-### Problem Statement
-Three years ago, the emergence of COVID-19 drastically impacted the world. While COVID-19 was a significant challenge, the overarching threat of pandemics looms even larger. Experts from organizations like the WHO, alongside various independent research teams, have highlighted pandemics as one of the most significant threats to humanity. The statistics are daunting: there's a 1 in 30 chance that a pandemic could pose severe challenges to our existence in the upcoming century.
+## 📊 Dataset
 
-### My Mission
+The data for this project comes from three sources: 
 
-My goal with this project is straightforward: **Predict to Protect**. 
+- [Google Open COVID Project](https://github.com/GoogleCloudPlatform/covid-19-open-data)
+- [OWID COVID dataset](https://github.com/owid/covid-19-data)
+- [COVSIRPHY Library](https://github.com/lisphilar/covid19-sir/blob/main/README.md)
 
-If we can anticipate the number of new cases, we stand a better chance of mitigating its impact. COVIDCast is unique, leveraging the principles of the epidemiological SIRD model combined with advanced time series forecasting algorithms like ARIMA, SARIMA, SARIMAX, and the Prophet model.
+These repositories gather data from a number of sources all over the world including the WHO, John Hopkins Hospital, and the CDC.
 
-- **Time series forecasting algorithms:** The ARIMA and Prophet models predict future trends using the moving average, recent values, and differencing to predict the value of the target variable at the next time step. These models can also incorporate the information gained from seasonality and exogenous variables -- which is where the Epidemiological Models come in. 
-- **Epidemiological Model Overview**: Traditional epidemiological container models, such as the SIRD (Susceptible, Infected, Recovered, Deceased), offer foundational insights into disease spread in real time. SIRD does this by estimating the most recent rate of change for for susceptible, infected, recovered, and deceased populations then using it to compute the reproductive rate of the disease called R0 (pronounced 'R not'). This reproductive rate is the main value that I will be plugging into my time series forecasting models as an exogenous variable.
-
-
-My integrated approach captures the assumptions and knowledge of pandemics that experts have while using the power of time series models to predict seasonal trends and daily fluctuations.
+## [Data Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)
 
 
-### Results and Model Performance on Test Scores
-The Time Series models were trained on COVID data from Februaury 15th 2020 to March 5th 2023, then tested on their results for the unseen test data from March 5th to March 21st 2023.
+**[Main Clean Data File](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Data/master_df.parquet)**
 
 
-
-SARIMAX and Prophet both enhanced by features derived from the SIRD model of the pandemics infectiousness. 
-
-### Engage with Me and Future Prospects:
-I encourage you to delve deeper into this repository. Should you have any inquiries or insights, please don't hesitate to reach out. 
-
----
-
-### 🚀 Project Breakdown
-
-My project is broken down into four main parts:
-
-1. **[Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)**: Dive into my process of data preprocessing and cleaning.
-2. **[EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)**: Explore the basic exploratory data analysis I performed.
-3. **[Initial ARIMA Modeling](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb)**: See the first models I used to forecast COVID.
-4. **[Facebook Prophet Modeling](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/4.%20COVIDCast%20Prophet%20Model.ipynb)**:  See the second model I used for forecasting.
-
----
-
-### 💡 Resources
-
-I have organized my functions, libraries, and primary clean data file for easy access:  
-
-- **[Presentation of COVIDCast](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Cast%20Final%20Presentation.pdf):** This is the final presentation of COVIDCast.
-- **[Video of Final Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVIDcast_%20Predicting%20COVID%20Cases%20No%20Glasses%20Ad%20Lib%20(online-video-cutter.com).mp4):** This is a video of me presenting COVIDCast.
-- **[Presentation of Preprocessing and Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf):**  This is a presentation of the Preprocessing and EDA steps.
-- **[Functions and Libraries](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/capstone_functions.py)**: Access the core functions and libraries used for this project.
-- **[Main Clean Data File](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Data/master_df.parquet)**: The primary cleaned data file.
+## [EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)
+To properly apply time series models to the data, I had to: 
+- Ensure stationarity using various differencing orders
+- Check the COVID Case numbers for normality and performed a BoxCox tranformation of the data
+- Assess the PACF and ACF correllelograms to determine AR and MA orders respectively
+- Apply seasonal decomposition and find the lag for seasonality
 
 
----
+## Feature Selection:
+To determine which features I should include as exogenous variables in my models, I performed these steps:
+- Assess linear correlation with the target variable
+- Look at the nonlinear importance of different features using RFE with Random Forest Regression
+- Assess Multi-Collinearity with the Variance Inflation Factor
 
-I appreciate your interest in my project and invite you to dive deep into my work. If you have any questions or require further insights, please don't hesitate to reach out through this GitHub repository or at scelarek@gmail.com.
+
+**[Preprocessing and EDA Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)**
+
+
+## Modeling
+
+COVIDCast works by taking the output of the Epidemiological SIRD model and plugging that into the time series model to give it better information about the underlying nature of the disease being predicted. 
+
+### 🦠 Epidemiological Model Overview
+
+- **SIRD Model**: The SIRD (Susceptible, Infected, Recovered, Deceased) model offers insights into real-time disease spread. It estimates the rate of change for different populations (susceptible, infected, recovered, and deceased) and computes the reproductive rate of the disease known as \( R_0 \) (pronounced 'R naught'). This was computed in the beginning of the Preprocessing Notebook.
+
+### 🧪 Time Series Forecasting Algorithms
+
+- [**ARIMA, SARIMA, SARIMAX models**](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb): These models predict future trends using moving averages, recent values, and differencing. They also incorporate seasonality and exogenous variables, making them potent tools for forecasting.
+
+- [**Prophet model**](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/4.%20COVIDCast%20Prophet%20Model.ipynb): 
+  
+
+### 📈 Results and Performance
+
+Models were trained on COVID data from February 15th, 2020 to March 5th, 2023. The unseen test data from March 5th to March 21st, 2023 served as the evaluation benchmark. Both SARIMAX and Prophet models were enhanced using features derived from the SIRD model.
+
+## 💡 Other Resources
+
+Explore various resources associated with this project:
+
+- **[Presentation of COVIDCast](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Cast%20Final%20Presentation.pdf)**
+- **[Video of Final Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVIDcast_%20Predicting%20COVID%20Cases%20No%20Glasses%20Ad%20Lib%20(online-video-cutter.com).mp4)**
+- **[Preprocessing and EDA Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)**
+- **[Functions and Libraries](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/capstone_functions.py)**
+- **[Main Clean Data File](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Data/master_df.parquet)**
+
+Thank you for your interest in **COVIDCast**. For any further inquiries or insights, please feel free to reach out through the GitHub repository or at scelarek@gmail.com.
 
 <div align="center">
 
