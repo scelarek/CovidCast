@@ -23,27 +23,32 @@ The data for this project comes from three sources:
 - [OWID COVID dataset](https://github.com/owid/covid-19-data)
 - [COVSIRPHY Library](https://github.com/lisphilar/covid19-sir/blob/main/README.md)
 
-These repositories gathered data from a number of sources all over the world including the WHO, John Hopkins Hospital, and the CDC. I used 6 different csv's in the master file, combining together mobility data (Google), weather data (Google), government restrictions (Google), hospitalizations and tests (OWID), case counts and epidemiological variables (CovsirPhy).
-
-## [Data Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)
-
+These repositories gathered data from a number of sources all over the world including the WHO, John Hopkins Hospital, and the CDC. I used 6 different csv's in the master file, combining together mobility data (Google), weather data (Google), government restrictions (Google), hospitalizations and tests (OWID), case counts and epidemiological variables (CovsirPhy). There was some overlap in the datasets from each source, but this was used to help impute missing data in the other datasets to create a more complete final master_df.
 
 **[Main Clean Data File](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Data/master_df.parquet)**
+
+## [Data Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)
+Originally 30% of the data was missing. I used a variety of techniques to make this data more manageable:
+- **Imputation**: Missing values in one column would be imputed from another column if they had the same information (eg: current hospitalizations, fatalities). 
+- **Interpolation**: Missing values within a continuous feature with an underlying exponential growth curve would be interpolated using polynomial order 2 (eg: excess mortality, SIRD variables). 
+- **Forward Filling**: Missing values that were only updated if changed were filled forward, and assumed to be zero before the first value (eg: vaccine policy, school closings)
+- **Filling with Zeros**: Missing values for data that would be zero because it wasn't possible until a certain date would be filled with zeros (eg: vaccines pre-2020 September).
+- **Trimming the Horizons**: Many variables were not available until 2020-02-15 (current hospitalizations) or after 2023-03-22 (fatalities), therefore I used this as my start date.  
 
 
 ## [EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)
 To properly apply time series models to the data, I had to assess: 
-- Stationarity: Ensure stationarity using various differencing orders
-- Normality: Check the COVID Case numbers for normality and performed a BoxCox tranformation of the data
-- PACF and ACF: Look at the PACF and ACF correllelograms to determine AR and MA orders respectively
-- Seasonality: Apply seasonal decomposition and find the lag for seasonality
+- **Stationarity**: Ensure stationarity using various differencing orders
+- **Normality**: Check the COVID Case numbers for normality and performed a BoxCox tranformation of the data
+- **PACF and ACF**: Look at the PACF and ACF correllelograms to determine AR and MA orders respectively
+- **Seasonality**: Apply seasonal decomposition and find the lag for seasonality
 
 
 ## Feature Selection:
 To determine which features I should include as exogenous variables in my models, I performed these steps:
-- Linear Correlation: Assess linear correlation with the target variable
-- Nonlinear Correlation: Look at the nonlinear importance of different features using RFE with Random Forest Regression
-- Multi-Collinearity: Assess Multi-Collinearity with the Variance Inflation Factor
+- **Linear Correlation**: Assess linear correlation with the target variable
+- **Importance**: Look at the importance of different features using Recursive Feature Elimination with Random Forest Regression
+- **Multi-Collinearity**: Assess Multi-Collinearity with the Variance Inflation Factor
 
 
 **[Preprocessing and EDA Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)**
