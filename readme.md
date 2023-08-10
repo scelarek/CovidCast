@@ -11,7 +11,7 @@
 
 ## 🎯 Project Overview
 
-Pandemics, even worse than COVID, are thought to be a major threat to the existence of humanity itself. **COVIDCast** aims to address this problem by Predicting to Protect. That is to say, it uses times series and epidemiological models to forecast the next 14 days of new COVID cases so governments, hospitals, and people can prepare for the coming storm. 
+During COVID 19, the unknown course of the pandemic is almost as deadly as the virus itself. **COVIDCast** aims to address this problem by Predicting to Protect. That is to say, it uses times series and epidemiological models to forecast the next 14 days of new COVID cases so governments, hospitals, and people can prepare for the coming storm. 
 
 <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
 
