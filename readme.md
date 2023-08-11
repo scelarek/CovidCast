@@ -28,7 +28,7 @@ The data for this project comes from three sources:
 
 These repositories gathered data from a number of sources all over the world including the WHO, John Hopkins Hospital, and the CDC. I used 6 different csv's in the master file, combining together mobility data (Google), weather data (Google), government restrictions (Google), hospitalizations and tests (OWID), case counts and epidemiological variables (CovsirPhy). There was some overlap in the datasets from each source, but this was used to help impute missing data in the other datasets to create a more complete final [master_df](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Data/master_df.parquet).
 
-## [Data Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)
+## 🧹 [Data Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)
 Originally 30% of the data was missing. I used a variety of techniques to make this data more manageable:
 
 - **Imputation**: Missing values in one column would be imputed from another column if they had the same information (eg: current hospitalizations, fatalities). 
@@ -38,7 +38,7 @@ Originally 30% of the data was missing. I used a variety of techniques to make t
 - **Trimming the Horizons**: Many variables were not available until 2020-02-15 (current hospitalizations) or after 2023-03-22 (fatalities), therefore I used this as the beginning and end dates.
 - **Dropping Columns:** At the time of modeling, I decided I wanted to have as up to date information as possible. So I dropped many columns that didn't have data past 2022-09-15 (eg: all the mobility and weather data).
 
-## [EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)
+## 👓 [EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)
 To properly apply time series models to the data, I had to assess: 
 - **Stationarity**: Ensure stationarity using various differencing orders
 - **Target Normality**: Check the COVID Case numbers for normality and performed a BoxCox tranformation of the data
@@ -48,14 +48,14 @@ To properly apply time series models to the data, I had to assess:
 **[Preprocessing and EDA Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)**
 
 
-## [Feature Selection](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb):
+## 🔢 [Feature Selection](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb):
 For time series models, I ideally want to added exogenous variables that indicate how a target is going to fluctuate in the coming time steps. To determine which features I should include as exogenous variables in my models, I performed these steps:
 - **Linear Correlation**: Assess linear correlation with the target variable
 - **Importance**: Look at the importance of different features using Recursive Feature Elimination with Random Forest Regression
 - **Multi-Collinearity**: Assess Multi-Collinearity with the Variance Inflation Factor
 
 
-## Modeling
+## 💠 Modeling
 
 COVIDCast works by taking the output of the Epidemiological SIRD model and plugging that into the time series model to give it better information about the underlying nature of the disease being predicted. 
 
