@@ -35,7 +35,7 @@ Originally 30% of the data was missing. I used a variety of techniques to make t
 - **Interpolation**: Missing values within a continuous feature with an underlying exponential growth curve would be interpolated using polynomial order 2 (eg: excess mortality, SIRD variables). 
 - **Forward Filling**: Missing values that were only updated if changed were filled forward, and assumed to be zero before the first value (eg: vaccine policy, school closings)
 - **Filling with Zeros**: Missing values for data that would be zero because it wasn't possible until a certain date would be filled with zeros (eg: vaccines pre-2020 September).
-- **Trimming the Horizons**: Many variables were not available until 2020-02-15 (current hospitalizations) or after 2023-03-22 (fatalities), therefore I used this as my start date.
+- **Trimming the Horizons**: Many variables were not available until 2020-02-15 (current hospitalizations) or after 2023-03-22 (fatalities), therefore I used this as the beginning and end dates.
 - **Dropping Columns:** At the time of modeling, I decided I wanted to have as up to date information as possible. So I dropped many columns that didn't have data past 2022-09-15 (eg: all the mobility and weather data).
 
 ## [EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)
