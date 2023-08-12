@@ -79,7 +79,8 @@ Forecasts:
 
 - Prophet Model: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/2120bfe7-0951-4b47-a3b3-5869f514ac40)
 
-- Testing metrics: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/9d1464b1-d8b1-4014-a242-cdb27a972069)
+- Testing metrics: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/6df1eefe-b840-40ea-9828-3c5a15eaa56f)
+
 
 
 
