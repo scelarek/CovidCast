@@ -10,10 +10,14 @@
 
 
 ## 🎯 Project Overview
-<div align="center">
-Like a weather forecast for pandemics, COVIDCast leverages state-of-the-art machine learning and epidemiological models to deliver precise outbreak predictions.
-</div>
+<div align="center" style="background-color: #f5f5f5; padding: 15px; border-radius: 10px;">
 
+```
+Like a weather forecast for pandemics,
+COVIDCast leverages state-of-the-art machine learning and epidemiological models
+to deliver precise outbreak predictions.
+```
+</div>
 
 During COVID 19, the unknown course of the pandemic is almost as deadly as the virus itself. **COVIDCast** aims to address this problem by Predicting to Protect. That is to say, it uses times series and epidemiological models to forecast the next 14 days of new COVID cases so governments, hospitals, and people can prepare for the coming storm. 
 
