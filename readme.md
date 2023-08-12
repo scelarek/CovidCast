@@ -73,12 +73,14 @@ For Prophet modeling, I grid searched with cross-validation through up to 15 of 
 The models were trained on new cases of COVID from February 15th, 2020 to March 5th, 2023. The unseen test data from March 5th to March 21st, 2023 served as the evaluation benchmark. 
 
 Forecasts:
-SARIMAX Model: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/8e9aa4be-fcaf-43cc-9b12-67f45f422011)
 
-Prophet Model: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/2120bfe7-0951-4b47-a3b3-5869f514ac40)
 
-Testing metrics:
-![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/9d1464b1-d8b1-4014-a242-cdb27a972069)
+- SARIMAX Model: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/8e9aa4be-fcaf-43cc-9b12-67f45f422011)
+
+- Prophet Model: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/2120bfe7-0951-4b47-a3b3-5869f514ac40)
+
+- Testing metrics: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/9d1464b1-d8b1-4014-a242-cdb27a972069)
+
 
 
 ## 💡 Other Resources
