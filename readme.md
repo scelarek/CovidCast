@@ -31,26 +31,25 @@ These repositories gathered data from a number of sources all over the world inc
 ## 🧹 [Data Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)
 Originally 30% of the data was missing. I used a variety of techniques to make this data more manageable:
 
-- **Imputation**: Missing values in one column would be imputed from another column if they had the same information (eg: current hospitalizations, fatalities). 
-- **Interpolation**: Missing values within a continuous feature with an underlying exponential growth curve would be interpolated using polynomial order 2 (eg: excess mortality, SIRD variables). 
-- **Forward Filling**: Missing values that were only updated if changed were filled forward, and assumed to be zero before the first value (eg: vaccine policy, school closings)
-- **Filling with Zeros**: Missing values for data that would be zero because it wasn't possible until a certain date would be filled with zeros (eg: vaccines pre-2020 September).
-- **Trimming the Horizons**: Many variables were not available until 2020-02-15 (current hospitalizations) or after 2023-03-22 (fatalities), therefore I used this as the beginning and end dates.
+- **Imputation**: Missing values in one column would be imputed from another column if they had the same information (eg: `current_hospitalizations`, `fatal`). 
+- **Interpolation**: Missing values within a continuous feature with an underlying exponential growth curve would be interpolated using polynomial order 2 (eg: `excess_mortality`, `derived_reproduction_rate`). 
+- **Filling**: Missing values that were only updated if changed were filled forward, and assumed to be zero before the first value (eg: `vaccine_policy`, `school_closings`)
+- **Trimming the Horizons**: Many variables were not available until 2020-02-15 (eg: `current_hospitalizations`) or after 2023-03-22 (`fatal`), therefore I used this as the beginning and end dates.
 - **Dropping Columns:** At the time of modeling, I decided I wanted to have as up to date information as possible. So I dropped many columns that didn't have data past 2022-09-15 (eg: all the mobility and weather data).
 
 ## 👓 [EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)
 To properly apply time series models to the data, I had to assess: 
 
-- **Stationarity**: Ensure stationarity using various differencing orders
-- **Target Normality**: Check the COVID Case numbers for normality and performed a BoxCox tranformation of the data
+- **Differencing**: Ensure stationarity and reasonable time series orders using various differencing orders
 - **PACF and ACF**: Look at the PACF and ACF correllelograms to determine AR and MA orders respectively
 - **Seasonality**: Apply seasonal decomposition and find the lag for seasonality
+- **Target Normality**: Check the COVID Case numbers for normality and performed a BoxCox tranformation of the data
 
 Here is my [Preprocessing and EDA Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)
 
 ## 💠 Modeling
 
-COVIDCast works by taking the output of the Epidemiological SIRD model and plugging that into the time series model to give it better information about the underlying nature of the disease being predicted. 
+COVIDCast works by taking Epidemiological SIRD model estimated parameters of spread, death, and recovery and plugging them into the time series models as exogenous variables to give the model better information about the underlying nature of the disease being predicted. 
 
 ### 🦠 Epidemiological Model Overview
 
@@ -74,9 +73,12 @@ For Prophet modeling, I grid searched with cross-validation through up to 15 of 
 The models were trained on new cases of COVID from February 15th, 2020 to March 5th, 2023. The unseen test data from March 5th to March 21st, 2023 served as the evaluation benchmark. 
 
 Forecasts:
+SARIMAX Model: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/8e9aa4be-fcaf-43cc-9b12-67f45f422011)
 
+Prophet Model: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/2120bfe7-0951-4b47-a3b3-5869f514ac40)
 
 Testing metrics:
+![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/9d1464b1-d8b1-4014-a242-cdb27a972069)
 
 
 ## 💡 Other Resources
