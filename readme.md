@@ -40,20 +40,13 @@ Originally 30% of the data was missing. I used a variety of techniques to make t
 
 ## 👓 [EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)
 To properly apply time series models to the data, I had to assess: 
+
 - **Stationarity**: Ensure stationarity using various differencing orders
 - **Target Normality**: Check the COVID Case numbers for normality and performed a BoxCox tranformation of the data
 - **PACF and ACF**: Look at the PACF and ACF correllelograms to determine AR and MA orders respectively
 - **Seasonality**: Apply seasonal decomposition and find the lag for seasonality
 
-**[Preprocessing and EDA Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)**
-
-
-## 🔢 [Feature Selection](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb):
-For time series models, I ideally want to added exogenous variables that indicate how a target is going to fluctuate in the coming time steps. To determine which features I should include as exogenous variables in my models, I performed these steps:
-- **Linear Correlation**: Assess linear correlation with the target variable
-- **Importance**: Look at the importance of different features using Recursive Feature Elimination with Random Forest Regression
-- **Multi-Collinearity**: Assess Multi-Collinearity with the Variance Inflation Factor
-
+Here is my [Preprocessing and EDA Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Preprocessing%20and%20EDA.pdf)
 
 ## 💠 Modeling
 
@@ -69,6 +62,12 @@ COVIDCast works by taking the output of the Epidemiological SIRD model and plugg
 
 - [**Prophet model**](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/4.%20COVIDCast%20Prophet%20Model.ipynb): From Facebook's own description, "Prophet is a procedure for forecasting time series data based on an additive model where non-linear trends are fit with yearly, weekly, and daily seasonality, plus holiday effects." 
   
+
+## 🔢 [Feature Selection and Tuning the Models](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb):
+For ARIMA time series models, I wanted to added exogenous variables that have information about how a target is going to fluctuate in the next time steps. To determine these features I had to assess each variables' Stationarity, Granger-Causality, Linear Correlation Strength, Multi-Collinearity, and Importance. Eventually though I found that 6 variables I thought to be important due to background knowledge, were actually the best additional regressors for the model. I used autoarima for grid searching order, but eventually found my own discovered model orders of `(3,0,2) (2, 1, 1) [7] with intercept` to be the most predictive. 
+
+For Prophet modeling, I grid searched with cross-validation through up to 15 of the most important features as determined by Recursive Feature Elimination with LGMBoost as my regressor to select for the most predictive features. This directly led to my final model with 11 exogenous variables. I then tuned this grid searched over the hyperparameters to land on the final settings of `changepoint_prior_scale`=10 , `seasonality_prior_scale`=0.01, `holidays_prior_scale`=10, and `growth`='linear'. 
+
 
 ### 📈 Results and Performance
 
