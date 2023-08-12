@@ -53,7 +53,7 @@ COVIDCast works by taking Epidemiological SIRD model estimated parameters of spr
 
 ### 🦠 Epidemiological Model Overview
 
-- **SIRD Model**: The SIRD (Susceptible, Infected, Recovered, Deceased) model offers insights into real-time disease spread. It estimates the rate of change for different populations (susceptible, infected, recovered, and deceased) and computes the reproductive rate of the disease known as \( R_0 \) (pronounced 'R naught'). This was computed in the beginning of the Preprocessing Notebook using the CovsirPhy library.
+- **[SIRD Model](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)**: The SIRD (Susceptible, Infected, Recovered, Deceased) model offers insights into real-time disease spread. It estimates the rate of change for different populations (susceptible, infected, recovered, and deceased) and computes the reproductive rate of the disease known as \( R_0 \) (pronounced 'R naught'). This was computed in the beginning of the Preprocessing Notebook using the CovsirPhy library.
 
 ### 🧪 Time Series Forecasting Algorithms
 
@@ -63,9 +63,9 @@ COVIDCast works by taking Epidemiological SIRD model estimated parameters of spr
   
 
 ## 🔢 [Feature Selection and Tuning the Models](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb):
-For ARIMA time series models, I wanted to added exogenous variables that have information about how a target is going to fluctuate in the next time steps. To determine these features I had to assess each variables' Stationarity, Granger-Causality, Linear Correlation Strength, Multi-Collinearity, and Importance. Eventually though I found that 6 variables I thought to be important due to background knowledge, were actually the best additional regressors for the model. I used autoarima for grid searching order, but eventually found my own discovered model orders of `(3,0,2) (2, 1, 1) [7] with intercept` to be the most predictive. 
+For ARIMA time series models, I wanted to added exogenous variables that have information about how a target is going to fluctuate in the next time steps. To determine these features I had to assess each variables' Stationarity, Granger-Causality, Linear Correlation Strength, Multi-Collinearity, and Importance. Eventually though I found that 6 variables I thought to be important due to background knowledge, were actually the best additional regressors for the model. I used autoarima for grid searching SARIMAX's orders, but eventually the order of `(3,0,2) (2, 1, 1) [7] with intercept` to be the most predictive. 
 
-For Prophet modeling, I grid searched with cross-validation through up to 15 of the most important features as determined by Recursive Feature Elimination with LGMBoost as my regressor to select for the most predictive features. This directly led to my final model with 11 exogenous variables. I then tuned this grid searched over the hyperparameters to land on the final settings of `changepoint_prior_scale`=10 , `seasonality_prior_scale`=0.01, `holidays_prior_scale`=10, and `growth`='linear'. 
+For Prophet modeling, I grid searched with cross-validation through up to 15 of the most important features as determined by Recursive Feature Elimination with LGMBoost as my regressor to select for the most predictive features. This directly led to my final model with 11 exogenous variables. I then tuned this grid searched over the hyperparameters to land on the final settings of `changepoint_prior_scale=10` , `seasonality_prior_scale=0.01`, `holidays_prior_scale=10`, and `growth='linear'`. 
 
 
 ### 📈 Results and Performance
