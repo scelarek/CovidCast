@@ -20,7 +20,7 @@ to deliver precise outbreak predictions.
 
 During COVID 19, the unknown course of the pandemic is almost as deadly as the virus itself. **COVIDCast** aims to address this problem by **Predicting to Protect**. To do this, COVIDCast utlizes the expert knowledge of epidemiological models and the forecasting power of times series models to predict the next 14 days of new COVID cases and protect governments, hospitals, and people from the coming storm. 
 
-<img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
+<img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="200" height="200"> 
 
 ## 📊 Dataset
 The data for this project comes from three sources: 
@@ -82,7 +82,7 @@ Forecasts:
 
 - Testing metrics: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/6df1eefe-b840-40ea-9828-3c5a15eaa56f)
 
-Here we can conclude that the SARIMAX model with 6 exogenous variables and `(3,0,2) (2, 1, 1) [7] with intercept` has best understood the underlying trend of the daily COVID cases. The literature on COVID case prediction suggest though that RNNs with LSTM's provide an even more accurate forecast with a sMAPE of 5%. As a continuation of this project, I would like to develop my own RNN model and explore if the SIRD model parameters contribute more accuracy to its forecasts.  
+Here we can conclude that the SARIMAX model with 6 exogenous variables and `(3,0,2) (2, 1, 1) [7] with intercept` has best understood the underlying trend of the daily COVID cases. The literature on COVID case prediction suggest though that RNNs with LSTM's provide an even more accurate forecast with a sMAPE of 5%. As a continuation of this project I would like to develop my own RNN model to reproduce this result and explore if the SIRD model parameters contribute more its forecasting power.  
 
 ## 💡 Other Resources
 
