@@ -19,7 +19,7 @@ to deliver precise outbreak predictions.
 ```
 </div>
 
-During COVID 19, the unknown course of the pandemic is almost as deadly as the virus itself. **COVIDCast** aims to address this problem by Predicting to Protect. That is to say, it uses times series and epidemiological models to forecast the next 14 days of new COVID cases so governments, hospitals, and people can prepare for the coming storm. 
+During COVID 19, the unknown course of the pandemic is almost as deadly as the virus itself. **COVIDCast** aims to address this problem by **Predicting to Protect**. To do this, COVIDCast utlizes the expert knowledge of epidemiological models and the forecasting power of times series models to predict the next 14 days of new COVID cases and protect governments, hospitals, and people from the coming storm. 
 
 <img align="right" src="https://github.com/scelarek/BrainStation_Capstone/blob/main/Presentations/Logo%20CovidCast.png?raw=true"  title="CovidCast" alt="CovidCast" width="400" height="400"> 
 
@@ -28,24 +28,24 @@ The data for this project comes from three sources:
 
 - [Google Open COVID Project](https://github.com/GoogleCloudPlatform/covid-19-open-data)
 - [OWID COVID dataset](https://github.com/owid/covid-19-data)
-- [COVSIRPHY Library](https://github.com/lisphilar/covid19-sir/blob/main/README.md)
+- [CovsirPhy Library](https://github.com/lisphilar/covid19-sir/blob/main/README.md)
 
-These repositories gathered data from a number of sources all over the world including the WHO, John Hopkins Hospital, and the CDC. I used 6 different csv's in the master file, combining together mobility data (Google), weather data (Google), government restrictions (Google), hospitalizations and tests (OWID), case counts and epidemiological variables (CovsirPhy). There was some overlap in the datasets from each source, but this was used to help impute missing data in the other datasets to create a more complete final [master_df](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Data/master_df.parquet).
+These repositories gathered data from a number of sources all over the world including the WHO, John Hopkins Hospital, and the CDC. I used 6 different csv's in the master file, combining together mobility data (Google), weather data (Google), government restrictions (Google), hospitalizations and tests (OWID), case counts and epidemiological variables (CovsirPhy). There was some feature overlap in the datasets from each source, but this was used to help impute missing data in the other datasets to create a more complete final [master_df](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Data/master_df.parquet).
 
 ## 🧹 [Data Cleaning](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/1.%20COVIDCast%20Preprocessing.ipynb)
 Originally 30% of the data was missing. I used a variety of techniques to make this data more manageable:
 
-- **Imputation**: Missing values in one column would be imputed from another column if they had the same information (eg: `current_hospitalizations`, `fatal`). 
-- **Interpolation**: Missing values within a continuous feature with an underlying exponential growth curve would be interpolated using polynomial order 2 (eg: `excess_mortality`, `derived_reproduction_rate`). 
-- **Filling**: Missing values that were only updated if changed were filled forward, and assumed to be zero before the first value (eg: `vaccine_policy`, `school_closings`)
-- **Trimming the Horizons**: Many variables were not available until 2020-02-15 (eg: `current_hospitalizations`) or after 2023-03-22 (`fatal`), therefore I used this as the beginning and end dates.
-- **Dropping Columns:** At the time of modeling, I decided I wanted to have as up to date information as possible. So I dropped many columns that didn't have data past 2022-09-15 (eg: all the mobility and weather data).
+- **Imputation**: Missing values in one feature would be imputed from another dataset with the same feature after checking for similarity (eg: `current_hospitalizations`, `fatal`). 
+- **Interpolation**: Missing values within a continuous feature with an underlying exponential growth curve would be filled using polynomial order 2 interpolation (eg: `excess_mortality`, `derived_reproduction_rate`). 
+- **Filling**: Missing values that were only updated if changed, or impossible before a certain date were filled forward or filled with zeroes respectively (eg: `vaccine_policy`, `new_vaccinations`)
+- **Trimming the Horizons**: The horizons of my time series data was from 2020-02-15 until 2023-03-22, as many features didn't have values beyond these dates.
+- **Dropping Columns:** Features that didn't have values up till 2023-03-22 were dropped (eg: the mobility and weather data).
 
 ## 👓 [EDA](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/2.%20COVIDCast%20EDA.ipynb)
 To properly apply time series models to the data, I had to assess: 
 
-- **Differencing**: Ensure stationarity and reasonable time series orders using various differencing orders
-- **PACF and ACF**: Look at the PACF and ACF correllelograms to determine AR and MA orders respectively
+- **Differencing**: Use various differencing orders to achieve stationarity, and as indicated by the PACF and ACF plots.
+- **PACF and ACF**: Look at the PACF and ACF correllelograms to determine AR and MA orders.
 - **Seasonality**: Apply seasonal decomposition and find the lag for seasonality
 - **Target Normality**: Check the COVID Case numbers for normality and performed a BoxCox tranformation of the data
 
@@ -67,17 +67,15 @@ COVIDCast works by taking Epidemiological SIRD model estimated parameters of spr
   
 
 ## 🔢 [Feature Selection and Tuning the Models](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Capstone/3.%20COVIDCast%20SARIMAX%20Model.ipynb):
-For ARIMA time series models, I wanted to added exogenous variables that have information about how a target is going to fluctuate in the next time steps. To determine these features I had to assess each variables' Stationarity, Granger-Causality, Linear Correlation Strength, Multi-Collinearity, and Importance. Eventually though I found that 6 variables I thought to be important due to background knowledge, were actually the best additional regressors for the model. I used autoarima for grid searching SARIMAX's orders, but eventually the order of `(3,0,2) (2, 1, 1) [7] with intercept` to be the most predictive. 
+For ARIMA time series models, I wanted to added exogenous variables that have information about how a target is going to fluctuate in the next time steps. To determine these features I had to assess each variables' Stationarity, Granger-Causality, Linear Correlation Strength, Multi-Collinearity, and Importance. I found that 6 variables I thought to be important due to background knowledge were actually the best additional regressors for the model. I used autoarima for grid searching SARIMAX's orders, and found the order of `(3,0,2) (2, 1, 1) [7] with intercept` to be the most predictive in cross-validation. 
 
-For Prophet modeling, I grid searched with cross-validation through up to 15 of the most important features as determined by Recursive Feature Elimination with LGMBoost as my regressor to select for the most predictive features. This directly led to my final model with 11 exogenous variables. I then tuned this grid searched over the hyperparameters to land on the final settings of `changepoint_prior_scale=10` , `seasonality_prior_scale=0.01`, `holidays_prior_scale=10`, and `growth='linear'`. 
-
+For Prophet modeling, I grid searched with cross-validation over a range of 3 to 15 of the most important features as determined by Recursive Feature Elimination with LGMBoost as my regressor. The best performing model using this technique had 11 exogenous variables. I then grid searched over the hyperparameters to land on the final settings of `changepoint_prior_scale=10` , `seasonality_prior_scale=0.01`, `holidays_prior_scale=10`, and `growth='linear'`. 
 
 ### 📈 Results and Performance
 
-The models were trained on new cases of COVID from February 15th, 2020 to March 5th, 2023. The unseen test data from March 5th to March 21st, 2023 served as the evaluation benchmark. 
+Both models were trained on new cases of COVID from February 15th, 2020 to March 5th, 2023. The unseen test data from March 5th to March 21st, 2023 served as the final evaluation benchmark. 
 
 Forecasts:
-
 
 - SARIMAX Model: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/8e9aa4be-fcaf-43cc-9b12-67f45f422011)
 
@@ -85,12 +83,11 @@ Forecasts:
 
 - Testing metrics: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/6df1eefe-b840-40ea-9828-3c5a15eaa56f)
 
-
-
+Here we can conclude that the SARIMAX model with 6 exogenous variables and `(3,0,2) (2, 1, 1) [7] with intercept` has best understood the underlying trend of the daily COVID cases. Looking at the literature though, it would appear as if RNNs with LSTM's provide an even more accurate Covid Case count forcast with a sMAPE of 5%. I would like to follow up with developing my own RNN model to reproduce this result and explore if the SIRD model parameters contribute more accuracy to its performance.  
 
 ## 💡 Other Resources
 
-Popular resources within this project
+Resources within this project
 
 - **[Presentation of COVIDCast](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVID%20Cast%20Final%20Presentation.pdf)**
 - **[Video of Final Presentation](https://github.com/scelarek/Covid-Prediction-Capstone/blob/main/Presentations/COVIDcast_%20Predicting%20COVID%20Cases%20No%20Glasses%20Ad%20Lib%20(online-video-cutter.com).mp4)**
