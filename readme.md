@@ -82,7 +82,7 @@ Forecasts:
 
 - Testing metrics: ![image](https://github.com/scelarek/Covid-Prediction-Capstone/assets/115444760/6df1eefe-b840-40ea-9828-3c5a15eaa56f)
 
-Here we can conclude that the SARIMAX model with 6 exogenous variables and `(3,0,2) (2, 1, 1) [7] with intercept` has best understood the underlying trend of the daily COVID cases. The literature on COVID case prediction suggest though that RNNs with LSTM's provide an even more accurate forecast with a sMAPE of 5%. As a continuation of this project I would like to develop my own RNN model to reproduce this result and explore if the SIRD model parameters contribute more its forecasting power.  
+Here we can conclude that the SARIMAX model with 6 exogenous variables and `(3,0,2) (2, 1, 1) [7] with intercept` has best understood the underlying trend of the daily COVID cases. The literature on COVID case prediction suggest though that RNNs with LSTM's provide an even more accurate forecast with a sMAPE of 5%. As a continuation of this project, I would like to develop my own RNN model and explore if the SIRD model parameters contribute more accuracy to its forecasts.  
 
 ## 💡 Other Resources
 
